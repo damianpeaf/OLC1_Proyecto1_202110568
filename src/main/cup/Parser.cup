@@ -86,7 +86,7 @@ set_elements ::= COMMA set_element set_elements | ;
 
 // REGEX DECLARATION
 regex_decl ::= IDENTIFIER ARROW regex_expr SEMICOLON;
-regex_expr ::= regex_term regex_exprs SEMICOLON;
+regex_expr ::= regex_term regex_exprs;
 regex_exprs ::= regex_term regex_exprs | ;
 regex_term ::= AND regex_term regex_term
              | OR regex_term regex_term
@@ -99,6 +99,7 @@ regex_terminal ::= WORD
                  | STRING_LITERAL
                  | escaped_sequence
                  | set_refence;
+
 set_refence ::= LBRACE IDENTIFIER RBRACE;
 
 // STATEMENT SCOPE
