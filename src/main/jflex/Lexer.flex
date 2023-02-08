@@ -225,5 +225,74 @@ import java_cup.runtime.*;
         \\                             { string.append('\\'); }
     }
 
+    /* -- NO SCOPED TOKENS -- */
+
+    /* BRACES */
+    "{" { return symbol(OLCParserSym.LBRACE); }
+    "}" { return symbol(OLCParserSym.RBRACE); }
+
+    /* COLON */
+    ":" { return symbol(OLCParserSym.COLON); }
+
+    /* SEMICOLON */
+    ";" { return symbol(OLCParserSym.SEMICOLON); }
+
+    /* ARROW */
+    "->" { return symbol(OLCParserSym.ARROW); }
+
+    /* SCOPE BREAK */
+    "%%" { return symbol(OLCParserSym.SCOPE_BREAK); }
+
+    /* -- SET NOTATION -- */
+
+    /* TILDE */
+    "~" { return symbol(OLCParserSym.TILDE); }
+
+    /* COMMA */
+    "," { return symbol(OLCParserSym.COMMA); }
+
+    /* DIGIT */
+    {Digit} { return symbol(OLCParserSym.DIGIT, Integer.valueOf(yytext())); }
+
+    /* LOWERCASE */
+    {Lowercase} { return symbol(OLCParserSym.LOWERCASE, yytext()); }
+
+    /* UPPERCASE */
+    {Uppercase} { return symbol(OLCParserSym.UPPERCASE, yytext()); }
+
+    /* ASCII */
+    {Ascii} { return symbol(OLCParserSym.ASCII, yytext()); }
+
+    /* -- REGEX NOTATION -- */
+
+    /* AND */
+    "." { return symbol(OLCParserSym.AND); }
+
+    /* OR */
+    "|" { return symbol(OLCParserSym.OR); }
+
+    /* KLEENE */
+    "*" { return symbol(OLCParserSym.KLEENE); }
+
+    /* PLUS */
+    "+" { return symbol(OLCParserSym.PLUS); }
+
+    /* QUESTION */
+    "?" { return symbol(OLCParserSym.QUESTION); }
+
+    /* WORD */
+    {Word} { return symbol(OLCParserSym.WORD, yytext()); }
+
+    /* -- ESCAPED CHARACTERS -- */
+
+    /* LINEBREAK */
+    "\\n" { return symbol(OLCParserSym.ESCAPED_LINEBREAK); }
+
+    /* SINGLE QUOTE */
+    "\\'" { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE); }
+
+    /* DOUBLE QUOTE */
+    "\\\"" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE); }
+
     /* error fallback */
     [^]                              { throw new Error("Illegal character: " + yytext() + " at line " + yyline + " column " + yycolumn); }
