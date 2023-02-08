@@ -1,0 +1,108 @@
+package com.damianpeaf;
+import java_cup.runtime.*;
+
+class OLCParser;
+
+/* -- TERMINAL SYMBOLS -- */
+
+terminal SET_DECLARATION,
+         IDENTIFIER,
+         LBRACE,
+         RBRACE,
+         COLON,
+         SEMICOLON,
+         ARROW,
+         SCOPE_BREAK,
+         STRING_LITERAL,
+         TILDE,
+         COMMA,
+         LOWERCASE,
+         UPPERCASE,
+         ASCII,
+         AND,
+         OR,
+         KLEENE,
+         PLUS,
+         QUESTION,
+         WORD,
+         ESCAPED_LINEBREAK,
+         ESCAPED_SINGLE_QUOTE,
+         ESCAPED_DOUBLE_QUOTE,
+         ERROR;
+
+terminal Integer DIGIT;
+
+
+/* -- NON-TERMINAL SYMBOLS -- */
+
+non terminal program,
+             scopes,
+             decl_scope,
+             decl,
+             decls,
+             set_decl,
+             set,
+             compr_set,
+             set_element,
+             extend_set,
+             set_elements,
+             regex_decl,
+             regex_expr,
+             regex_exprs,
+             regex_term,
+             regex_terminal,
+             set_refence,
+             stmt_scope,
+             eval_stmt,
+             eval_stmts,
+             escaped_sequence;
+
+/* -- PRECEDENCE -- */
+
+/* -- GRAMATICAL RULES -- */
+
+
+// INITIAL RULES
+program ::= LBRACE scopes RBRACE;
+scopes ::= decl_scope SCOPE_BREAK SCOPE_BREAK stmt_scope;
+escaped_sequence ::= ESCAPED_LINEBREAK
+                   | ESCAPED_SINGLE_QUOTE
+                   | ESCAPED_DOUBLE_QUOTE;
+
+// DECLARATION SCOPE
+
+decl_scope ::= decl decls;
+decl ::= set_decl | regex_decl;
+decls ::= decl decls | ;
+
+// SET DECLARATION
+set_decl ::= SET_DECLARATION COLON IDENTIFIER ARROW set SEMICOLON;
+set ::= compr_set | extend_set;
+compr_set ::= set_element TILDE set_element;
+set_element ::= ASCII | LOWERCASE | UPPERCASE | DIGIT;
+extend_set ::= set_element set_elements;
+set_elements ::= COMMA set_element set_elements | ;
+
+
+// REGEX DECLARATION
+regex_decl ::= IDENTIFIER ARROW regex_expr SEMICOLON;
+regex_expr ::= regex_term regex_exprs SEMICOLON;
+regex_exprs ::= regex_term regex_exprs | ;
+regex_term ::= AND regex_term regex_term
+             | OR regex_term regex_term
+             | KLEENE regex_term
+             | PLUS regex_term
+             | QUESTION regex_term
+             | regex_terminal;
+regex_terminal ::= WORD
+                 | DIGIT
+                 | STRING_LITERAL
+                 | escaped_sequence
+                 | set_refence;
+set_refence ::= LBRACE IDENTIFIER RBRACE;
+
+// STATEMENT SCOPE
+stmt_scope ::= eval_stmt eval_stmts;
+eval_stmt ::= IDENTIFIER COLON STRING_LITERAL SEMICOLON;
+eval_stmts ::= eval_stmt eval_stmts | ;
+

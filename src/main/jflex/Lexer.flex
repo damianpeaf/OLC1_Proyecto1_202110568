@@ -1,3 +1,4 @@
+package com.damianpeaf;
 import java_cup.runtime.*;
 
 %%
@@ -19,7 +20,7 @@ import java_cup.runtime.*;
   }
 %}
 %eofval{
-    return symbol(ParserSym.EOF);
+    return symbol(OLCParserSym.EOF);
 %eofval}
 
     LineTerminator = \r|\n|\r\n
@@ -45,7 +46,7 @@ import java_cup.runtime.*;
 %%
 
     /* KEYWORDS */
-    <YYINITIAL> "CONJ" { return symbol(ParserSym.SET_DECLARATION); }
+    <YYINITIAL> "CONJ" { return symbol(OLCParserSym.SET_DECLARATION); }
 
     <YYINITIAL> {
         /* -- General tokens -- */
@@ -54,23 +55,23 @@ import java_cup.runtime.*;
         {Comment} { /* ignore */ }
 
         /* IDENTIFIERS */
-        {Identifier} { return symbol(ParserSym.IDENTIFIER, yytext()); }
+        {Identifier} { return symbol(OLCParserSym.IDENTIFIER, yytext()); }
 
         /* BRACES */
-        "{" { return symbol(ParserSym.LBRACE); }
-        "}" { return symbol(ParserSym.RBRACE); }
+        "{" { return symbol(OLCParserSym.LBRACE); }
+        "}" { return symbol(OLCParserSym.RBRACE); }
 
         /* COLON */
-        ":" { return symbol(ParserSym.COLON); }
+        ":" { return symbol(OLCParserSym.COLON); }
 
         /* SEMICOLON */
-        ";" { return symbol(ParserSym.SEMICOLON); }
+        ";" { return symbol(OLCParserSym.SEMICOLON); }
 
         /* ARROW */
-        "->" { return symbol(ParserSym.ARROW); }
+        "->" { return symbol(OLCParserSym.ARROW); }
 
         /* SCOPE BREAK */
-        "%%" { return symbol(ParserSym.SCOPE_BREAK); }
+        "%%" { return symbol(OLCParserSym.SCOPE_BREAK); }
 
         /* WHITESPACE */
         {WhiteSpace} { /* ignore */ }
@@ -81,59 +82,59 @@ import java_cup.runtime.*;
         /* -- SET NOTATION -- */
 
         /* TILDE */
-        "~" { return symbol(ParserSym.TILDE); }
+        "~" { return symbol(OLCParserSym.TILDE); }
 
         /* COMMA */
-        "," { return symbol(ParserSym.COMMA); }
+        "," { return symbol(OLCParserSym.COMMA); }
 
         /* DIGIT */
-        {Digit} { return symbol(ParserSym.DIGIT, Integer.valueOf(yytext())); }
+        {Digit} { return symbol(OLCParserSym.DIGIT, Integer.valueOf(yytext())); }
 
         /* LOWERCASE */
-        {Lowercase} { return symbol(ParserSym.LOWERCASE, yytext()); }
+        {Lowercase} { return symbol(OLCParserSym.LOWERCASE, yytext()); }
 
         /* UPPERCASE */
-        {Uppercase} { return symbol(ParserSym.UPPERCASE, yytext()); }
+        {Uppercase} { return symbol(OLCParserSym.UPPERCASE, yytext()); }
 
         /* ASCII */
-        {Ascii} { return symbol(ParserSym.ASCII, yytext()); }
+        {Ascii} { return symbol(OLCParserSym.ASCII, yytext()); }
 
         /* -- REGEX NOTATION -- */
 
         /* AND */
-        "." { return symbol(ParserSym.AND); }
+        "." { return symbol(OLCParserSym.AND); }
 
         /* OR */
-        "|" { return symbol(ParserSym.OR); }
+        "|" { return symbol(OLCParserSym.OR); }
 
         /* KLEENE */
-        "*" { return symbol(ParserSym.KLEENE); }
+        "*" { return symbol(OLCParserSym.KLEENE); }
 
         /* PLUS */
-        "+" { return symbol(ParserSym.PLUS); }
+        "+" { return symbol(OLCParserSym.PLUS); }
 
         /* QUESTION */
-        "?" { return symbol(ParserSym.QUESTION); }
+        "?" { return symbol(OLCParserSym.QUESTION); }
 
         /* WORD */
-        {Word} { return symbol(ParserSym.WORD, yytext()); }
+        {Word} { return symbol(OLCParserSym.WORD, yytext()); }
 
         /* -- ESCAPED CHARACTERS -- */
 
         /* LINEBREAK */
-        "\\n" { return symbol(ParserSym.ESCAPED_LINEBREAK); }
+        "\\n" { return symbol(OLCParserSym.ESCAPED_LINEBREAK); }
 
         /* SINGLE QUOTE */
-        "\\'" { return symbol(ParserSym.ESCAPED_SINGLE_QUOTE); }
+        "\\'" { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE); }
 
         /* DOUBLE QUOTE */
-        "\\\"" { return symbol(ParserSym.ESCAPED_DOUBLE_QUOTE); }
+        "\\\"" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE); }
     }
 
     <STRING> {
         // String end
         \" { yybegin(YYINITIAL);
-             return symbol(sym.STRING_LITERAL, string.toString());
+             return symbol(OLCParserSym.STRING_LITERAL, string.toString());
            }
 
         [^\n\r\"\\]+                   { string.append( yytext() ); }
@@ -146,4 +147,4 @@ import java_cup.runtime.*;
     }
 
     /* error fallback */
-    [^]                              { return symbol(ParserSym.ERROR, yytext()); }
+    [^]                              { return symbol(OLCParserSym.ERROR, yytext()); }
