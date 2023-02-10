@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
+import OLCCompiler.*;
 
 public class LexerTest {
 
@@ -15,11 +15,14 @@ public class LexerTest {
         OLCLexer lexer = new OLCLexer(new FileReader(testFile));
         OLCParser parser = new OLCParser(lexer);
 
-        /* open input files, etc. here */
-        Symbol parse_tree = null;
+        try {
+            parser.parse();
 
-        parse_tree = parser.debug_parse();
-        System.out.println("Parse tree: " + parse_tree);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+        //parser.errorTable.printErrors();
 
     }
 

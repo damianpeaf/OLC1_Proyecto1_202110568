@@ -1,7 +1,20 @@
-package com.damianpeaf;
+package OLCCompiler;
 import java_cup.runtime.*;
 
 class OLCParser;
+
+/* -- CUSTOM ERROR HANDLING -- */
+
+parser code {:
+
+   public void syntax_error(Symbol s) {
+       System.out.println("Error sintáctico. No se esperaba el siguiente token: <" + s.value + ">. Línea: " + (s.left + 1) + ", Columna: " + (s.right + 1));
+   }
+
+   public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
+       System.out.println("Error sintáctico cerca del token: <" + s.value + ">. Línea: " + (s.left + 1) + ", Columna: " + (s.right + 1));
+   }
+:};
 
 /* -- TERMINAL SYMBOLS -- */
 
@@ -28,7 +41,7 @@ terminal SET_DECLARATION,
          ESCAPED_LINEBREAK,
          ESCAPED_SINGLE_QUOTE,
          ESCAPED_DOUBLE_QUOTE,
-         ERROR;
+         LEXICAL_ERROR;
 
 terminal Integer DIGIT;
 
@@ -64,6 +77,7 @@ non terminal program,
 
 // INITIAL RULES
 program ::= LBRACE scopes RBRACE;
+
 scopes ::= decl_scope SCOPE_BREAK SCOPE_BREAK stmt_scope;
 escaped_sequence ::= ESCAPED_LINEBREAK
                    | ESCAPED_SINGLE_QUOTE
@@ -85,7 +99,7 @@ set_elements ::= COMMA set_element set_elements | ;
 
 
 // REGEX DECLARATION
-regex_decl ::= IDENTIFIER ARROW regex_expr SEMICOLON;
+regex_decl ::= IDENTIFIER ARROW regex_expr SEMICOLON  {: System.out.println("DECLARACION DE EXPRESIÓN");  :} ;
 regex_expr ::= regex_term regex_exprs;
 regex_exprs ::= regex_term regex_exprs | ;
 regex_term ::= AND regex_term regex_term

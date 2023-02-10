@@ -1,9 +1,10 @@
-package com.damianpeaf;
+package OLCCompiler;
 import java_cup.runtime.*;
 
 %%
 
 %class OLCLexer
+%public
 %unicode
 %cup
 %line
@@ -295,4 +296,4 @@ import java_cup.runtime.*;
     "\\\"" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE); }
 
     /* error fallback */
-    [^]                              { throw new Error("Illegal character: " + yytext() + " at line " + yyline + " column " + yycolumn); }
+    [^]                              { return symbol(OLCParserSym.LEXICAL_ERROR, yytext()); }
