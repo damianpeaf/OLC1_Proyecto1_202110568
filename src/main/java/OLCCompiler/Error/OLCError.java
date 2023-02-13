@@ -1,4 +1,4 @@
-package OLCCompiler;
+package OLCCompiler.Error;
 
 import java_cup.runtime.Symbol;
 
@@ -9,7 +9,7 @@ public class OLCError {
 
     public OLCError(String type, Symbol token) {
 
-        if (type == OLCErrorType.LEXIC || type == OLCErrorType.SYNTAX) {
+        if (type == ErrorType.LEXIC || type == ErrorType.SYNTAX) {
             this.type = type;
         } else {
             throw new IllegalArgumentException("Tipo de error no valido");
@@ -19,7 +19,7 @@ public class OLCError {
     }
 
     public String getMessage(){
-        if(this.type == OLCErrorType.LEXIC){
+        if(this.type == ErrorType.LEXIC){
             return "El caracter " + this.token.value + " no pertenece al lenguaje";
         }else{
             return "No se esperaba el token: " + this.token.value;
@@ -27,7 +27,7 @@ public class OLCError {
     }
 
     public String getType() {
-        return type == OLCErrorType.LEXIC ? "Lexico" : "Sintactico";
+        return type == ErrorType.LEXIC ? "Lexico" : "Sintactico";
     }
 
     public int getLine(){

@@ -7,9 +7,9 @@
 
     /////// EXPRESIONES REGULARES
 
-    ExpReg1 -> . {letra} * | "_" {letra} {digito};
+    ExpReg1 -> . {letra} * | "_" | {letra} {digito};
     ExpresionReg2 -> . {digito} . "." + {digito};
-    RegEx3 -> . {digito} * | "_" {letra} {digito};
+    RegEx3 -> . {digito} * | "_" | {letra} {digito};
 
 %%
 %%

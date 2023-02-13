@@ -1,10 +1,10 @@
 package OLCCompiler.Set;
 
-public class OLCExtensionSet extends  OLCSet{
+public class ExtensionSet extends Set {
 
-    public OLCExtensionSet() {
+    public ExtensionSet() {
         super();
-        this.type = OLCSetType.EXTENSION;
+        this.type = SetType.EXTENSION;
     }
 
     @Override

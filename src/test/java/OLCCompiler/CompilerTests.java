@@ -23,6 +23,9 @@ public class CompilerTests {
         parser.errorTable.printErrors();
         parser.setsTable.print();
 
+        System.out.println("REGEX DECLS: " + parser.regexTrees.size());
+        System.out.println("EVA DECLS: " + parser.evaluationStrings.size());
+
     }
 
 }

@@ -1,12 +1,12 @@
-package OLCCompiler;
+package OLCCompiler.Error;
 
 import java.util.ArrayList;
 
-public class OLCErrorTable {
+public class ErrorTable {
 
     public ArrayList<OLCError> errors;
 
-    public OLCErrorTable () {
+    public ErrorTable() {
         errors = new ArrayList<OLCError>();
     }
 
@@ -16,7 +16,7 @@ public class OLCErrorTable {
 
     public void printErrors () {
         for (OLCError error : errors) {
-            System.out.println(error.getMessage());
+            System.out.println(error.getMessage() + " at line " + error.getLine() + " and column " + error.getColumn());
         }
     }
 

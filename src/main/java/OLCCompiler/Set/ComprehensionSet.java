@@ -1,10 +1,10 @@
 package OLCCompiler.Set;
 
-public class OLCComprehensionSet extends OLCSet{
+public class ComprehensionSet extends Set {
 
-    public OLCComprehensionSet() {
+    public ComprehensionSet() {
         super();
-        this.type = OLCSetType.COMPREHENSION;
+        this.type = SetType.COMPREHENSION;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package OLCCompiler.Set;
 
-public interface OLCSetElementType {
+public interface SetElementType {
     public static final String DIGIT = "DIGIT";
     public static final String ASCII = "ASCII";
     public static final String LOWERCASE = "LOWERCASE";
