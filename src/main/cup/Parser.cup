@@ -17,6 +17,8 @@ parser code {:
     public ArrayList<Evaluation> evaluationStrings = new ArrayList<Evaluation>();
 
     private int nodeCounter = 0;
+    private int operatorCounter = 0;
+
 
    public void syntax_error(Symbol s) {
 
@@ -151,17 +153,18 @@ set_elements ::= COMMA set_element:e1 set_elements:es {:
 regex_decl ::= IDENTIFIER:na ARROW regex_term:no SEMICOLON  {:
 
   Node acceptNode = new Node(nodeCounter++, NodeType.NODE_ACCEPT, "#");
-  Node rootNode = new Node(nodeCounter++, NodeType.NODE_AND, ".", no, acceptNode);
+  Node rootNode = new Node(operatorCounter++, NodeType.NODE_AND, ".", no, acceptNode);
   RegexTreeReference tree = new RegexTreeReference(String.valueOf(na), rootNode);
   regexTrees.add(tree);
   nodeCounter = 0;
+  operatorCounter = 0;
 
 :};
-regex_term ::= AND regex_term:nl regex_term:nr {: RESULT = new Node(nodeCounter++, NodeType.NODE_AND, ".", nl, nr); :}
-             | OR regex_term:nl regex_term:nr {: RESULT = new Node(nodeCounter++, NodeType.NODE_OR, "|", nl, nr); :}
-             | KLEENE regex_term:n {: RESULT = new Node(nodeCounter++, NodeType.NODE_KLEENE, "*", n); :}
-             | PLUS regex_term:n {: RESULT = new Node(nodeCounter++, NodeType.NODE_PLUS, "+", n); :}
-             | QUESTION regex_term:n {: RESULT = new Node(nodeCounter++, NodeType.NODE_OPTIONAL,"?", n); :}
+regex_term ::= AND regex_term:nl regex_term:nr {: RESULT = new Node(operatorCounter++, NodeType.NODE_AND, ".", nl, nr); :}
+             | OR regex_term:nl regex_term:nr {: RESULT = new Node(operatorCounter++, NodeType.NODE_OR, "|", nl, nr); :}
+             | KLEENE regex_term:n {: RESULT = new Node(operatorCounter++, NodeType.NODE_KLEENE, "*", n); :}
+             | PLUS regex_term:n {: RESULT = new Node(operatorCounter++, NodeType.NODE_PLUS, "+", n); :}
+             | QUESTION regex_term:n {: RESULT = new Node(operatorCounter++, NodeType.NODE_OPTIONAL,"?", n); :}
              | regex_terminal:n {: RESULT = n; :};
 regex_terminal ::= WORD:t {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
                  | DIGIT:t {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}

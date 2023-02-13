@@ -7,7 +7,6 @@ import java.util.Set;
 
 public class Node {
 
-    public Node parent;
     public Node left = null;
     public Node right = null;
     public int number;
@@ -48,6 +47,13 @@ public class Node {
         }
     }
 
+    public void make(){
+        //TODO: Make the tree
+        makeAnullable(this);
+        makePos(this);
+
+    }
+
     private void declareGraphvizNodes(Node node, PrintWriter out) {
         if (node != null){
             out.write(node.getGraphvizNode() + " [label=\"" + node.value.toString() + "\", shape=\"circle\", width=1, height=1];");
@@ -74,5 +80,97 @@ public class Node {
 
     private String getGraphvizNode(){
         return this.type+"_"+this.number;
+    }
+
+    private void makeAnullable(Node node) {
+        if (node != null) {
+
+            // POSTORDER RECURSIVE CALLS
+            if (node.left != null) {
+                makeAnullable(node.left);
+            }
+
+            if (node.right != null) {
+                makeAnullable(node.right);
+            }
+
+            // ANULABLE CONDITIONS
+            if (node.type.equals(NodeType.NODE_I) || node.type.equals(NodeType.NODE_ACCEPT)){
+                node.nullable = false;
+            }else if (node.type.equals(NodeType.NODE_OR)){
+                node.nullable = node.left.nullable || node.right.nullable;
+            }else if (node.type.equals(NodeType.NODE_AND)){
+                node.nullable = node.left.nullable && node.right.nullable;
+            }else if(node.type.equals(NodeType.NODE_KLEENE)) {
+                node.nullable = true;
+            }else if(node.type.equals(NodeType.NODE_PLUS)) {
+                node.nullable = node.left.nullable;
+            }else if(node.type.equals(NodeType.NODE_OPTIONAL)) {
+                node.nullable = true;
+            }else{
+                throw new RuntimeException("Node type not found for makeAnulable");
+            }
+        }
+    }
+
+    private void makePos(Node node) {
+        if (node != null) {
+
+            // POSTORDER RECURSIVE CALLS
+            if (node.left != null) {
+                makePos(node.left);
+            }
+
+            if (node.right != null) {
+                makePos(node.right);
+            }
+
+            // POS CONDITIONS
+            if (node.type.equals(NodeType.NODE_I) || node.type.equals(NodeType.NODE_ACCEPT)) {
+                node.firstPos.add(node.number);
+                node.lastPos.add(node.number);
+            }else if (node.type.equals(NodeType.NODE_OR)) {
+                node.firstPos.addAll(node.left.firstPos);
+                node.firstPos.addAll(node.right.firstPos);
+                node.lastPos.addAll(node.left.lastPos);
+                node.lastPos.addAll(node.right.lastPos);
+            }else if (node.type.equals(NodeType.NODE_AND)) {
+                if (node.left.nullable) {
+                    node.firstPos.addAll(node.left.firstPos);
+                    node.firstPos.addAll(node.right.firstPos);
+                } else {
+                    node.firstPos.addAll(node.left.firstPos);
+                }
+                if (node.right.nullable) {
+                    node.lastPos.addAll(node.left.lastPos);
+                    node.lastPos.addAll(node.right.lastPos);
+                } else {
+                    node.lastPos.addAll(node.right.lastPos);
+                }
+            }else if (node.type.equals(NodeType.NODE_KLEENE) || node.type.equals(NodeType.NODE_PLUS) || node.type.equals(NodeType.NODE_OPTIONAL)) {
+                node.firstPos.addAll(node.left.firstPos);
+                node.lastPos.addAll(node.left.lastPos);
+            }else{
+                throw new RuntimeException("Node type not found for POS");
+            }
+        }
+    }
+
+    private void makeNext(Node node){
+        if (node != null) {
+
+            // POSTORDER RECURSIVE CALLS
+            if (node.left != null) {
+                makeNext(node.left);
+            }
+
+            if (node.right != null) {
+                makeNext(node.right);
+            }
+
+            // NEXT CONDITIONS
+            // ONLY FOR AND, PLUS AND KLEENE
+            // TODO: RULES
+        }
     }
 }
