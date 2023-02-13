@@ -18,4 +18,9 @@ public class SetReference {
         return set;
     }
 
+    @Override
+    public String toString() {
+        return "{"+this.name +"}";
+    }
+
 }

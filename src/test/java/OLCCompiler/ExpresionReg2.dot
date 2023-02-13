@@ -1,0 +1,16 @@
+graph G {null_7 [label=".", shape="circle", width=1, height=1];
+null_5 [label=".", shape="circle", width=1, height=1];
+null_0 [label="{digito}", shape="circle", width=1, height=1];
+null_4 [label=".", shape="circle", width=1, height=1];
+null_1 [label=".", shape="circle", width=1, height=1];
+null_3 [label="+", shape="circle", width=1, height=1];
+null_2 [label="{digito}", shape="circle", width=1, height=1];
+null_6 [label="#", shape="circle", width=1, height=1];
+null_7 -- null_5;
+null_5 -- null_0;
+null_5 -- null_4;
+null_4 -- null_1;
+null_4 -- null_3;
+null_3 -- null_2;
+null_7 -- null_6;
+}

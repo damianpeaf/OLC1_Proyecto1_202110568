@@ -1,0 +1,20 @@
+graph G {null_9 [label=".", shape="circle", width=1, height=1];
+null_7 [label=".", shape="circle", width=1, height=1];
+null_0 [label="{letra}", shape="circle", width=1, height=1];
+null_6 [label="*", shape="circle", width=1, height=1];
+null_5 [label="|", shape="circle", width=1, height=1];
+null_1 [label="_", shape="circle", width=1, height=1];
+null_4 [label="|", shape="circle", width=1, height=1];
+null_2 [label="{letra}", shape="circle", width=1, height=1];
+null_3 [label="{digito}", shape="circle", width=1, height=1];
+null_8 [label="#", shape="circle", width=1, height=1];
+null_9 -- null_7;
+null_7 -- null_0;
+null_7 -- null_6;
+null_6 -- null_5;
+null_5 -- null_1;
+null_5 -- null_4;
+null_4 -- null_2;
+null_4 -- null_3;
+null_9 -- null_8;
+}

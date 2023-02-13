@@ -1,6 +1,11 @@
 {
     /////// CONJUNTOS
 
+    <!
+COMENTARIO MULTILINEA
+ASKDKASJLDJASLDJ
+    !>
+
     CONJ: letra -> a~z;
     CONJ: digito -> 0~9;
     CONJ: individual -> 1,2,3,4,5,6,7;

@@ -1,5 +1,6 @@
 package OLCCompiler;
 
+import OLCCompiler.Tree.RegexTreeReference;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -25,6 +26,11 @@ public class CompilerTests {
 
         System.out.println("REGEX DECLS: " + parser.regexTrees.size());
         System.out.println("EVA DECLS: " + parser.evaluationStrings.size());
+
+
+        for (RegexTreeReference treeReference: parser.regexTrees) {
+            treeReference.rootNode.graphviz("src/test/java/OLCCompiler/" + treeReference.name + ".dot");
+        }
 
     }
 

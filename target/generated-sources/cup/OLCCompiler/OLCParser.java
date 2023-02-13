@@ -537,11 +537,11 @@ class CUP$OLCParser$actions {
 		Node no = (Node)((java_cup.runtime.Symbol) CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).value;
 		
 
-  nodeCounter = 0;
   Node acceptNode = new Node(nodeCounter++, NodeType.NODE_ACCEPT, "#");
   Node rootNode = new Node(nodeCounter++, NodeType.NODE_AND, ".", no, acceptNode);
   RegexTreeReference tree = new RegexTreeReference(String.valueOf(na), rootNode);
   regexTrees.add(tree);
+  nodeCounter = 0;
 
 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_decl",6, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-3)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
