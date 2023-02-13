@@ -1,19 +1,26 @@
 package OLCCompiler;
+import OLCCompiler.Set.*;
 import java_cup.runtime.*;
+import java.util.ArrayList;
 
 class OLCParser;
 
-/* -- CUSTOM ERROR HANDLING -- */
+/* -- CUSTOM CODE FOR PARSER -- */
 
 parser code {:
 
+    public OLCErrorTable errorTable = new OLCErrorTable();
+    public OLCSetsTable setsTable = new OLCSetsTable();
+
    public void syntax_error(Symbol s) {
-       System.out.println("Error sintáctico. No se esperaba el siguiente token: <" + s.value + ">. Línea: " + (s.left + 1) + ", Columna: " + (s.right + 1));
+
+      if(s.sym == OLCParserSym.LEXICAL_ERROR){
+        errorTable.add(new OLCError(OLCErrorType.LEXIC, s));
+      }else{
+        errorTable.add(new OLCError(OLCErrorType.SYNTAX, s));
+      }
    }
 
-   public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
-       System.out.println("Error sintáctico cerca del token: <" + s.value + ">. Línea: " + (s.left + 1) + ", Columna: " + (s.right + 1));
-   }
 :};
 
 /* -- TERMINAL SYMBOLS -- */
@@ -54,11 +61,6 @@ non terminal program,
              decl,
              decls,
              set_decl,
-             set,
-             compr_set,
-             set_element,
-             extend_set,
-             set_elements,
              regex_decl,
              regex_expr,
              regex_exprs,
@@ -70,10 +72,14 @@ non terminal program,
              eval_stmts,
              escaped_sequence;
 
-/* -- PRECEDENCE -- */
+// SET DECLARATION
+nonterminal OLCSet set;
+nonterminal OLCSet compr_set;
+nonterminal OLCSet extend_set;
+nonterminal OLCSetElement set_element;
+nonterminal ArrayList<OLCSetElement> set_elements;
 
 /* -- GRAMATICAL RULES -- */
-
 
 // INITIAL RULES
 program ::= LBRACE scopes RBRACE;
@@ -90,12 +96,46 @@ decl ::= set_decl | regex_decl;
 decls ::= decl decls | ;
 
 // SET DECLARATION
-set_decl ::= SET_DECLARATION COLON IDENTIFIER ARROW set SEMICOLON;
-set ::= compr_set | extend_set;
-compr_set ::= set_element TILDE set_element;
-set_element ::= ASCII | LOWERCASE | UPPERCASE | DIGIT;
-extend_set ::= set_element set_elements;
-set_elements ::= COMMA set_element set_elements | ;
+set_decl ::= SET_DECLARATION COLON IDENTIFIER:sn ARROW set:s SEMICOLON {: s.setName(String.valueOf(sn)); setsTable.add(s); :};
+set ::= compr_set:s {: RESULT = s; :}
+      | extend_set:s {: RESULT = s; :} ;
+
+compr_set ::= set_element:e1 TILDE set_element:e2 {:
+    OLCSet set = new OLCComprehensionSet();
+    ArrayList<OLCSetElement> elements = new ArrayList<OLCSetElement>();
+    elements.add(e1);
+    elements.add(e2);
+    set.addElements(elements);
+    RESULT = set;
+
+ :};
+
+set_element ::= ASCII :e {: RESULT = new OLCSetElement(OLCSetElementType.ASCII, String.valueOf(e));  :}
+              | LOWERCASE:e {: RESULT = new OLCSetElement(OLCSetElementType.LOWERCASE, String.valueOf(e));  :}
+              | UPPERCASE:e {: RESULT = new OLCSetElement(OLCSetElementType.UPPERCASE, String.valueOf(e));  :}
+              | DIGIT:e {: RESULT = new OLCSetElement(OLCSetElementType.DIGIT, String.valueOf(e));  :};
+
+extend_set ::= set_element:e1 set_elements:es {:
+    ArrayList<OLCSetElement> elements = new ArrayList<OLCSetElement>();
+    elements.add(e1);
+
+    if(es != null){
+        es.forEach((e) -> elements.add(e));
+    }
+
+    OLCSet set = new OLCExtensionSet();
+    set.addElements(elements);
+    RESULT = set;
+:};
+set_elements ::= COMMA set_element:e1 set_elements:es {:
+    ArrayList<OLCSetElement> elements = new ArrayList<OLCSetElement>();
+    elements.add(e1);
+    if(es != null){
+        es.forEach((e) -> elements.add(e));
+    }
+    RESULT = elements;
+:}
+| ;
 
 
 // REGEX DECLARATION

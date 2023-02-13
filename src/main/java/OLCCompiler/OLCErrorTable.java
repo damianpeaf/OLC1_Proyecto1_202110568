@@ -10,13 +10,13 @@ public class OLCErrorTable {
         errors = new ArrayList<OLCError>();
     }
 
-    public void addError (OLCError error) {
+    public void add (OLCError error) {
         errors.add(error);
     }
 
     public void printErrors () {
         for (OLCError error : errors) {
-            System.out.println(error.message);
+            System.out.println(error.getMessage());
         }
     }
 

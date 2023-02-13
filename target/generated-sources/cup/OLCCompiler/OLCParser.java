@@ -5,7 +5,9 @@
 
 package OLCCompiler;
 
+import OLCCompiler.Set.*;
 import java_cup.runtime.*;
+import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -32,18 +34,18 @@ public class OLCParser extends java_cup.runtime.lr_parser {
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
     "\000\052\000\002\002\005\000\002\002\004\000\002\003" +
-    "\006\000\002\026\003\000\002\026\003\000\002\026\003" +
+    "\006\000\002\021\003\000\002\021\003\000\002\021\003" +
     "\000\002\004\004\000\002\005\003\000\002\005\003\000" +
     "\002\006\004\000\002\006\002\000\002\007\010\000\002" +
-    "\010\003\000\002\010\003\000\002\011\005\000\002\012" +
-    "\003\000\002\012\003\000\002\012\003\000\002\012\003" +
-    "\000\002\013\004\000\002\014\005\000\002\014\002\000" +
-    "\002\015\006\000\002\016\004\000\002\017\004\000\002" +
-    "\017\002\000\002\020\005\000\002\020\005\000\002\020" +
-    "\004\000\002\020\004\000\002\020\004\000\002\020\003" +
-    "\000\002\021\003\000\002\021\003\000\002\021\003\000" +
-    "\002\021\003\000\002\021\003\000\002\022\005\000\002" +
-    "\023\004\000\002\024\006\000\002\025\004\000\002\025" +
+    "\022\003\000\002\022\003\000\002\023\005\000\002\025" +
+    "\003\000\002\025\003\000\002\025\003\000\002\025\003" +
+    "\000\002\024\004\000\002\026\005\000\002\026\002\000" +
+    "\002\010\006\000\002\011\004\000\002\012\004\000\002" +
+    "\012\002\000\002\013\005\000\002\013\005\000\002\013" +
+    "\004\000\002\013\004\000\002\013\004\000\002\013\003" +
+    "\000\002\014\003\000\002\014\003\000\002\014\003\000" +
+    "\002\014\003\000\002\014\003\000\002\015\005\000\002" +
+    "\016\004\000\002\017\006\000\002\020\004\000\002\020" +
     "\002" });
 
   /** Access to production table. */
@@ -146,39 +148,39 @@ public class OLCParser extends java_cup.runtime.lr_parser {
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
     "\000\113\000\004\002\004\001\001\000\014\003\011\004" +
-    "\013\005\006\007\012\015\014\001\001\000\002\001\001" +
-    "\000\002\001\001\000\012\005\113\006\112\007\012\015" +
+    "\013\005\006\007\012\010\014\001\001\000\002\001\001" +
+    "\000\002\001\001\000\012\005\113\006\112\007\012\010" +
     "\014\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\023\017\024\020\001\001" +
-    "\000\002\001\001\000\006\024\026\025\025\001\001\000" +
+    "\001\000\002\001\001\000\006\016\017\017\020\001\001" +
+    "\000\002\001\001\000\006\017\026\020\025\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\006\024\026\025\027\001" +
-    "\001\000\002\001\001\000\002\001\001\000\014\016\036" +
-    "\020\047\021\046\022\035\026\044\001\001\000\012\020" +
-    "\066\021\046\022\035\026\044\001\001\000\002\001\001" +
+    "\001\001\000\002\001\001\000\006\017\026\020\027\001" +
+    "\001\000\002\001\001\000\002\001\001\000\014\011\036" +
+    "\013\047\014\046\015\035\021\044\001\001\000\012\013" +
+    "\066\014\046\015\035\021\044\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\012\020\062\021\046\022\035\026\044\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\012\020" +
-    "\061\021\046\022\035\026\044\001\001\000\002\001\001" +
-    "\000\012\020\060\021\046\022\035\026\044\001\001\000" +
-    "\002\001\001\000\014\017\056\020\055\021\046\022\035" +
-    "\026\044\001\001\000\002\001\001\000\012\020\053\021" +
-    "\046\022\035\026\044\001\001\000\002\001\001\000\012" +
-    "\020\054\021\046\022\035\026\044\001\001\000\002\001" +
-    "\001\000\014\017\057\020\055\021\046\022\035\026\044" +
+    "\012\013\062\014\046\015\035\021\044\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\012\013" +
+    "\061\014\046\015\035\021\044\001\001\000\002\001\001" +
+    "\000\012\013\060\014\046\015\035\021\044\001\001\000" +
+    "\002\001\001\000\014\012\056\013\055\014\046\015\035" +
+    "\021\044\001\001\000\002\001\001\000\012\013\053\014" +
+    "\046\015\035\021\044\001\001\000\002\001\001\000\012" +
+    "\013\054\014\046\015\035\021\044\001\001\000\002\001" +
+    "\001\000\014\012\057\013\055\014\046\015\035\021\044" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\012\020\067\021" +
-    "\046\022\035\026\044\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\012\010\100\011\075\012" +
-    "\074\013\077\001\001\000\002\001\001\000\004\014\104" +
+    "\000\002\001\001\000\002\001\001\000\012\013\067\014" +
+    "\046\015\035\021\044\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\012\022\100\023\075\024" +
+    "\077\025\074\001\001\000\002\001\001\000\004\026\104" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\004\012\110\001" +
-    "\001\000\004\012\107\001\001\000\002\001\001\000\004" +
-    "\014\111\001\001\000\002\001\001\000\002\001\001\000" +
-    "\012\005\113\006\114\007\012\015\014\001\001\000\002" +
+    "\000\002\001\001\000\002\001\001\000\004\025\110\001" +
+    "\001\000\004\025\107\001\001\000\002\001\001\000\004" +
+    "\026\111\001\001\000\002\001\001\000\002\001\001\000" +
+    "\012\005\113\006\114\007\012\010\014\001\001\000\002" +
     "\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
@@ -219,13 +221,18 @@ public class OLCParser extends java_cup.runtime.lr_parser {
 
 
 
+    public OLCErrorTable errorTable = new OLCErrorTable();
+    public OLCSetsTable setsTable = new OLCSetsTable();
+
    public void syntax_error(Symbol s) {
-       System.out.println("Error sintáctico. No se esperaba el siguiente token: <" + s.value + ">. Línea: " + (s.left + 1) + ", Columna: " + (s.right + 1));
+
+      if(s.sym == OLCParserSym.LEXICAL_ERROR){
+        errorTable.add(new OLCError(OLCErrorType.LEXIC, s));
+      }else{
+        errorTable.add(new OLCError(OLCErrorType.SYNTAX, s));
+      }
    }
 
-   public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
-       System.out.println("Error sintáctico cerca del token: <" + s.value + ">. Línea: " + (s.left + 1) + ", Columna: " + (s.right + 1));
-   }
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
@@ -289,7 +296,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("escaped_sequence",20, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("escaped_sequence",15, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -298,7 +305,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("escaped_sequence",20, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("escaped_sequence",15, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -307,7 +314,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("escaped_sequence",20, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("escaped_sequence",15, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -360,7 +367,13 @@ class CUP$OLCParser$actions {
           case 11: // set_decl ::= SET_DECLARATION COLON IDENTIFIER ARROW set SEMICOLON 
             {
               Object RESULT =null;
-
+		int snleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-3)).left;
+		int snright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-3)).right;
+		Object sn = (Object)((java_cup.runtime.Symbol) CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-3)).value;
+		int sleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).right;
+		OLCSet s = (OLCSet)((java_cup.runtime.Symbol) CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).value;
+		 s.setName(String.valueOf(sn)); setsTable.add(s); 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_decl",5, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-5)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
@@ -368,90 +381,152 @@ class CUP$OLCParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 12: // set ::= compr_set 
             {
-              Object RESULT =null;
-
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set",6, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              OLCSet RESULT =null;
+		int sleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		OLCSet s = (OLCSet)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		 RESULT = s; 
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set",16, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 13: // set ::= extend_set 
             {
-              Object RESULT =null;
-
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set",6, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              OLCSet RESULT =null;
+		int sleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		OLCSet s = (OLCSet)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		 RESULT = s; 
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set",16, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 14: // compr_set ::= set_element TILDE set_element 
             {
-              Object RESULT =null;
+              OLCSet RESULT =null;
+		int e1left = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)).left;
+		int e1right = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)).right;
+		OLCSetElement e1 = (OLCSetElement)((java_cup.runtime.Symbol) CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)).value;
+		int e2left = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int e2right = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		OLCSetElement e2 = (OLCSetElement)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		
+    OLCSet set = new OLCComprehensionSet();
+    ArrayList<OLCSetElement> elements = new ArrayList<OLCSetElement>();
+    elements.add(e1);
+    elements.add(e2);
+    set.addElements(elements);
+    RESULT = set;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("compr_set",7, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+ 
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("compr_set",17, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 15: // set_element ::= ASCII 
             {
-              Object RESULT =null;
-
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_element",8, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              OLCSetElement RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		 RESULT = new OLCSetElement(OLCSetElementType.ASCII, String.valueOf(e));  
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_element",19, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 16: // set_element ::= LOWERCASE 
             {
-              Object RESULT =null;
-
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_element",8, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              OLCSetElement RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		 RESULT = new OLCSetElement(OLCSetElementType.LOWERCASE, String.valueOf(e));  
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_element",19, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 17: // set_element ::= UPPERCASE 
             {
-              Object RESULT =null;
-
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_element",8, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              OLCSetElement RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		Object e = (Object)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		 RESULT = new OLCSetElement(OLCSetElementType.UPPERCASE, String.valueOf(e));  
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_element",19, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 18: // set_element ::= DIGIT 
             {
-              Object RESULT =null;
-
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_element",8, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              OLCSetElement RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		Integer e = (Integer)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		 RESULT = new OLCSetElement(OLCSetElementType.DIGIT, String.valueOf(e));  
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_element",19, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 19: // extend_set ::= set_element set_elements 
             {
-              Object RESULT =null;
+              OLCSet RESULT =null;
+		int e1left = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).left;
+		int e1right = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).right;
+		OLCSetElement e1 = (OLCSetElement)((java_cup.runtime.Symbol) CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).value;
+		int esleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int esright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		ArrayList<OLCSetElement> es = (ArrayList<OLCSetElement>)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		
+    ArrayList<OLCSetElement> elements = new ArrayList<OLCSetElement>();
+    elements.add(e1);
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("extend_set",9, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+    if(es != null){
+        es.forEach((e) -> elements.add(e));
+    }
+
+    OLCSet set = new OLCExtensionSet();
+    set.addElements(elements);
+    RESULT = set;
+
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("extend_set",18, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 20: // set_elements ::= COMMA set_element set_elements 
             {
-              Object RESULT =null;
+              ArrayList<OLCSetElement> RESULT =null;
+		int e1left = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).left;
+		int e1right = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).right;
+		OLCSetElement e1 = (OLCSetElement)((java_cup.runtime.Symbol) CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).value;
+		int esleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int esright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		ArrayList<OLCSetElement> es = (ArrayList<OLCSetElement>)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		
+    ArrayList<OLCSetElement> elements = new ArrayList<OLCSetElement>();
+    elements.add(e1);
+    if(es != null){
+        es.forEach((e) -> elements.add(e));
+    }
+    RESULT = elements;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_elements",10, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_elements",20, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 21: // set_elements ::= 
             {
-              Object RESULT =null;
+              ArrayList<OLCSetElement> RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_elements",10, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_elements",20, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -460,7 +535,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 		 System.out.println("DECLARACION DE EXPRESIÓN");  
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_decl",11, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-3)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_decl",6, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-3)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -469,7 +544,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_expr",12, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_expr",7, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -478,7 +553,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_exprs",13, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_exprs",8, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -487,7 +562,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_exprs",13, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_exprs",8, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -496,7 +571,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",14, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",9, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -505,7 +580,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",14, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",9, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -514,7 +589,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",14, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",9, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -523,7 +598,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",14, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",9, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -532,7 +607,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",14, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",9, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -541,7 +616,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",14, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",9, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -550,7 +625,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",15, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",10, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -559,7 +634,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",15, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",10, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -568,7 +643,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",15, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",10, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -577,7 +652,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",15, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",10, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -586,7 +661,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",15, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",10, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -595,7 +670,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_refence",16, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("set_refence",11, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -604,7 +679,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("stmt_scope",17, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("stmt_scope",12, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -613,7 +688,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("eval_stmt",18, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-3)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("eval_stmt",13, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-3)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -622,7 +697,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("eval_stmts",19, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("eval_stmts",14, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 
@@ -631,7 +706,7 @@ class CUP$OLCParser$actions {
             {
               Object RESULT =null;
 
-              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("eval_stmts",19, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
+              CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("eval_stmts",14, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
 

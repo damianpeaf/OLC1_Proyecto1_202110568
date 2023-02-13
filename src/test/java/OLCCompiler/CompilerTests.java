@@ -1,17 +1,15 @@
-package com.damianpeaf;
+package OLCCompiler;
 
-import java_cup.runtime.Symbol;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
-import OLCCompiler.*;
 
-public class LexerTest {
+public class CompilerTests {
 
     @Test
     public void testAnalysis() throws Exception {
-        File testFile = new File("src/test/java/com/damianpeaf/test.olc");
+        File testFile = new File("src/test/java/OLCCompiler/test.olc");
         OLCLexer lexer = new OLCLexer(new FileReader(testFile));
         OLCParser parser = new OLCParser(lexer);
 
@@ -22,7 +20,8 @@ public class LexerTest {
             System.out.println(e.getMessage());
 
         }
-        //parser.errorTable.printErrors();
+        parser.errorTable.printErrors();
+        parser.setsTable.print();
 
     }
 

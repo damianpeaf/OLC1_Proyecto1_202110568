@@ -4,16 +4,38 @@ import java_cup.runtime.Symbol;
 
 public class OLCError {
 
-    public String type;
-    public String message;
-    public Symbol token;
+    private String type;
+    private Symbol token;
 
-    public OLCError(String type, String message, Symbol token) {
+    public OLCError(String type, Symbol token) {
 
-        this.type = type;
-        this.message = message;
+        if (type == OLCErrorType.LEXIC || type == OLCErrorType.SYNTAX) {
+            this.type = type;
+        } else {
+            throw new IllegalArgumentException("Tipo de error no valido");
+        }
+
         this.token = token;
+    }
 
+    public String getMessage(){
+        if(this.type == OLCErrorType.LEXIC){
+            return "El caracter " + this.token.value + " no pertenece al lenguaje";
+        }else{
+            return "No se esperaba el token: " + this.token.value;
+        }
+    }
+
+    public String getType() {
+        return type == OLCErrorType.LEXIC ? "Lexico" : "Sintactico";
+    }
+
+    public int getLine(){
+        return this.token.left;
+    }
+
+    public int getColumn(){
+        return this.token.right;
     }
 
 }
