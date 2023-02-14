@@ -1,5 +1,7 @@
 package OLCCompiler.Set;
 
+import java.util.HashSet;
+
 public class ExtensionSet extends Set {
 
     public ExtensionSet() {
@@ -15,4 +17,9 @@ public class ExtensionSet extends Set {
         System.out.println("Elements: " + elements.toString());
     }
 
+    @Override
+    public java.util.Set<String> getElements() {
+        //TODO: implement
+        return new HashSet<>();
+    }
 }

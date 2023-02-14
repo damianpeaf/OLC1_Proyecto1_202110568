@@ -3,7 +3,7 @@ package OLCCompiler.Set;
 public class SetReference {
 
     public String name;
-    public Set set;
+    private Set set;
     public SetsTable table;
 
     public SetReference(String name, SetsTable table){
@@ -12,9 +12,11 @@ public class SetReference {
     }
 
     public Set getSet(){
+        //TODO: get set from table
         if (set == null){
             // set = table.getSet(name);
         }
+
         return set;
     }
 

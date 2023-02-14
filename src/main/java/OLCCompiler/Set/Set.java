@@ -18,7 +18,8 @@ public abstract class Set {
         elements.forEach(element -> this.elements.add(element));
     }
 
-
     public abstract void printSet();
+
+    public abstract java.util.Set<String> getElements();
 }
 

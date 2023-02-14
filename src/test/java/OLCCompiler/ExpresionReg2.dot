@@ -1,16 +1,44 @@
-graph G {null_7 [label=".", shape="circle", width=1, height=1];
-null_5 [label=".", shape="circle", width=1, height=1];
-null_0 [label="{digito}", shape="circle", width=1, height=1];
-null_4 [label=".", shape="circle", width=1, height=1];
-null_1 [label=".", shape="circle", width=1, height=1];
-null_3 [label="+", shape="circle", width=1, height=1];
-null_2 [label="{digito}", shape="circle", width=1, height=1];
-null_6 [label="#", shape="circle", width=1, height=1];
-null_7 -- null_5;
-null_5 -- null_0;
-null_5 -- null_4;
-null_4 -- null_1;
-null_4 -- null_3;
-null_3 -- null_2;
-null_7 -- null_6;
+graph G {AND_3 [label="Anulable: F
+FirstPos: [0]
+LastPos: [3]
+.", shape="circle", width=1, height=1];
+AND_2 [label="Anulable: F
+FirstPos: [0]
+LastPos: [2]
+.", shape="circle", width=1, height=1];
+I_0 [label="Anulable: F
+FirstPos: [0]
+LastPos: [0]
+Node: 0
+{digito}", shape="circle", width=1, height=1];
+AND_1 [label="Anulable: F
+FirstPos: [1]
+LastPos: [2]
+.", shape="circle", width=1, height=1];
+I_1 [label="Anulable: F
+FirstPos: [1]
+LastPos: [1]
+Node: 1
+.", shape="circle", width=1, height=1];
+PLUS_0 [label="Anulable: F
+FirstPos: [2]
+LastPos: [2]
++", shape="circle", width=1, height=1];
+I_2 [label="Anulable: F
+FirstPos: [2]
+LastPos: [2]
+Node: 2
+{digito}", shape="circle", width=1, height=1];
+I_ACEPTANCE_3 [label="Anulable: F
+FirstPos: [2, 3]
+LastPos: [3]
+Node: 3
+#", shape="circle", width=1, height=1];
+AND_3 -- AND_2;
+AND_2 -- I_0;
+AND_2 -- AND_1;
+AND_1 -- I_1;
+AND_1 -- PLUS_0;
+PLUS_0 -- I_2;
+AND_3 -- I_ACEPTANCE_3;
 }

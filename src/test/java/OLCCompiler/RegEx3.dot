@@ -1,20 +1,55 @@
-graph G {null_9 [label=".", shape="circle", width=1, height=1];
-null_7 [label=".", shape="circle", width=1, height=1];
-null_0 [label="{digito}", shape="circle", width=1, height=1];
-null_6 [label="*", shape="circle", width=1, height=1];
-null_5 [label="|", shape="circle", width=1, height=1];
-null_1 [label="_", shape="circle", width=1, height=1];
-null_4 [label="|", shape="circle", width=1, height=1];
-null_2 [label="{letra}", shape="circle", width=1, height=1];
-null_3 [label="{digito}", shape="circle", width=1, height=1];
-null_8 [label="#", shape="circle", width=1, height=1];
-null_9 -- null_7;
-null_7 -- null_0;
-null_7 -- null_6;
-null_6 -- null_5;
-null_5 -- null_1;
-null_5 -- null_4;
-null_4 -- null_2;
-null_4 -- null_3;
-null_9 -- null_8;
+graph G {AND_4 [label="Anulable: F
+FirstPos: [0]
+LastPos: [4]
+.", shape="circle", width=1, height=1];
+AND_3 [label="Anulable: F
+FirstPos: [0]
+LastPos: [0, 1, 2, 3]
+.", shape="circle", width=1, height=1];
+I_0 [label="Anulable: F
+FirstPos: [0]
+LastPos: [0]
+Node: 0
+{digito}", shape="circle", width=1, height=1];
+KLEENE_2 [label="Anulable: V
+FirstPos: [1, 2, 3]
+LastPos: [1, 2, 3]
+*", shape="circle", width=1, height=1];
+OR_1 [label="Anulable: F
+FirstPos: [1, 2, 3]
+LastPos: [1, 2, 3]
+|", shape="circle", width=1, height=1];
+I_1 [label="Anulable: F
+FirstPos: [1]
+LastPos: [1]
+Node: 1
+_", shape="circle", width=1, height=1];
+OR_0 [label="Anulable: F
+FirstPos: [2, 3]
+LastPos: [2, 3]
+|", shape="circle", width=1, height=1];
+I_2 [label="Anulable: F
+FirstPos: [2]
+LastPos: [2]
+Node: 2
+{letra}", shape="circle", width=1, height=1];
+I_3 [label="Anulable: F
+FirstPos: [3]
+LastPos: [3]
+Node: 3
+{digito}", shape="circle", width=1, height=1];
+I_ACEPTANCE_4 [label="Anulable: F
+FirstPos: [1, 2, 3, 4]
+LastPos: [4]
+Node: 4
+#", shape="circle", width=1, height=1];
+AND_4 -- AND_3;
+AND_3 -- I_0;
+AND_3 -- KLEENE_2;
+KLEENE_2 -- OR_1;
+OR_1 -- I_1;
+OR_1 -- OR_0;
+OR_0 -- I_2;
+OR_0 -- I_3;
+AND_4 -- I_ACEPTANCE_4;
 }

@@ -219,6 +219,8 @@ public class OLCParser extends java_cup.runtime.lr_parser {
     public ArrayList<Evaluation> evaluationStrings = new ArrayList<Evaluation>();
 
     private int nodeCounter = 0;
+    private int operatorCounter = 0;
+
 
    public void syntax_error(Symbol s) {
 
@@ -538,10 +540,11 @@ class CUP$OLCParser$actions {
 		
 
   Node acceptNode = new Node(nodeCounter++, NodeType.NODE_ACCEPT, "#");
-  Node rootNode = new Node(nodeCounter++, NodeType.NODE_AND, ".", no, acceptNode);
+  Node rootNode = new Node(operatorCounter++, NodeType.NODE_AND, ".", no, acceptNode);
   RegexTreeReference tree = new RegexTreeReference(String.valueOf(na), rootNode);
   regexTrees.add(tree);
   nodeCounter = 0;
+  operatorCounter = 0;
 
 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_decl",6, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-3)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
@@ -558,7 +561,7 @@ class CUP$OLCParser$actions {
 		int nrleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
 		int nrright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
 		Node nr = (Node)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
-		 RESULT = new Node(nodeCounter++, NodeType.NODE_AND, ".", nl, nr); 
+		 RESULT = new Node(operatorCounter++, NodeType.NODE_AND, ".", nl, nr); 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",20, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
@@ -573,7 +576,7 @@ class CUP$OLCParser$actions {
 		int nrleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
 		int nrright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
 		Node nr = (Node)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
-		 RESULT = new Node(nodeCounter++, NodeType.NODE_OR, "|", nl, nr); 
+		 RESULT = new Node(operatorCounter++, NodeType.NODE_OR, "|", nl, nr); 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",20, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-2)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
@@ -585,7 +588,7 @@ class CUP$OLCParser$actions {
 		int nleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
 		Node n = (Node)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
-		 RESULT = new Node(nodeCounter++, NodeType.NODE_KLEENE, "*", n); 
+		 RESULT = new Node(operatorCounter++, NodeType.NODE_KLEENE, "*", n); 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",20, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
@@ -597,7 +600,7 @@ class CUP$OLCParser$actions {
 		int nleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
 		Node n = (Node)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
-		 RESULT = new Node(nodeCounter++, NodeType.NODE_PLUS, "+", n); 
+		 RESULT = new Node(operatorCounter++, NodeType.NODE_PLUS, "+", n); 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",20, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
@@ -609,7 +612,7 @@ class CUP$OLCParser$actions {
 		int nleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
 		Node n = (Node)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
-		 RESULT = new Node(nodeCounter++, NodeType.NODE_OPTIONAL,"?", n); 
+		 RESULT = new Node(operatorCounter++, NodeType.NODE_OPTIONAL,"?", n); 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_term",20, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
