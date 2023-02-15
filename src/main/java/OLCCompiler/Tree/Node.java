@@ -22,7 +22,7 @@ public class Node {
 
     public NextTable nextTable;
     public TransitionTable transitionTable;
-    public Map<Integer, Set<String>> tokens;
+    public Map<Integer, Set<Object>> tokens;
 
     public Node(int number, String type, Object value) {
         this.number = number;
@@ -60,7 +60,7 @@ public class Node {
     public void make() {
 
         this.nextTable = new NextTable();
-        this.tokens = new HashMap<Integer, Set<String>>();
+        this.tokens = new HashMap<Integer, Set<Object>>();
 
         makeAnullable(this);
         makePos(this);
@@ -68,7 +68,7 @@ public class Node {
         System.out.println("Tokens: " + this.tokens);
         makeNext(this);
 
-        this.transitionTable = new TransitionTable(this.nextTable, this.firstPos);
+        //this.transitionTable = new TransitionTable(this.nextTable, this.firstPos, this.nextTable.getAcceptanceNode(), this.tokens);
 
     }
 
@@ -121,13 +121,15 @@ public class Node {
         if (node != null) {
             if (node.type.equals(NodeType.NODE_I) || node.type.equals(NodeType.NODE_ACCEPT)) {
                 if (node.value instanceof String) {
-                    this.tokens.put(node.number, new HashSet<String>() {{
+                    this.tokens.put(node.number, new HashSet<Object>() {{
                         add(node.value.toString());
                     }});
                 } else if (node.value instanceof SetReference) {
                     //this.tokens.put(node.number, ((SetReference) node.value).); // <- GET SET ELEMENTS FROM SETREFERENCE
-                    this.tokens.put(node.number, new HashSet<String>() {{
-                        add("a");
+                    this.tokens.put(node.number, new HashSet<Object>() {{
+                        add(
+                                ((SetReference) node.value)
+                        );
                     }});
                 }
             }
@@ -216,7 +218,6 @@ public class Node {
             }
         }
     }
-
 
     private void makeNext(Node node) {
         if (node != null) {

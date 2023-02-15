@@ -1,8 +1,6 @@
 package OLCCompiler.DFA;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class TransitionTable {
 
@@ -11,31 +9,49 @@ public class TransitionTable {
     private NextTable nextTable;
     private int statesCounter;
     public State initialState;
+    private Integer acceptanceNode;
+    private Map<Integer, Set<String>> tokens;
 
-    public TransitionTable(NextTable nextTable, Set<Integer> initialStateNext){
+    public TransitionTable(NextTable nextTable, Set<Integer> initialStateNext, Integer acceptanceNode, Map<Integer, Set<String>> tokens){
         this.transitions = new ArrayList<Transition>();
         this.states = new ArrayList<State>();
         this.nextTable = nextTable;
         this.statesCounter = -1;
+        this.acceptanceNode = acceptanceNode;
         this.initialState = this.makeNode(initialStateNext);
+        this.tokens = tokens;
     }
 
     private State makeNode(Set<Integer> nextSet){
 
         State state = this.evalCreateNewState(nextSet);
-        this.states.add(state);
 
-        if (nextSet == null) {
-            return state;
+        if (state == null) {
+            return null;
         }
+
+        this.states.add(state);
 
         // FIND NEXT STATES
         // TODO : FIX THIS
+        /*
+        Map<String, Set<Integer>> assocTransitions = new HashMap<>();
         for (Integer next: nextSet) {
+
+            assocTransitions.forEach((k,v) -> {
+                if(this.tokens.get(next).contains(k)){
+                    v.addAll(this.nextTable.getNext(next).next);
+                }
+            });
+
+
+
             Next n = this.nextTable.getNext(next);
             State nextState = this.makeNode(n.next);
             this.transitions.add(new Transition(state,nextState, n.token));
         }
+
+         */
 
         return state;
     }
@@ -43,10 +59,7 @@ public class TransitionTable {
     private State evalCreateNewState(Set<Integer> nextSet){
 
         if (nextSet == null) {
-            this.statesCounter++;
-            State acceptanceState = new State(this.statesCounter, null);
-            acceptanceState.setAcceptace(true);
-            return acceptanceState;
+            return null;
         }
 
         for (State state: this.states) {
@@ -55,7 +68,9 @@ public class TransitionTable {
             }
         }
         this.statesCounter++;
-        return new State(this.statesCounter, nextSet);
+        State newState =  new State(this.statesCounter, nextSet);
+        newState.setAcceptace(nextSet.contains(this.acceptanceNode));
+        return newState;
     }
 
     public void print(){
