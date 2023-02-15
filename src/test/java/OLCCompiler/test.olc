@@ -12,13 +12,11 @@ ASKDKASJLDJASLDJ
 
     /////// EXPRESIONES REGULARES
 
-    ExpReg1 -> . {letra} * | "_" | {letra} {digito};
     <!
-
-    ExpresionReg2 -> . {digito} . "." + {digito};
+    ExpReg1 -> . {letra} * | "_" | {letra} {digito};
     RegEx3 -> . {digito} * | "_" | {letra} {digito};
-
     !>
+    ExpresionReg2 -> . {digito} . "." + | {digito} | {letra} . "a" "b";
 
 
 %%

@@ -1,5 +1,7 @@
 package OLCCompiler.DFA;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class TransitionTable {
@@ -64,6 +66,7 @@ public class TransitionTable {
         for (State notMakedStates : this.states) {
             if (!notMakedStates.marked) {
                 this.makeNode(notMakedStates.nextSet);
+                break;
             }
         }
 
@@ -139,6 +142,32 @@ public class TransitionTable {
             }
 
             System.out.println();
+        }
+
+    }
+
+
+    public void graphviz(){
+        try (PrintWriter out = new PrintWriter(new File("src/test/java/OLCCompiler/automata.dot"))) {
+
+            out.println("digraph automata {");
+            out.println("rankdir=LR;");
+
+            // STATES
+
+            for (State s: this.states) {
+                String shape = s.isAcceptace ? "doublecircle" : "circle";
+                out.println(s.getGraphvizName() + " [label=\"" + s.getGraphvizName() + "\", shape=\""+shape+"\" ];");
+            }
+
+            // TRANSITIONS
+            for (Transition t: this.transitions) {
+                out.println(t.prevState.getGraphvizName() + " -> " + t.nextState.getGraphvizName() + " [label=\"" + t.token.toString() + "\"];");
+            }
+
+            out.println("}");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

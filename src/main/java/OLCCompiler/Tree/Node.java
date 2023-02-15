@@ -252,4 +252,7 @@ public class Node {
             return "Anulable: " + (this.nullable ? "V" : "F") + "\n" + "FirstPos: " + this.firstPos + "\n" + "LastPos: " + this.lastPos + "\n" + "Node: " + this.number + "\n"+ this.value.toString();
         }
     }
+
+
+
 }

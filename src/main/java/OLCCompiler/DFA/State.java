@@ -15,6 +15,10 @@ public class State {
         this.nextSet = nextSet;
     }
 
+    public String getGraphvizName(){
+        return "S" + this.number;
+    }
+
     public void setAcceptace(boolean acceptace) {
         isAcceptace = acceptace;
     }

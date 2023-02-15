@@ -31,7 +31,7 @@ public class CompilerTests {
         for (RegexTreeReference treeReference: parser.regexTrees) {
             treeReference.rootNode.make();
             treeReference.rootNode.graphviz("src/test/java/OLCCompiler/" + treeReference.name + ".dot");
-            treeReference.rootNode.transitionTable.print();
+            treeReference.rootNode.transitionTable.graphviz();
         }
 
     }
