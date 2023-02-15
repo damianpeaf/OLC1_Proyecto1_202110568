@@ -18,7 +18,7 @@ public class NextTable {
      */
     public void addNext(Integer node, Set<String> tokens, Set<Integer> next){
         for (Next n : nextTable){
-            if (n.node.equals(node) && n.token.equals(tokens)){
+            if (n.node.equals(node)){
                 n.addNext(next);
                 return;
             }

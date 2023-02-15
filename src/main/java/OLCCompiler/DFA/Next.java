@@ -16,7 +16,7 @@ public class Next {
     }
 
 
-    public void addNext(Set<Integer> next){
-        this.next.addAll(next);
+    public void addNext(Set<Integer> n){
+        this.next.addAll(n);
     }
 }

@@ -39,7 +39,7 @@ LastPos: [3]
 Node: 3
 {digito}", shape="circle", width=1, height=1];
 I_ACEPTANCE_4 [label="Anulable: F
-FirstPos: [1, 2, 3, 4]
+FirstPos: [4]
 LastPos: [4]
 Node: 4
 #", shape="circle", width=1, height=1];

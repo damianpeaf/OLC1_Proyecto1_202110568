@@ -30,7 +30,7 @@ public class CompilerTests {
 
         for (RegexTreeReference treeReference: parser.regexTrees) {
             treeReference.rootNode.make();
-            // treeReference.rootNode.nextTable.print();
+            treeReference.rootNode.nextTable.print();
             treeReference.rootNode.graphviz("src/test/java/OLCCompiler/" + treeReference.name + ".dot");
         }
 

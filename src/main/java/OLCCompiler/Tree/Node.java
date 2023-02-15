@@ -17,10 +17,8 @@ public class Node {
     public Object value;
 
     public boolean nullable;
-    public Set<Integer> firstPos = new HashSet<Integer>();
-    ;
-    public Set<Integer> lastPos = new HashSet<Integer>();
-    ;
+    public Set<Integer> firstPos = new HashSet();
+    public Set<Integer> lastPos = new HashSet();
 
     public NextTable nextTable;
     public TransitionTable transitionTable;
@@ -67,9 +65,10 @@ public class Node {
         makeAnullable(this);
         makePos(this);
         makeTokens(this);
+        System.out.println("Tokens: " + this.tokens);
         makeNext(this);
-        // TODO make transition table
-        // this.transitionTable = new TransitionTable(this.nextTable, this.firstPos);
+
+        this.transitionTable = new TransitionTable(this.nextTable, this.firstPos);
 
     }
 
@@ -218,27 +217,28 @@ public class Node {
         }
     }
 
+
     private void makeNext(Node node) {
         if (node != null) {
 
-            if (node.type.equals(NodeType.NODE_ACCEPT) || (node.left != null && node.left.type.equals(NodeType.NODE_ACCEPT)) || (node.right != null && node.right.type.equals(NodeType.NODE_ACCEPT))) {
-                System.out.println("AAAAAAAAAAA");
-            }
-
             // NEXT CONDITIONS, ONLY FOR AND, PLUS AND KLEENE
-            if (node.type.equals(NodeType.NODE_AND) && node.left != null && node.right != null) {
+            if (node.type.equals(NodeType.NODE_AND) && (node.left != null) && (node.right != null)) {
                 for (Integer i : node.left.lastPos) {
-                    nextTable.addNext(i, this.tokens.get(i), node.right.firstPos);
+                    this.nextTable.addNext(i, this.tokens.get(i), new HashSet<>(node.right.firstPos));
                 }
-            } else if ((node.type.equals(NodeType.NODE_PLUS) || node.type.equals(NodeType.NODE_PLUS)) && node.left != null) {
-                for (Integer i : node.left.lastPos) {
-                    nextTable.addNext(i, this.tokens.get(i), node.left.firstPos);
-                }
-            } else if (node.type.equals(NodeType.NODE_ACCEPT)) {
-                nextTable.addNext(node.number, this.tokens.get(node.number), null);
             }
 
-            // INORDER? RECURSIVE CALLS
+            if ((node.type.equals(NodeType.NODE_KLEENE) || node.type.equals(NodeType.NODE_PLUS)) && (node.left != null)) {
+                for (Integer i : node.left.lastPos) {
+                    this.nextTable.addNext(i, this.tokens.get(i), node.left.firstPos);
+                }
+            }
+
+            if (node.type.equals(NodeType.NODE_ACCEPT)) {
+                this.nextTable.addNext(node.number, this.tokens.get(node.number), null);
+            }
+
+            // POSTORDER RECURSIVE CALLS
             if (node.left != null) {
                 makeNext(node.left);
             }
@@ -246,7 +246,6 @@ public class Node {
             if (node.right != null) {
                 makeNext(node.right);
             }
-
 
         }
     }
