@@ -6,12 +6,12 @@ public class Transition {
 
     public State prevState;
     public State nextState;
-    public Set<String> tokens;
+    public Object token;
 
-    public Transition (State prevState, State nextState, Set<String> tokens){
+    public Transition (State prevState, State nextState, Object token){
         this.prevState = prevState;
         this.nextState = nextState;
-        this.tokens = tokens;
+        this.token = token;
     }
 
 }

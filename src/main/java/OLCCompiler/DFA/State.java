@@ -8,6 +8,7 @@ public class State {
     public int number;
     public boolean isAcceptace = false;
     public Set<Integer> nextSet;
+    public boolean marked = false;
 
     public State(int number, Set<Integer> nextSet){
         this.number = number;

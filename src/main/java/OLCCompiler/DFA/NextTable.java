@@ -16,7 +16,7 @@ public class NextTable {
     @param token: Set of tokens (String)
     @param next: Set of next nodes (Integer)
      */
-    public void addNext(Integer node, Set<Object> tokens, Set<Integer> next){
+    public void addNext(Integer node, Object tokens, Set<Integer> next){
         for (Next n : nextTable){
             if (n.node.equals(node)){
                 n.addNext(next);

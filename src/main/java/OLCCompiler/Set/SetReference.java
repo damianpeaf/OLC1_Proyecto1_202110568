@@ -25,4 +25,12 @@ public class SetReference {
         return "{"+this.name +"}";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof SetReference){
+            return this.name.equals(((SetReference) obj).name);
+        }
+        return false;
+    }
+
 }
