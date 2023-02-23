@@ -45,7 +45,7 @@ public class TransitionTable {
 
             Object t = this.tokens.get(next);
             if(assocTransitions.containsKey(t)) {
-                assocTransitions.get(t).addAll(new HashSet<Integer>(this.nextTable.getNext(next).next)); // CAN HAVE SOME ISSUES
+                assocTransitions.get(t).addAll(new HashSet<Integer>(this.nextTable.getNext(next).next));
             }else{
                 assocTransitions.put(t, new HashSet<Integer>(this.nextTable.getNext(next).next));
             }
@@ -145,32 +145,5 @@ public class TransitionTable {
         }
 
     }
-
-
-    public void graphviz(){
-        try (PrintWriter out = new PrintWriter(new File("src/test/java/OLCCompiler/automata.dot"))) {
-
-            out.println("digraph automata {");
-            out.println("rankdir=LR;");
-
-            // STATES
-
-            for (State s: this.states) {
-                String shape = s.isAcceptace ? "doublecircle" : "circle";
-                out.println(s.getGraphvizName() + " [label=\"" + s.getGraphvizName() + "\", shape=\""+shape+"\" ];");
-            }
-
-            // TRANSITIONS
-            for (Transition t: this.transitions) {
-                out.println(t.prevState.getGraphvizName() + " -> " + t.nextState.getGraphvizName() + " [label=\"" + t.token.toString() + "\"];");
-            }
-
-            out.println("}");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
 }

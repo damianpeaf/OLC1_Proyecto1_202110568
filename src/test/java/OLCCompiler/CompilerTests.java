@@ -1,6 +1,6 @@
 package OLCCompiler;
 
-import OLCCompiler.Tree.RegexTreeReference;
+import OLCCompiler.Tree.RegexTree;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -28,12 +28,12 @@ public class CompilerTests {
         System.out.println("EVA DECLS: " + parser.evaluationStrings.size());
 
 
-        for (RegexTreeReference treeReference: parser.regexTrees) {
-            treeReference.rootNode.make();
-            treeReference.rootNode.graphviz("src/test/java/OLCCompiler/" + treeReference.name + ".dot");
-            treeReference.rootNode.transitionTable.graphviz();
-            treeReference.rootNode.nextTable.print();
-            treeReference.rootNode.transitionTable.print();
+        for (RegexTree treeReference: parser.regexTrees) {
+            treeReference.make();
+            treeReference.graphviz();
+            treeReference.dfa.graphviz();
+            treeReference.nextTable.print();
+            treeReference.transitionTable.print();
         }
 
     }

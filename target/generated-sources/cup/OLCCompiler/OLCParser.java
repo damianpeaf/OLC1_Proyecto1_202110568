@@ -215,7 +215,7 @@ public class OLCParser extends java_cup.runtime.lr_parser {
 
     public ErrorTable errorTable = new ErrorTable();
     public SetsTable setsTable = new SetsTable();
-    public ArrayList<RegexTreeReference> regexTrees = new ArrayList<RegexTreeReference>();
+    public ArrayList<RegexTree> regexTrees = new ArrayList<RegexTree>();
     public ArrayList<Evaluation> evaluationStrings = new ArrayList<Evaluation>();
 
     private int nodeCounter = 1;
@@ -541,7 +541,7 @@ class CUP$OLCParser$actions {
 
   Node acceptNode = new Node(nodeCounter++, NodeType.NODE_ACCEPT, "#");
   Node rootNode = new Node(operatorCounter++, NodeType.NODE_AND, ".", no, acceptNode);
-  RegexTreeReference tree = new RegexTreeReference(String.valueOf(na), rootNode);
+  RegexTree tree = new RegexTree(String.valueOf(na), rootNode);
   regexTrees.add(tree);
   nodeCounter = 0;
   operatorCounter = 0;
