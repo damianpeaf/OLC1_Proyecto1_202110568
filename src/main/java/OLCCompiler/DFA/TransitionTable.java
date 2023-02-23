@@ -125,7 +125,7 @@ public class TransitionTable {
         // PRINT TABLE
 
         for (State s: this.states) {
-            System.out.print("S"+s.number + "\t\t");
+            System.out.print("S"+s.number + " " + s.nextSet + "\t\t");
 
             for (String t: terminals) {
                 boolean found = false;

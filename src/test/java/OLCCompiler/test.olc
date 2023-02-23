@@ -1,28 +1,20 @@
 {
-    /////// CONJUNTOS
+CONJ: letra -> a~z;
+CONJ: separados -> 2,a,e,R,d,0,9;
+CONJ: mayus-> G~O;
+CONJ: nums-> 1~5;
 
-    <!
-COMENTARIO MULTILINEA
-ASKDKASJLDJASLDJ
-    !>
 
-    CONJ: letra -> a~z;
-    CONJ: digito -> 0~9;
-    CONJ: individual -> 1,2,3,4,5,6,7;
-
-    /////// EXPRESIONES REGULARES
-
-    <!
-    ExpReg1 -> . {letra} * | "_" | {letra} {digito};
-    RegEx3 -> . {digito} * | "_" | {letra} {digito};
-    !>
-    ExpresionReg2 -> . {digito} . "." + | {digito} | {letra} . "a" "b";
-
+// EXPreg -> . |{letra} "2" * {nums};
+EXPreg2 -> .. |{letra} "2" * {nums} . | * |{separados} {mayus} "x" {separados};
 
 %%
 %%
-
-    ExpReg1 : "primerLexemaCokoa";
-    ExpresionReg2 : "33.44";
+// pruebas
+<! comentario multilinea
+asdasdasdasd
+asdsad
+!>
+EXPreg: "este es un lexema";
 
 }

@@ -218,7 +218,7 @@ public class OLCParser extends java_cup.runtime.lr_parser {
     public ArrayList<RegexTreeReference> regexTrees = new ArrayList<RegexTreeReference>();
     public ArrayList<Evaluation> evaluationStrings = new ArrayList<Evaluation>();
 
-    private int nodeCounter = 0;
+    private int nodeCounter = 1;
     private int operatorCounter = 0;
 
 

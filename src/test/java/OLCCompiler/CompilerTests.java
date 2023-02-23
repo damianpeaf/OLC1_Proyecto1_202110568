@@ -32,6 +32,8 @@ public class CompilerTests {
             treeReference.rootNode.make();
             treeReference.rootNode.graphviz("src/test/java/OLCCompiler/" + treeReference.name + ".dot");
             treeReference.rootNode.transitionTable.graphviz();
+            treeReference.rootNode.nextTable.print();
+            treeReference.rootNode.transitionTable.print();
         }
 
     }
