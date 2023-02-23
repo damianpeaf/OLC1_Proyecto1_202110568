@@ -33,4 +33,9 @@ public class SetReference {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
+    }
+
 }
