@@ -3,6 +3,8 @@ package OLCCompiler.Tree;
 import OLCCompiler.DFA.DFA;
 import OLCCompiler.DFA.NextTable;
 import OLCCompiler.DFA.TransitionTable;
+import OLCCompiler.NDFA.NDFA;
+import OLCCompiler.NDFA.State;
 import OLCCompiler.Set.SetReference;
 
 import java.io.File;
@@ -25,6 +27,7 @@ public class RegexTree {
     public DFA dfa;
 
     // THOMPSON METHOD VARIABLES
+    public NDFA ndfa;
 
     public RegexTree(String name, Node rootNode) {
         this.name = name;
@@ -55,6 +58,11 @@ public class RegexTree {
 
         this.transitionTable = new TransitionTable(this.nextTable, this.rootNode.firstPos, this.nextTable.getAcceptanceNode(), this.tokens);
         this.dfa = new DFA(this.transitionTable.transitions, this.transitionTable.states, this.name);
+
+        this.ndfa = this.makeThompson(this.rootNode.left);
+        this.ndfa.finalState.isAcceptace = true;
+        this.ndfa.name = this.name;
+
     }
 
     private void declareGraphvizNodes(Node node, PrintWriter out) {
@@ -207,6 +215,48 @@ public class RegexTree {
             }
 
         }
+    }
+
+
+    private NDFA makeThompson(Node node) {
+
+        // POST-ORDER RECURSIVE CALLS
+
+        NDFA mainNdfa= new NDFA();
+        NDFA leftNdfa = null;
+        NDFA rightNdfa = null;
+
+        if (node.left != null) {
+            leftNdfa = makeThompson(node.left);
+        }
+
+        if (node.right != null) {
+            rightNdfa = makeThompson(node.right);
+        }
+
+        // THOMPSON CONDITIONS
+
+        if (node.type.equals(NodeType.NODE_I)) {
+            mainNdfa.nodei(this.tokens.get(node.number));
+            return mainNdfa;
+        }else if (node.type.equals(NodeType.NODE_AND)) { // && leftNdfa != null && rightNdfa != null
+            mainNdfa.concat(leftNdfa, rightNdfa);
+            return mainNdfa;
+        }else if(node.type.equals(NodeType.NODE_OR)) {
+            mainNdfa.union(leftNdfa, rightNdfa);
+            return mainNdfa;
+        }else if(node.type.equals(NodeType.NODE_KLEENE)) {
+            mainNdfa.kleene(leftNdfa);
+            return mainNdfa;
+        }else if(node.type.equals(NodeType.NODE_PLUS)) {
+            mainNdfa.plus(leftNdfa);
+            return mainNdfa;
+        }else if(node.type.equals(NodeType.NODE_OPTIONAL)) {
+            mainNdfa.optional(leftNdfa);
+            return mainNdfa;
+        }
+
+        return null;
     }
 
 }

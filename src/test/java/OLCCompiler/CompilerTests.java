@@ -34,6 +34,7 @@ public class CompilerTests {
             treeReference.dfa.graphviz();
             treeReference.nextTable.print();
             treeReference.transitionTable.print();
+            treeReference.ndfa.graphviz();
         }
 
     }

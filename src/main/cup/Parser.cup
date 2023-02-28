@@ -96,7 +96,7 @@ nonterminal Node regex_term;
 // INITIAL RULES
 program ::= LBRACE scopes RBRACE;
 
-scopes ::= decl_scope SCOPE_BREAK SCOPE_BREAK stmt_scope;
+scopes ::= decl_scope SCOPE_BREAK stmt_scope;
 escaped_sequence ::= ESCAPED_LINEBREAK
                    | ESCAPED_SINGLE_QUOTE
                    | ESCAPED_DOUBLE_QUOTE;

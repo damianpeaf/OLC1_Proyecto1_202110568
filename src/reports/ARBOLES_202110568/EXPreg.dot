@@ -1,0 +1,44 @@
+graph G {AND_3 [label="Anulable: F
+FirstPos: [1, 2]
+LastPos: [4]
+.", shape="circle", width=1, height=1];
+AND_2 [label="Anulable: F
+FirstPos: [1, 2]
+LastPos: [1, 2, 3]
+.", shape="circle", width=1, height=1];
+OR_0 [label="Anulable: F
+FirstPos: [1, 2]
+LastPos: [1, 2]
+|", shape="circle", width=1, height=1];
+I_1 [label="Anulable: F
+FirstPos: [1]
+LastPos: [1]
+Node: 1
+{letra}", shape="circle", width=1, height=1];
+I_2 [label="Anulable: F
+FirstPos: [2]
+LastPos: [2]
+Node: 2
+2", shape="circle", width=1, height=1];
+KLEENE_1 [label="Anulable: V
+FirstPos: [3]
+LastPos: [3]
+*", shape="circle", width=1, height=1];
+I_3 [label="Anulable: F
+FirstPos: [3]
+LastPos: [3]
+Node: 3
+{nums}", shape="circle", width=1, height=1];
+I_ACEPTANCE_4 [label="Anulable: F
+FirstPos: [4]
+LastPos: [4]
+Node: 4
+#", shape="circle", width=1, height=1];
+AND_3 -- AND_2;
+AND_2 -- OR_0;
+OR_0 -- I_1;
+OR_0 -- I_2;
+AND_2 -- KLEENE_1;
+KLEENE_1 -- I_3;
+AND_3 -- I_ACEPTANCE_4;
+}

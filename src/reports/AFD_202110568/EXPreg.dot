@@ -1,0 +1,8 @@
+digraph automata {
+rankdir=LR;
+S0 [label="S0", shape="circle" ];
+S1 [label="S1", shape="doublecircle" ];
+S0 -> S1 [label="2"];
+S0 -> S1 [label="{letra}"];
+S1 -> S1 [label="{nums}"];
+}
