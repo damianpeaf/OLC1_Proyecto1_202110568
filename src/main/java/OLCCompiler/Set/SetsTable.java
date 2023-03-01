@@ -19,4 +19,13 @@ public class SetsTable {
         System.out.println("----------");
         sets.forEach(Set::printSet);
     }
+
+    public Set getSet(String name){
+        for (Set set : sets) {
+            if (set.name.equals(name)){
+                return set;
+            }
+        }
+        return null;
+    }
 }

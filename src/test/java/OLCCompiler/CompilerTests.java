@@ -1,5 +1,6 @@
 package OLCCompiler;
 
+import OLCCompiler.Set.Set;
 import OLCCompiler.Tree.RegexTree;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +22,13 @@ public class CompilerTests {
             System.out.println(e.getMessage());
 
         }
-        parser.errorTable.printErrors();
+
+        for (Set s: parser.setsTable.sets) {
+            s.validate(parser.errorTable);
+        }
         parser.setsTable.print();
+
+        parser.errorTable.printErrors();
 
         System.out.println("REGEX DECLS: " + parser.regexTrees.size());
         System.out.println("EVA DECLS: " + parser.evaluationStrings.size());
@@ -35,6 +41,26 @@ public class CompilerTests {
             treeReference.nextTable.print();
             treeReference.transitionTable.print();
             treeReference.ndfa.graphviz();
+        }
+
+    }
+
+    @Test
+    public void testAscii() throws Exception {
+
+        int start = "!".charAt(0);
+        int end = "}".charAt(0);
+
+        System.out.println(start);
+        System.out.println(end);
+
+        for(int i = start; i <= end; i++){
+
+            if((i >= 48 && i <= 57) || (i >= 65 && i <= 90) || (i >= 97 && i <= 122)){
+                continue;
+            }
+
+            System.out.println(Character.toString((char) i));
         }
 
     }

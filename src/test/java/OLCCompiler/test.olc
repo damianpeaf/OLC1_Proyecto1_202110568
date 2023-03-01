@@ -9,7 +9,6 @@ EXPreg -> . |{letra} "2" * {nums};
 EXPreg2 -> .. |{letra} "2" * {nums} . | * |{separados} {mayus} "x" {separados};
 
 %%
-%%
 // pruebas
 <! comentario multilinea
 asdasdasdasd

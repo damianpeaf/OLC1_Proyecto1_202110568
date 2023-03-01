@@ -12,12 +12,7 @@ public class SetReference {
     }
 
     public Set getSet(){
-        //TODO: get set from table
-        if (set == null){
-            // set = table.getSet(name);
-        }
-
-        return set;
+        return table.getSet(name);
     }
 
     @Override

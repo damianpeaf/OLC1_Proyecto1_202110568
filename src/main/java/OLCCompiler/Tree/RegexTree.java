@@ -3,6 +3,9 @@ package OLCCompiler.Tree;
 import OLCCompiler.DFA.DFA;
 import OLCCompiler.DFA.NextTable;
 import OLCCompiler.DFA.TransitionTable;
+import OLCCompiler.Error.ErrorTable;
+import OLCCompiler.Error.ErrorType;
+import OLCCompiler.Error.OLCError;
 import OLCCompiler.NDFA.NDFA;
 import OLCCompiler.NDFA.State;
 import OLCCompiler.Set.SetReference;
@@ -19,6 +22,7 @@ public class RegexTree {
     public Node rootNode;
     private final String baseReportPath = "src/reports/ARBOLES_202110568";
     private String reportPath;
+    private ErrorTable errorTable;
 
     // TREE METHOD VARIABLES
     public Map<Integer, Object> tokens;
@@ -29,10 +33,12 @@ public class RegexTree {
     // THOMPSON METHOD VARIABLES
     public NDFA ndfa;
 
-    public RegexTree(String name, Node rootNode) {
+
+    public RegexTree(String name, Node rootNode, ErrorTable errorTable) {
         this.name = name;
         this.rootNode = rootNode;
         this.reportPath = this.baseReportPath + "/" + this.name;
+        this.errorTable = errorTable;
     }
 
     public void graphviz() {
@@ -95,8 +101,14 @@ public class RegexTree {
                 if (node.value instanceof String) {
                     this.tokens.put(node.number, node.value.toString());
                 } else if (node.value instanceof SetReference) {
-                    //this.tokens.put(node.number, ((SetReference) node.value).); // <- GET SET ELEMENTS FROM SETREFERENCE
-                    this.tokens.put(node.number, ((SetReference) node.value));
+
+                    // CHECK SET REFERENCE
+                    OLCCompiler.Set.Set set = ((SetReference) node.value).getSet();
+                    if (set == null){
+                        this.errorTable.add(new OLCError(ErrorType.RUNTIME, "No se encontró la referencia al conjunto {" + ((SetReference) node.value).name + "} para la Regex " + this.name + "."));
+                    }
+
+                    this.tokens.put(node.number, node.value);
                 }
             }
             if (node.left != null) {

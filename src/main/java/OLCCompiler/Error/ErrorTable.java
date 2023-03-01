@@ -42,14 +42,14 @@ public class ErrorTable {
             out.write("<th>COLUMNA</th>");
             out.write("</tr>");
 
-            int correlative = 0;
+            int correlative = 1;
             for (OLCError error : errors) {
                 out.write("<tr>");
                 out.write("<td>" + (correlative++) + "</td>");
                 out.write("<td>" + error.getType() + "</td>");
                 out.write("<td>" + error.getMessage() + "</td>");
-                out.write("<td>" + (error.getLine() + 1) + "</td>");
-                out.write("<td>" + (error.getColumn() + 1) + "</td>");
+                out.write("<td>" + (error.getLine() != -1 ? error.getLine() +1 : "-") + "</td>");
+                out.write("<td>" + (error.getColumn() != -1 ? error.getColumn() + 1 : "-") + "</td>");
                 out.write("</tr>");
             }
             out.write("</table>");

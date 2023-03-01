@@ -558,7 +558,7 @@ class CUP$OLCParser$actions {
 
   Node acceptNode = new Node(nodeCounter++, NodeType.NODE_ACCEPT, "#");
   Node rootNode = new Node(operatorCounter++, NodeType.NODE_AND, ".", no, acceptNode);
-  RegexTree tree = new RegexTree(String.valueOf(na), rootNode);
+  RegexTree tree = new RegexTree(String.valueOf(na), rootNode, errorTable);
   regexTrees.add(tree);
   nodeCounter = 0;
   operatorCounter = 0;

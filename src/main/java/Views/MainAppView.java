@@ -271,13 +271,8 @@ public class MainAppView extends javax.swing.JFrame {
 
     private void generateAutomataBtn1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        boolean result = compiler.generateAutomatas(codeEditor.getText());
-
-        if(result) {
-            this.consoleArea.setText("Automatas generados correctamente");
-        }else{
-            this.consoleArea.setText("Error al generar los automatas");
-        }
+        String message = compiler.generateAutomatas(codeEditor.getText());
+        this.consoleArea.setText(message);
     }
 
     private void generateAutomataBtnActionPerformed(java.awt.event.ActionEvent evt) {
