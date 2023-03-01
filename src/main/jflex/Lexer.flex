@@ -65,17 +65,17 @@ import java_cup.runtime.*;
         /* -- root tokens -- */
 
         /* BRACES */
-        "{" { return symbol(OLCParserSym.LBRACE); }
-        "}" { return symbol(OLCParserSym.RBRACE); }
+        "{" { return symbol(OLCParserSym.LBRACE, yytext()); }
+        "}" { return symbol(OLCParserSym.RBRACE, yytext()); }
 
         /* KEYWORDS */
-        "CONJ" { yybegin(SET); return symbol(OLCParserSym.SET_DECLARATION); }
+        "CONJ" { yybegin(SET); return symbol(OLCParserSym.SET_DECLARATION, yytext()); }
 
         /* SCOPE BREAK */
-        "%%" { return symbol(OLCParserSym.SCOPE_BREAK); }
+        "%%" { return symbol(OLCParserSym.SCOPE_BREAK, yytext()); }
 
         /* SEMICOLON */
-        ";" { yybegin(YYINITIAL); return symbol(OLCParserSym.SEMICOLON); }
+        ";" { yybegin(YYINITIAL); return symbol(OLCParserSym.SEMICOLON, yytext()); }
 
         /* IDENTIFIERS */
         {Identifier} { yybegin(REGEX); return symbol(OLCParserSym.IDENTIFIER, yytext()); }
@@ -85,13 +85,13 @@ import java_cup.runtime.*;
     <SET> {
 
         /* COLON */
-        ":" { return symbol(OLCParserSym.COLON); }
+        ":" { return symbol(OLCParserSym.COLON, yytext()); }
 
         /* IDENTIFIERS */
         {Identifier} { return symbol(OLCParserSym.IDENTIFIER, yytext()); }
 
         /* ARROW */
-        "->" { yybegin(SET_ELEMENT);  return symbol(OLCParserSym.ARROW); }
+        "->" { yybegin(SET_ELEMENT);  return symbol(OLCParserSym.ARROW, yytext()); }
 
     }
 
@@ -115,21 +115,21 @@ import java_cup.runtime.*;
     <SET_OPERATOR> {
 
         /* COMMA */
-        "," { yybegin(SET_ELEMENT); return symbol(OLCParserSym.COMMA); }
+        "," { yybegin(SET_ELEMENT); return symbol(OLCParserSym.COMMA, yytext()); }
 
         /* TILDE */
-        "~" { yybegin(SET_ELEMENT); return symbol(OLCParserSym.TILDE); }
+        "~" { yybegin(SET_ELEMENT); return symbol(OLCParserSym.TILDE, yytext()); }
 
         /* SEMICOLON */
-        ";" { yybegin(YYINITIAL); return symbol(OLCParserSym.SEMICOLON); }
+        ";" { yybegin(YYINITIAL); return symbol(OLCParserSym.SEMICOLON, yytext()); }
     }
 
     <REGEX> {
         /* COLON */
-        ":" { yybegin(REGEX_TEST); return symbol(OLCParserSym.COLON); }
+        ":" { yybegin(REGEX_TEST); return symbol(OLCParserSym.COLON, yytext()); }
 
         /* ARROW */
-        "->" { yybegin(REGEX_EXPRESSION);  return symbol(OLCParserSym.ARROW); }
+        "->" { yybegin(REGEX_EXPRESSION);  return symbol(OLCParserSym.ARROW, yytext()); }
     }
 
 
@@ -145,33 +145,33 @@ import java_cup.runtime.*;
         /* -- OPERATORS -- */
 
         /* AND */
-        "." { return symbol(OLCParserSym.AND); }
+        "." { return symbol(OLCParserSym.AND, yytext()); }
 
         /* OR */
-        "|" { return symbol(OLCParserSym.OR); }
+        "|" { return symbol(OLCParserSym.OR, yytext()); }
 
         /* KLEENE */
-        "*" { return symbol(OLCParserSym.KLEENE); }
+        "*" { return symbol(OLCParserSym.KLEENE, yytext()); }
 
         /* PLUS */
-        "+" { return symbol(OLCParserSym.PLUS); }
+        "+" { return symbol(OLCParserSym.PLUS, yytext()); }
 
         /* QUESTION */
-        "?" { return symbol(OLCParserSym.QUESTION); }
+        "?" { return symbol(OLCParserSym.QUESTION, yytext()); }
 
         /* -- ESCAPED CHARACTERS -- */
 
         /* LINEBREAK */
-        "\\n" { return symbol(OLCParserSym.ESCAPED_LINEBREAK); }
+        "\\n" { return symbol(OLCParserSym.ESCAPED_LINEBREAK, yytext()); }
 
         /* SINGLE QUOTE */
-        "\\'" { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE); }
+        "\\'" { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE, yytext()); }
 
         /* DOUBLE QUOTE */
-        "\\\"" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE); }
+        "\\\"" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE, yytext()); }
 
         /* SEMICOLON */
-        ";" { yybegin(YYINITIAL); return symbol(OLCParserSym.SEMICOLON); }
+        ";" { yybegin(YYINITIAL); return symbol(OLCParserSym.SEMICOLON, yytext()); }
 
         /* -- OTHER REGEX TERMINALS -- */
 
@@ -179,7 +179,7 @@ import java_cup.runtime.*;
         \" { string.setLength(0); yybegin(REGEX_STRING); }
 
         /* BRACES */
-        "{" { yybegin(SET_REFERENCE);  return symbol(OLCParserSym.LBRACE); }
+        "{" { yybegin(SET_REFERENCE);  return symbol(OLCParserSym.LBRACE, yytext()); }
 
         /* DIGIT */
         {Digit} { yybegin(SET_OPERATOR); return symbol(OLCParserSym.DIGIT, Integer.valueOf(yytext())); }
@@ -190,7 +190,7 @@ import java_cup.runtime.*;
 
     <SET_REFERENCE> {
         /* RBRACE */
-        "}" { yybegin(REGEX_EXPRESSION); return symbol(OLCParserSym.RBRACE); }
+        "}" { yybegin(REGEX_EXPRESSION); return symbol(OLCParserSym.RBRACE, yytext()); }
 
         /* IDENTIFIERS */
         {Identifier} { return symbol(OLCParserSym.IDENTIFIER, yytext()); }
@@ -229,28 +229,28 @@ import java_cup.runtime.*;
     /* -- NO SCOPED TOKENS -- */
 
     /* BRACES */
-    "{" { return symbol(OLCParserSym.LBRACE); }
-    "}" { return symbol(OLCParserSym.RBRACE); }
+    "{" { return symbol(OLCParserSym.LBRACE, yytext()); }
+    "}" { return symbol(OLCParserSym.RBRACE, yytext()); }
 
     /* COLON */
-    ":" { return symbol(OLCParserSym.COLON); }
+    ":" { return symbol(OLCParserSym.COLON, yytext()); }
 
     /* SEMICOLON */
-    ";" { return symbol(OLCParserSym.SEMICOLON); }
+    ";" { return symbol(OLCParserSym.SEMICOLON, yytext()); }
 
     /* ARROW */
-    "->" { return symbol(OLCParserSym.ARROW); }
+    "->" { return symbol(OLCParserSym.ARROW, yytext()); }
 
     /* SCOPE BREAK */
-    "%%" { return symbol(OLCParserSym.SCOPE_BREAK); }
+    "%%" { return symbol(OLCParserSym.SCOPE_BREAK, yytext()); }
 
     /* -- SET NOTATION -- */
 
     /* TILDE */
-    "~" { return symbol(OLCParserSym.TILDE); }
+    "~" { return symbol(OLCParserSym.TILDE, yytext()); }
 
     /* COMMA */
-    "," { return symbol(OLCParserSym.COMMA); }
+    "," { return symbol(OLCParserSym.COMMA, yytext()); }
 
     /* DIGIT */
     {Digit} { return symbol(OLCParserSym.DIGIT, Integer.valueOf(yytext())); }
@@ -267,33 +267,33 @@ import java_cup.runtime.*;
     /* -- REGEX NOTATION -- */
 
     /* AND */
-    "." { return symbol(OLCParserSym.AND); }
+    "." { return symbol(OLCParserSym.AND, yytext()); }
 
     /* OR */
-    "|" { return symbol(OLCParserSym.OR); }
+    "|" { return symbol(OLCParserSym.OR, yytext()); }
 
     /* KLEENE */
-    "*" { return symbol(OLCParserSym.KLEENE); }
+    "*" { return symbol(OLCParserSym.KLEENE, yytext()); }
 
     /* PLUS */
-    "+" { return symbol(OLCParserSym.PLUS); }
+    "+" { return symbol(OLCParserSym.PLUS, yytext()); }
 
     /* QUESTION */
-    "?" { return symbol(OLCParserSym.QUESTION); }
+    "?" { return symbol(OLCParserSym.QUESTION, yytext()); }
 
     /* WORD */
-    {Word} { return symbol(OLCParserSym.WORD, yytext()); }
+    {Word} { return symbol(OLCParserSym.WORD, yytext(), yytext()); }
 
     /* -- ESCAPED CHARACTERS -- */
 
     /* LINEBREAK */
-    "\\n" { return symbol(OLCParserSym.ESCAPED_LINEBREAK); }
+    "\\n" { return symbol(OLCParserSym.ESCAPED_LINEBREAK, yytext()); }
 
     /* SINGLE QUOTE */
-    "\\'" { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE); }
+    "\\'" { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE, yytext()); }
 
     /* DOUBLE QUOTE */
-    "\\\"" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE); }
+    "\\\"" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE, yytext()); }
 
     /* error fallback */
     [^]                              { return symbol(OLCParserSym.LEXICAL_ERROR, yytext()); }

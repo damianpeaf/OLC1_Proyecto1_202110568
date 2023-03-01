@@ -4,6 +4,8 @@ import OLCCompiler.Tree.*;
 import OLCCompiler.Error.*;
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import java.util.List;
+
 
 class OLCParser;
 
@@ -25,8 +27,25 @@ parser code {:
       if(s.sym == OLCParserSym.LEXICAL_ERROR){
         errorTable.add(new OLCError(ErrorType.LEXIC, s));
       }else{
+        List<Integer> ids = expected_token_ids();
+
+        if(ids.size() > 0){
+         ArrayList<String> expected = new ArrayList<String>();
+            for(int i = 0; i < ids.size(); i++){
+                expected.add(symbl_name_from_id(ids.get(i)));
+            }
+            errorTable.add(new OLCError(ErrorType.SYNTAX, s, expected));
+            return;
+        }
+
         errorTable.add(new OLCError(ErrorType.SYNTAX, s));
       }
+   }
+
+
+   protected int error_sync_size() {
+   // !
+       return 1;
    }
 
 :};
@@ -92,6 +111,8 @@ nonterminal Node regex_term;
 
 
 /* -- GRAMATICAL RULES -- */
+
+start with program;
 
 // INITIAL RULES
 program ::= LBRACE scopes RBRACE;

@@ -29,6 +29,7 @@ public class Compiler {
 
             return true;
         }catch (Exception e){
+            this.parser.errorTable.html("errores");
             return false;
         }
     }

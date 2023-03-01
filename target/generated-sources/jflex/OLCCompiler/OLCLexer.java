@@ -349,14 +349,14 @@ public class OLCLexer implements java_cup.runtime.Scanner {
     "\1\13\1\14\1\15\1\2\1\16\2\15\1\17\1\20"+
     "\1\3\1\21\1\20\4\22\1\23\1\22\1\24\2\22"+
     "\1\25\1\26\1\27\1\3\1\30\1\31\1\3\1\32"+
-    "\1\33\1\34\1\35\1\36\1\37\1\40\1\41\1\42"+
-    "\1\43\1\44\1\45\1\46\1\2\1\0\1\4\1\47"+
-    "\1\50\1\51\1\15\1\52\1\53\1\54\1\55\1\56"+
-    "\1\57\2\0\1\4\2\15\1\0\1\2\1\60\1\15"+
-    "\1\2";
+    "\1\33\1\34\1\35\1\36\1\37\1\23\1\40\1\41"+
+    "\1\42\1\43\1\44\1\45\1\46\1\47\1\2\1\0"+
+    "\1\4\1\50\1\51\1\52\1\15\1\53\1\54\1\55"+
+    "\1\56\1\57\1\60\2\0\1\4\2\15\1\0\1\2"+
+    "\1\61\1\15\1\2";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[92];
+    int [] result = new int[94];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -388,14 +388,14 @@ public class OLCLexer implements java_cup.runtime.Scanner {
     "\0\u01a4\0\u039c\0\u03c6\0\u03f0\0\u041a\0\u0444\0\u01a4\0\u046e"+
     "\0\u01a4\0\u0222\0\u024c\0\u0276\0\u02a0\0\u02ca\0\u02a0\0\u0348"+
     "\0\u02a0\0\u02a0\0\u01a4\0\u02a0\0\u02a0\0\u02a0\0\u01a4\0\u0498"+
-    "\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u01a4"+
-    "\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u04c2\0\u04ec\0\u0516"+
-    "\0\u01a4\0\u01a4\0\u01a4\0\u0540\0\u01a4\0\u01a4\0\u01a4\0\u01a4"+
-    "\0\u01a4\0\u01a4\0\u056a\0\u0594\0\u05be\0\u05e8\0\u0612\0\u063c"+
-    "\0\u056a\0\u02f4\0\u0666\0\u05e8";
+    "\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u04c2\0\u01a4"+
+    "\0\u04c2\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u04ec"+
+    "\0\u0516\0\u0540\0\u01a4\0\u01a4\0\u01a4\0\u056a\0\u01a4\0\u01a4"+
+    "\0\u01a4\0\u01a4\0\u01a4\0\u01a4\0\u0594\0\u05be\0\u05e8\0\u0612"+
+    "\0\u063c\0\u0666\0\u0594\0\u02f4\0\u0690\0\u0612";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[92];
+    int [] result = new int[94];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -441,45 +441,46 @@ public class OLCLexer implements java_cup.runtime.Scanner {
     "\2\16\5\64\1\32\1\65\4\66\1\33\1\16\1\34"+
     "\1\35\1\13\3\36\1\13\2\14\1\13\1\15\1\16"+
     "\1\73\2\16\1\20\1\16\1\74\1\75\1\21\1\22"+
-    "\1\76\1\23\1\55\1\25\1\26\1\27\1\16\1\77"+
-    "\5\36\1\32\5\36\1\100\1\101\1\34\1\35\1\13"+
-    "\3\36\1\37\1\40\1\14\1\37\1\15\1\37\1\102"+
+    "\1\76\1\23\1\77\1\25\1\26\1\27\1\16\1\100"+
+    "\5\101\1\32\5\101\1\102\1\103\1\34\1\35\1\13"+
+    "\3\101\1\37\1\40\1\14\1\37\1\15\1\37\1\104"+
     "\11\37\1\42\3\37\1\43\7\37\1\44\15\37\1\13"+
     "\2\14\1\13\1\15\3\16\1\45\1\20\3\16\1\21"+
     "\1\22\1\16\1\23\1\24\1\25\1\47\1\27\2\16"+
-    "\5\50\1\32\5\50\1\33\1\16\1\103\1\35\1\45"+
+    "\5\50\1\32\5\50\1\33\1\16\1\105\1\35\1\45"+
     "\1\50\2\36\54\0\1\14\47\0\1\17\7\0\1\17"+
     "\10\0\1\17\5\0\5\17\1\0\5\17\4\0\3\17"+
-    "\12\0\1\104\65\0\1\105\44\0\1\106\52\0\1\36"+
-    "\5\0\5\36\1\0\5\36\5\0\3\36\5\0\1\107"+
+    "\12\0\1\106\65\0\1\107\44\0\1\110\52\0\1\36"+
+    "\5\0\5\36\1\0\5\36\5\0\3\36\5\0\1\111"+
     "\44\0\1\17\7\0\1\17\10\0\1\30\5\0\5\30"+
     "\1\0\5\30\4\0\1\17\2\30\1\36\1\17\7\0"+
-    "\1\17\10\0\1\30\5\0\4\30\1\110\1\0\5\30"+
-    "\4\0\1\17\2\30\1\36\6\0\1\111\3\0\1\112"+
-    "\24\0\1\113\12\0\2\37\1\0\1\37\1\0\1\37"+
+    "\1\17\10\0\1\30\5\0\4\30\1\112\1\0\5\30"+
+    "\4\0\1\17\2\30\1\36\6\0\1\113\3\0\1\114"+
+    "\24\0\1\115\12\0\2\37\1\0\1\37\1\0\1\37"+
     "\1\0\25\37\1\0\17\37\1\0\1\37\1\0\1\37"+
-    "\1\0\11\37\1\106\13\37\1\0\17\37\1\0\1\37"+
-    "\1\0\1\114\1\0\25\37\1\0\15\37\6\0\1\115"+
-    "\3\0\1\112\24\0\1\116\1\117\1\120\10\0\1\45"+
+    "\1\0\11\37\1\110\13\37\1\0\17\37\1\0\1\37"+
+    "\1\0\1\116\1\0\25\37\1\0\15\37\6\0\1\117"+
+    "\3\0\1\114\24\0\1\120\1\121\1\122\10\0\1\45"+
     "\7\0\1\45\10\0\1\45\5\0\5\45\1\0\5\45"+
-    "\4\0\3\45\26\0\1\121\24\0\1\45\7\0\1\45"+
+    "\4\0\3\45\26\0\1\123\24\0\1\45\7\0\1\45"+
     "\10\0\1\50\5\0\5\50\1\0\5\50\4\0\1\45"+
-    "\2\50\1\36\25\0\1\122\24\0\2\106\1\14\1\106"+
-    "\1\15\45\106\5\123\1\124\5\123\1\0\36\123\1\17"+
-    "\7\0\1\17\10\0\1\30\5\0\3\30\1\125\1\30"+
-    "\1\0\5\30\4\0\1\17\2\30\1\36\2\126\1\123"+
-    "\1\126\1\123\1\127\1\123\4\126\1\37\20\126\1\123"+
-    "\15\126\5\123\1\130\51\123\1\130\17\123\1\131\24\123"+
-    "\1\17\7\0\1\17\10\0\1\30\5\0\2\30\1\132"+
-    "\2\30\1\0\5\30\4\0\1\17\2\30\1\36\2\126"+
-    "\1\123\1\126\1\123\1\133\1\123\25\126\1\123\17\126"+
-    "\1\123\1\126\1\123\1\133\1\123\16\126\1\134\6\126"+
-    "\1\123\15\126\5\123\1\130\17\123\1\14\24\123\2\126"+
-    "\1\123\1\126\1\123\1\133\1\123\16\126\1\40\6\126"+
-    "\1\123\15\126";
+    "\2\50\1\36\25\0\1\124\45\0\1\101\5\0\5\101"+
+    "\1\0\5\101\5\0\3\101\2\110\1\14\1\110\1\15"+
+    "\45\110\5\125\1\126\5\125\1\0\36\125\1\17\7\0"+
+    "\1\17\10\0\1\30\5\0\3\30\1\127\1\30\1\0"+
+    "\5\30\4\0\1\17\2\30\1\36\2\130\1\125\1\130"+
+    "\1\125\1\131\1\125\4\130\1\37\20\130\1\125\15\130"+
+    "\5\125\1\132\51\125\1\132\17\125\1\133\24\125\1\17"+
+    "\7\0\1\17\10\0\1\30\5\0\2\30\1\134\2\30"+
+    "\1\0\5\30\4\0\1\17\2\30\1\36\2\130\1\125"+
+    "\1\130\1\125\1\135\1\125\25\130\1\125\17\130\1\125"+
+    "\1\130\1\125\1\135\1\125\16\130\1\136\6\130\1\125"+
+    "\15\130\5\125\1\132\17\125\1\14\24\125\2\130\1\125"+
+    "\1\130\1\125\1\135\1\125\16\130\1\40\6\130\1\125"+
+    "\15\130";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[1680];
+    int [] result = new int[1722];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -524,11 +525,12 @@ public class OLCLexer implements java_cup.runtime.Scanner {
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\12\0\2\11\1\1\1\11\2\1\1\11\3\1\2\11"+
     "\4\1\3\11\3\1\1\11\5\1\1\11\1\1\1\11"+
-    "\11\1\1\11\3\1\1\11\1\1\15\11\1\1\1\0"+
-    "\1\1\3\11\1\1\6\11\2\0\3\1\1\0\4\1";
+    "\11\1\1\11\3\1\1\11\1\1\6\11\1\1\1\11"+
+    "\1\1\6\11\1\1\1\0\1\1\3\11\1\1\6\11"+
+    "\2\0\3\1\1\0\4\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[92];
+    int [] result = new int[94];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -1043,244 +1045,249 @@ public class OLCLexer implements java_cup.runtime.Scanner {
             { return symbol(OLCParserSym.LEXICAL_ERROR, yytext());
             }
           // fall through
-          case 49: break;
+          case 50: break;
           case 2:
             { /* ignore */
             }
           // fall through
-          case 50: break;
+          case 51: break;
           case 3:
             { return symbol(OLCParserSym.ASCII, yytext());
             }
           // fall through
-          case 51: break;
+          case 52: break;
           case 4:
             { yybegin(REGEX); return symbol(OLCParserSym.IDENTIFIER, yytext());
             }
           // fall through
-          case 52: break;
+          case 53: break;
           case 5:
-            { return symbol(OLCParserSym.COMMA);
+            { return symbol(OLCParserSym.COMMA, yytext());
             }
           // fall through
-          case 53: break;
+          case 54: break;
           case 6:
             { return symbol(OLCParserSym.DIGIT, Integer.valueOf(yytext()));
             }
           // fall through
-          case 54: break;
-          case 7:
-            { return symbol(OLCParserSym.COLON);
-            }
-          // fall through
           case 55: break;
-          case 8:
-            { yybegin(YYINITIAL); return symbol(OLCParserSym.SEMICOLON);
+          case 7:
+            { return symbol(OLCParserSym.COLON, yytext());
             }
           // fall through
           case 56: break;
-          case 9:
-            { return symbol(OLCParserSym.LBRACE);
+          case 8:
+            { yybegin(YYINITIAL); return symbol(OLCParserSym.SEMICOLON, yytext());
             }
           // fall through
           case 57: break;
-          case 10:
-            { return symbol(OLCParserSym.RBRACE);
+          case 9:
+            { return symbol(OLCParserSym.LBRACE, yytext());
             }
           // fall through
           case 58: break;
-          case 11:
-            { return symbol(OLCParserSym.TILDE);
+          case 10:
+            { return symbol(OLCParserSym.RBRACE, yytext());
             }
           // fall through
           case 59: break;
+          case 11:
+            { return symbol(OLCParserSym.TILDE, yytext());
+            }
+          // fall through
+          case 60: break;
           case 12:
             { return symbol(OLCParserSym.WORD, yytext());
             }
           // fall through
-          case 60: break;
+          case 61: break;
           case 13:
             { string.append( yytext() );
             }
           // fall through
-          case 61: break;
+          case 62: break;
           case 14:
             { yybegin(YYINITIAL);
              return symbol(OLCParserSym.STRING_LITERAL, string.toString());
             }
           // fall through
-          case 62: break;
+          case 63: break;
           case 15:
             { string.append('\\');
             }
           // fall through
-          case 63: break;
+          case 64: break;
           case 16:
             { return symbol(OLCParserSym.IDENTIFIER, yytext());
             }
           // fall through
-          case 64: break;
+          case 65: break;
           case 17:
-            { return symbol(OLCParserSym.SEMICOLON);
+            { return symbol(OLCParserSym.SEMICOLON, yytext());
             }
           // fall through
-          case 65: break;
+          case 66: break;
           case 18:
             { yybegin(SET_OPERATOR); return symbol(OLCParserSym.ASCII, yytext());
             }
           // fall through
-          case 66: break;
+          case 67: break;
           case 19:
             { yybegin(SET_OPERATOR); return symbol(OLCParserSym.DIGIT, Integer.valueOf(yytext()));
             }
           // fall through
-          case 67: break;
+          case 68: break;
           case 20:
             { yybegin(SET_OPERATOR); return symbol(OLCParserSym.UPPERCASE, yytext());
             }
           // fall through
-          case 68: break;
+          case 69: break;
           case 21:
             { yybegin(SET_OPERATOR); return symbol(OLCParserSym.LOWERCASE, yytext());
             }
           // fall through
-          case 69: break;
+          case 70: break;
           case 22:
-            { yybegin(SET_ELEMENT); return symbol(OLCParserSym.COMMA);
+            { yybegin(SET_ELEMENT); return symbol(OLCParserSym.COMMA, yytext());
             }
           // fall through
-          case 70: break;
+          case 71: break;
           case 23:
             { return symbol(OLCParserSym.UPPERCASE, yytext());
             }
           // fall through
-          case 71: break;
+          case 72: break;
           case 24:
             { return symbol(OLCParserSym.LOWERCASE, yytext());
             }
           // fall through
-          case 72: break;
-          case 25:
-            { yybegin(SET_ELEMENT); return symbol(OLCParserSym.TILDE);
-            }
-          // fall through
           case 73: break;
-          case 26:
-            { yybegin(REGEX_TEST); return symbol(OLCParserSym.COLON);
+          case 25:
+            { yybegin(SET_ELEMENT); return symbol(OLCParserSym.TILDE, yytext());
             }
           // fall through
           case 74: break;
+          case 26:
+            { yybegin(REGEX_TEST); return symbol(OLCParserSym.COLON, yytext());
+            }
+          // fall through
+          case 75: break;
           case 27:
             { string.setLength(0); yybegin(STRING);
             }
           // fall through
-          case 75: break;
+          case 76: break;
           case 28:
             { string.setLength(0); yybegin(REGEX_STRING);
             }
           // fall through
-          case 76: break;
-          case 29:
-            { return symbol(OLCParserSym.KLEENE);
-            }
-          // fall through
           case 77: break;
-          case 30:
-            { return symbol(OLCParserSym.PLUS);
+          case 29:
+            { return symbol(OLCParserSym.KLEENE, yytext());
             }
           // fall through
           case 78: break;
-          case 31:
-            { return symbol(OLCParserSym.AND);
+          case 30:
+            { return symbol(OLCParserSym.PLUS, yytext());
             }
           // fall through
           case 79: break;
-          case 32:
-            { return symbol(OLCParserSym.QUESTION);
+          case 31:
+            { return symbol(OLCParserSym.AND, yytext());
             }
           // fall through
           case 80: break;
-          case 33:
-            { yybegin(SET_REFERENCE);  return symbol(OLCParserSym.LBRACE);
+          case 32:
+            { return symbol(OLCParserSym.QUESTION, yytext());
             }
           // fall through
           case 81: break;
-          case 34:
-            { return symbol(OLCParserSym.OR);
+          case 33:
+            { return symbol(OLCParserSym.WORD, yytext());
             }
           // fall through
           case 82: break;
+          case 34:
+            { yybegin(SET_REFERENCE);  return symbol(OLCParserSym.LBRACE, yytext());
+            }
+          // fall through
+          case 83: break;
           case 35:
+            { return symbol(OLCParserSym.OR, yytext());
+            }
+          // fall through
+          case 84: break;
+          case 36:
             { yybegin(REGEX_EXPRESSION);
              return symbol(OLCParserSym.STRING_LITERAL, string.toString());
             }
           // fall through
-          case 83: break;
-          case 36:
-            { yybegin(REGEX_EXPRESSION); return symbol(OLCParserSym.RBRACE);
-            }
-          // fall through
-          case 84: break;
-          case 37:
-            { return symbol(OLCParserSym.SCOPE_BREAK);
-            }
-          // fall through
           case 85: break;
-          case 38:
-            { return symbol(OLCParserSym.ARROW);
+          case 37:
+            { yybegin(REGEX_EXPRESSION); return symbol(OLCParserSym.RBRACE, yytext());
             }
           // fall through
           case 86: break;
-          case 39:
-            { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE);
+          case 38:
+            { return symbol(OLCParserSym.SCOPE_BREAK, yytext());
             }
           // fall through
           case 87: break;
-          case 40:
-            { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE);
+          case 39:
+            { return symbol(OLCParserSym.ARROW, yytext());
             }
           // fall through
           case 88: break;
-          case 41:
-            { return symbol(OLCParserSym.ESCAPED_LINEBREAK);
+          case 40:
+            { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE, yytext());
             }
           // fall through
           case 89: break;
-          case 42:
-            { string.append('\"');
+          case 41:
+            { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE, yytext());
             }
           // fall through
           case 90: break;
-          case 43:
-            { string.append('\n');
+          case 42:
+            { return symbol(OLCParserSym.ESCAPED_LINEBREAK, yytext());
             }
           // fall through
           case 91: break;
-          case 44:
-            { string.append('\r');
+          case 43:
+            { string.append('\"');
             }
           // fall through
           case 92: break;
-          case 45:
-            { string.append('\t');
+          case 44:
+            { string.append('\n');
             }
           // fall through
           case 93: break;
-          case 46:
-            { yybegin(SET_ELEMENT);  return symbol(OLCParserSym.ARROW);
+          case 45:
+            { string.append('\r');
             }
           // fall through
           case 94: break;
-          case 47:
-            { yybegin(REGEX_EXPRESSION);  return symbol(OLCParserSym.ARROW);
+          case 46:
+            { string.append('\t');
             }
           // fall through
           case 95: break;
-          case 48:
-            { yybegin(SET); return symbol(OLCParserSym.SET_DECLARATION);
+          case 47:
+            { yybegin(SET_ELEMENT);  return symbol(OLCParserSym.ARROW, yytext());
             }
           // fall through
           case 96: break;
+          case 48:
+            { yybegin(REGEX_EXPRESSION);  return symbol(OLCParserSym.ARROW, yytext());
+            }
+          // fall through
+          case 97: break;
+          case 49:
+            { yybegin(SET); return symbol(OLCParserSym.SET_DECLARATION, yytext());
+            }
+          // fall through
+          case 98: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

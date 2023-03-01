@@ -1,6 +1,8 @@
 
 package Views;
 
+import OLCCompiler.Compiler;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.undo.UndoManager;
@@ -14,6 +16,7 @@ public class MainAppView extends javax.swing.JFrame {
 
     private String currentFilePath = null;
     private boolean isSaved = true;
+    private Compiler compiler = new Compiler();
 
 
     public MainAppView() {
@@ -268,6 +271,13 @@ public class MainAppView extends javax.swing.JFrame {
 
     private void generateAutomataBtn1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        boolean result = compiler.generateAutomatas(codeEditor.getText());
+
+        if(result) {
+            this.consoleArea.setText("Automatas generados correctamente");
+        }else{
+            this.consoleArea.setText("Error al generar los automatas");
+        }
     }
 
     private void generateAutomataBtnActionPerformed(java.awt.event.ActionEvent evt) {
