@@ -2,6 +2,7 @@
 package Views;
 
 import OLCCompiler.Compiler;
+import OLCCompiler.Exception.EvaluationException;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -38,8 +39,8 @@ public class MainAppView extends javax.swing.JFrame {
         consoleArea = new javax.swing.JTextArea();
         editorLabel = new javax.swing.JLabel();
         consoleLabel = new javax.swing.JLabel();
-        generateAutomataBtn = new javax.swing.JToggleButton();
-        generateAutomataBtn1 = new javax.swing.JToggleButton();
+        evaluateStringButton = new javax.swing.JToggleButton();
+        generateAutomataButton = new javax.swing.JToggleButton();
         fileMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileMenuOpenItem = new javax.swing.JMenuItem();
@@ -108,19 +109,19 @@ public class MainAppView extends javax.swing.JFrame {
         consoleLabel.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         consoleLabel.setText("Consola");
 
-        generateAutomataBtn.setBackground(new java.awt.Color(101, 143, 189));
-        generateAutomataBtn.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        generateAutomataBtn.setText("Analizar entrada");
-        generateAutomataBtn.addActionListener(new java.awt.event.ActionListener() {
+        evaluateStringButton.setBackground(new java.awt.Color(101, 143, 189));
+        evaluateStringButton.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        evaluateStringButton.setText("Analizar entrada");
+        evaluateStringButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generateAutomataBtnActionPerformed(evt);
             }
         });
 
-        generateAutomataBtn1.setBackground(new java.awt.Color(102, 189, 120));
-        generateAutomataBtn1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        generateAutomataBtn1.setText("Generar Automata");
-        generateAutomataBtn1.addActionListener(new java.awt.event.ActionListener() {
+        generateAutomataButton.setBackground(new java.awt.Color(102, 189, 120));
+        generateAutomataButton.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        generateAutomataButton.setText("Generar Automata");
+        generateAutomataButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generateAutomataBtn1ActionPerformed(evt);
             }
@@ -182,9 +183,9 @@ public class MainAppView extends javax.swing.JFrame {
                                                 .addGap(26, 26, 26))))
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(75, 75, 75)
-                                .addComponent(generateAutomataBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(generateAutomataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(107, 107, 107)
-                                .addComponent(generateAutomataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(evaluateStringButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -198,8 +199,8 @@ public class MainAppView extends javax.swing.JFrame {
                                         .addComponent(codeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
                                 .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(generateAutomataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(generateAutomataBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(evaluateStringButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(generateAutomataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                                 .addComponent(consoleLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -275,8 +276,15 @@ public class MainAppView extends javax.swing.JFrame {
         this.consoleArea.setText(message);
     }
 
+    // evaluate string button
     private void generateAutomataBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        try {
+            String message = compiler.evalEntry(codeEditor.getText());
+            this.consoleArea.setText(message);
+
+        } catch (EvaluationException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void codeEditorKeyPressed(java.awt.event.KeyEvent evt) {
@@ -331,8 +339,8 @@ public class MainAppView extends javax.swing.JFrame {
     private javax.swing.JMenuItem fileMenuOpenItem;
     private javax.swing.JMenuItem fileMenuSaveAsItem;
     private javax.swing.JMenuItem fileMenuSaveItem;
-    private javax.swing.JToggleButton generateAutomataBtn;
-    private javax.swing.JToggleButton generateAutomataBtn1;
+    private javax.swing.JToggleButton evaluateStringButton;
+    private javax.swing.JToggleButton generateAutomataButton;
     private javax.swing.JTabbedPane reportsTabbedPane;
     private javax.swing.JFileChooser openFileChooser;
     private javax.swing.JFileChooser saveFileChooser;

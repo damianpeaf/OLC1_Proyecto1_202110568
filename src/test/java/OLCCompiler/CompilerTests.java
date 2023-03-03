@@ -36,11 +36,6 @@ public class CompilerTests {
 
         for (RegexTree treeReference: parser.regexTrees) {
             treeReference.make();
-            treeReference.graphviz();
-            treeReference.dfa.graphviz();
-            treeReference.nextTable.print();
-            treeReference.transitionTable.print();
-            treeReference.ndfa.graphviz();
         }
 
     }
@@ -62,6 +57,13 @@ public class CompilerTests {
 
             System.out.println(Character.toString((char) i));
         }
+
+    }
+
+    @Test
+    public void testEscaped(){
+        String s = "\"";
+
 
     }
 

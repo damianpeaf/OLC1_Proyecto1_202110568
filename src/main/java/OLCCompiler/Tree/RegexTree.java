@@ -54,7 +54,7 @@ public class RegexTree {
 
     public void make() {
 
-        this.nextTable = new NextTable();
+        this.nextTable = new NextTable(this.name);
         this.tokens = new HashMap<Integer, Object>();
 
         makeAnullable(this.rootNode);
@@ -62,13 +62,22 @@ public class RegexTree {
         makeTokens(this.rootNode);
         makeNext(this.rootNode);
 
-        this.transitionTable = new TransitionTable(this.nextTable, this.rootNode.firstPos, this.nextTable.getAcceptanceNode(), this.tokens);
+        this.transitionTable = new TransitionTable(this.nextTable, this.rootNode.firstPos, this.nextTable.getAcceptanceNode(), this.tokens, this.name);
         this.dfa = new DFA(this.transitionTable.transitions, this.transitionTable.states, this.name);
 
         this.ndfa = this.makeThompson(this.rootNode.left);
         this.ndfa.finalState.isAcceptace = true;
         this.ndfa.name = this.name;
 
+        this.generateReports();
+    }
+
+    private void generateReports(){
+        this.graphviz();
+        this.nextTable.graphviz();
+        this.transitionTable.graphviz();
+        this.dfa.graphviz();
+        this.ndfa.graphviz();
     }
 
     private void declareGraphvizNodes(Node node, PrintWriter out) {
@@ -217,7 +226,7 @@ public class RegexTree {
                 this.nextTable.addNext(node.number, this.tokens.get(node.number), null);
             }
 
-            // POSTORDER RECURSIVE CALLS
+            // ? POSTORDER RECURSIVE CALLS
             if (node.left != null) {
                 makeNext(node.left);
             }
@@ -251,7 +260,7 @@ public class RegexTree {
         if (node.type.equals(NodeType.NODE_I)) {
             mainNdfa.nodei(this.tokens.get(node.number));
             return mainNdfa;
-        }else if (node.type.equals(NodeType.NODE_AND)) { // && leftNdfa != null && rightNdfa != null
+        }else if (node.type.equals(NodeType.NODE_AND)) {
             mainNdfa.concat(leftNdfa, rightNdfa);
             return mainNdfa;
         }else if(node.type.equals(NodeType.NODE_OR)) {

@@ -1,5 +1,7 @@
 package OLCCompiler.DFA;
 
+import OLCCompiler.Set.SetReference;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,9 +22,33 @@ public class DFA {
     }
 
     public boolean evalString (String evalStr){
-        // TODO: Implement
+
+        // Get the initial state
+        State currentState = this.states.get(0);
+
+        for (char evalChar: evalStr.toCharArray()) {
+
+            // Get the next state with the current eval char
+            currentState = this.getNextState(currentState, evalChar);
+
+            // If the next state is null, the string is not accepted
+            if (currentState == null) return false;
+        }
+
+        // If the current state is an acceptance state (After reading the whole string), the string is accepted
+        if (currentState.isAcceptace) return true;
 
         return false;
+    }
+
+    public State getNextState(State state, char evalChar){
+        for (Transition t: this.transitions) {
+            if (t.prevState == state){
+                if(t.token instanceof String && t.token.toString().equals(String.valueOf(evalChar))) return t.nextState;
+                if(t.token instanceof SetReference && ((SetReference) t.token).getSet().getElements().contains(String.valueOf(evalChar))) return t.nextState;
+            }
+        }
+        return null;
     }
 
     public void graphviz(){

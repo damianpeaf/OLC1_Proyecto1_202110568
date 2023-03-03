@@ -162,13 +162,14 @@ import java_cup.runtime.*;
         /* -- ESCAPED CHARACTERS -- */
 
         /* LINEBREAK */
-        "\\n" { return symbol(OLCParserSym.ESCAPED_LINEBREAK, yytext()); }
+        \\n { return symbol(OLCParserSym.ESCAPED_LINEBREAK, "\n"); }
 
         /* SINGLE QUOTE */
-        "\\'" { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE, yytext()); }
+        \\' { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE, "\'"); }
 
         /* DOUBLE QUOTE */
-        "\\\"" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE, yytext()); }
+        \\\" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE, "\""); }
+
 
         /* SEMICOLON */
         ";" { yybegin(YYINITIAL); return symbol(OLCParserSym.SEMICOLON, yytext()); }
@@ -203,12 +204,12 @@ import java_cup.runtime.*;
            }
 
         [^\n\r\"\\]+                   { string.append( yytext() ); }
-        \\t                            { string.append('\t'); }
-        \\n                            { string.append('\n'); }
+        \\t                            { string.append("\t"); }
+        \\n                            { string.append("\n"); }
 
-        \\r                            { string.append('\r'); }
-        \\\"                           { string.append('\"'); }
-        \\                             { string.append('\\'); }
+        \\r                            { string.append("\r"); }
+        \\\"                           { string.append("\""); }
+        \\'                             { string.append("\\"); }
     }
 
     <STRING> {
@@ -218,12 +219,12 @@ import java_cup.runtime.*;
            }
 
         [^\n\r\"\\]+                   { string.append( yytext() ); }
-        \\t                            { string.append('\t'); }
-        \\n                            { string.append('\n'); }
+        \\t                            { string.append("\t"); }
+        \\n                            { string.append("\n"); }
 
-        \\r                            { string.append('\r'); }
-        \\\"                           { string.append('\"'); }
-        \\                             { string.append('\\'); }
+        \\r                            { string.append("\r"); }
+        \\\"                           { string.append("\""); }
+        \\'                             { string.append("\\"); }
     }
 
     /* -- NO SCOPED TOKENS -- */
@@ -282,18 +283,18 @@ import java_cup.runtime.*;
     "?" { return symbol(OLCParserSym.QUESTION, yytext()); }
 
     /* WORD */
-    {Word} { return symbol(OLCParserSym.WORD, yytext(), yytext()); }
+    {Word} { return symbol(OLCParserSym.WORD, yytext()); }
 
     /* -- ESCAPED CHARACTERS -- */
 
     /* LINEBREAK */
-    "\\n" { return symbol(OLCParserSym.ESCAPED_LINEBREAK, yytext()); }
+    \\n { return symbol(OLCParserSym.ESCAPED_LINEBREAK, "\n"); }
 
     /* SINGLE QUOTE */
-    "\\'" { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE, yytext()); }
+    \\' { return symbol(OLCParserSym.ESCAPED_SINGLE_QUOTE, "\'"); }
 
     /* DOUBLE QUOTE */
-    "\\\"" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE, yytext()); }
+    \\\" { return symbol(OLCParserSym.ESCAPED_DOUBLE_QUOTE, "\""); }
 
     /* error fallback */
     [^]                              { return symbol(OLCParserSym.LEXICAL_ERROR, yytext()); }

@@ -1,7 +1,10 @@
 package OLCCompiler;
 
 import OLCCompiler.Error.ErrorTable;
+import OLCCompiler.Exception.EvaluationException;
 import OLCCompiler.Set.Set;
+import OLCCompiler.Tree.Evaluation;
+import OLCCompiler.Tree.EvaluationReport;
 import OLCCompiler.Tree.RegexTree;
 
 import java.io.StringReader;
@@ -24,9 +27,6 @@ public class Compiler {
 
             for (RegexTree treeReference: parser.regexTrees) {
                 treeReference.make();
-                treeReference.graphviz();
-                treeReference.dfa.graphviz();
-                treeReference.ndfa.graphviz();
             }
 
             if(parser.errorTable.errors.size() > 0){
@@ -43,23 +43,38 @@ public class Compiler {
     }
 
 
-    public String evalEntry(String entry){
+    public String evalEntry(String entry) throws EvaluationException {
 
-        if(this.parser == null || this.lexer == null){
-            return "No se ha generado los autómatas.";
+        if(this.parser == null || (this.parser != null && this.parser.regexTrees.size() == 0)){
+            throw new EvaluationException("No se han generado los autómatas.");
         }
 
-        if(this.parser.errorTable.errors.size() > 0){
-            return "No se han generado los autómatas correctamente. Ver reporte de errores.";
+        // UPDATE AUTOMATAS ?
+        this.generateAutomatas(entry);
+
+        for (Evaluation e: parser.evaluationStrings) {
+            e.getTreeReference();
         }
 
-        //TODO: validate eval refs
+        if(parser.errorTable.errors.size() > 0){
+            this.parser.errorTable.html("errores");
+            return "Hubo errores durante la ejecución. Ver reporte de errores.";
+        }
 
-        //TODO eval entry
+        EvaluationReport report = new EvaluationReport();
+        for (Evaluation e: parser.evaluationStrings) {
+            e.evaluate();
+            report.add(e);
+        }
 
+        report.json("salida");
+
+        this.parser.errorTable.html("errores");
         return "Entrada evaluada con éxito.";
     }
     public ErrorTable getErrors(){
         return this.parser.errorTable;
     }
 }
+
+

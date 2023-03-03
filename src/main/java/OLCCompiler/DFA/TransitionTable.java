@@ -13,9 +13,12 @@ public class TransitionTable {
     public State initialState;
     private Integer acceptanceNode;
     private Map<Integer, Object> tokens;
+    
+    private final String baseReportPath = "src/reports/TRANSICIONES_202110568";
+    private final String reportPath;
+    private String name;
 
-
-    public TransitionTable(NextTable nextTable, Set<Integer> initialStateNext, Integer acceptanceNode, Map<Integer, Object> tokens){
+    public TransitionTable(NextTable nextTable, Set<Integer> initialStateNext, Integer acceptanceNode, Map<Integer, Object> tokens, String name){
         this.transitions = new ArrayList<Transition>();
         this.states = new ArrayList<State>();
         this.nextTable = nextTable;
@@ -23,6 +26,9 @@ public class TransitionTable {
         this.acceptanceNode = acceptanceNode;
         this.tokens = tokens;
         this.initialState = this.makeNode(initialStateNext);
+
+        this.name = name;
+        this.reportPath = this.baseReportPath + "/" + this.name;
     }
 
     private State makeNode(Set<Integer> nextSet){
@@ -98,50 +104,67 @@ public class TransitionTable {
         }
     }
 
+    public void graphviz (){
 
-    public void print(){
+        try (PrintWriter out = new PrintWriter(new File(this.reportPath+ ".dot"))) {
+            out.write("graph G {");
 
-        // GET TERMINALS
-        Set<String> terminals = new HashSet<>();
-        for (Map.Entry<Integer, Object> entry: this.tokens.entrySet()) {
+            out.write("rankdir=LR;");
+            out.write("node [shape = plaintext];");
 
-            if (entry.getKey().equals(this.acceptanceNode)) {
-                continue;
+            out.write("nextTable [");
+            out.write("label = <");
+            out.write("<table border=\"0\" cellborder=\"1\" cellspacing=\"0\">");
+
+            // GET TERMINALS
+            Set<String> terminals = new HashSet<>();
+            for (Map.Entry<Integer, Object> entry: this.tokens.entrySet()) {
+
+                if (entry.getKey().equals(this.acceptanceNode)) {
+                    continue;
+                }
+
+                terminals.add(entry.getValue().toString());
             }
 
-            terminals.add(entry.getValue().toString());
-        }
-
-        // PRINT ROW HEADERS
-
-        System.out.print("State\t");
-
-        for (String t: terminals) {
-            System.out.print(t + "\t");
-        }
-        System.out.println();
-
-
-        // PRINT TABLE
-
-        for (State s: this.states) {
-            System.out.print("S"+s.number + " " + s.nextSet + "\t\t");
-
+            // PRINT ROW HEADERS
+            out.write("<tr>");
+            out.write("<td>Estados</td>");
             for (String t: terminals) {
-                boolean found = false;
-                for (Transition tr: this.transitions) {
-                    if (tr.prevState.number == s.number && tr.token.toString().equals(t)) {
-                        System.out.print("S"+tr.nextState.number + "\t");
-                        found = true;
-                        break;
+                out.write("<td>"+t+"</td>");
+            }
+            out.write("</tr>");
+
+            // PRINT TABLE
+
+            for (State s: this.states) {
+                out.write("<tr>");
+                out.write("<td>S"+s.number + " " + s.nextSet + "</td>");
+
+                for (String t: terminals) {
+                    boolean found = false;
+                    for (Transition tr: this.transitions) {
+                        if (tr.prevState.number == s.number && tr.token.toString().equals(t)) {
+                            out.write("<td>S"+tr.nextState.number + "</td>");
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        out.write("<td></td>");
                     }
                 }
-                if (!found) {
-                    System.out.print("\t");
-                }
+
+                out.write("</tr>");
             }
 
-            System.out.println();
+            out.write("</table>");
+            out.write(">");
+            out.write("];");
+
+            out.write("}");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

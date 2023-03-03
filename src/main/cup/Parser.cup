@@ -93,8 +93,9 @@ non terminal program,
              regex_exprs,
              stmt_scope,
              eval_stmt,
-             eval_stmts,
-             escaped_sequence;
+             eval_stmts;
+
+non terminal String escaped_sequence;
 
 // SET DECLARATION
 nonterminal Set set;
@@ -118,9 +119,9 @@ start with program;
 program ::= LBRACE scopes RBRACE;
 
 scopes ::= decl_scope SCOPE_BREAK stmt_scope;
-escaped_sequence ::= ESCAPED_LINEBREAK
-                   | ESCAPED_SINGLE_QUOTE
-                   | ESCAPED_DOUBLE_QUOTE;
+escaped_sequence ::= ESCAPED_LINEBREAK:s {: RESULT = String.valueOf(s); :}
+                   | ESCAPED_SINGLE_QUOTE:s {: RESULT = String.valueOf(s); :}
+                   | ESCAPED_DOUBLE_QUOTE:s {: RESULT = String.valueOf(s); :};
 
 // DECLARATION SCOPE
 
@@ -190,13 +191,13 @@ regex_term ::= AND regex_term:nl regex_term:nr {: RESULT = new Node(operatorCoun
 regex_terminal ::= WORD:t {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
                  | DIGIT:t {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
                  | STRING_LITERAL:t {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
-                 | escaped_sequence:t {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
+                 | escaped_sequence:t {: System.out.println(t); RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
                  | set_refence:n {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, new SetReference(n, setsTable)); :};
 
 set_refence ::= LBRACE IDENTIFIER:n RBRACE {: RESULT = String.valueOf(n); :};
 
 // STATEMENT SCOPE
 stmt_scope ::= eval_stmt eval_stmts;
-eval_stmt ::= IDENTIFIER:n COLON STRING_LITERAL:s SEMICOLON {: evaluationStrings.add(new Evaluation(String.valueOf(n), String.valueOf(s)));  :};
+eval_stmt ::= IDENTIFIER:n COLON STRING_LITERAL:s SEMICOLON {: evaluationStrings.add(new Evaluation(String.valueOf(n), String.valueOf(s), regexTrees, errorTable));  :};
 eval_stmts ::= eval_stmt eval_stmts | ;
 

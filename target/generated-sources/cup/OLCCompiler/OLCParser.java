@@ -309,8 +309,11 @@ class CUP$OLCParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 3: // escaped_sequence ::= ESCAPED_LINEBREAK 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int sleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		Object s = (Object)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		 RESULT = String.valueOf(s); 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("escaped_sequence",12, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
@@ -318,8 +321,11 @@ class CUP$OLCParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 4: // escaped_sequence ::= ESCAPED_SINGLE_QUOTE 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int sleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		Object s = (Object)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		 RESULT = String.valueOf(s); 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("escaped_sequence",12, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
@@ -327,8 +333,11 @@ class CUP$OLCParser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 5: // escaped_sequence ::= ESCAPED_DOUBLE_QUOTE 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int sleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
+		int sright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
+		Object s = (Object)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		 RESULT = String.valueOf(s); 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("escaped_sequence",12, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
@@ -688,8 +697,8 @@ class CUP$OLCParser$actions {
               Node RESULT =null;
 		int tleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).left;
 		int tright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()).right;
-		Object t = (Object)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
-		 RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); 
+		String t = (String)((java_cup.runtime.Symbol) CUP$OLCParser$stack.peek()).value;
+		 System.out.println(t); RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); 
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("regex_terminal",19, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
@@ -737,7 +746,7 @@ class CUP$OLCParser$actions {
 		int sleft = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).right;
 		Object s = (Object)((java_cup.runtime.Symbol) CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-1)).value;
-		 evaluationStrings.add(new Evaluation(String.valueOf(n), String.valueOf(s)));  
+		 evaluationStrings.add(new Evaluation(String.valueOf(n), String.valueOf(s), regexTrees, errorTable));  
               CUP$OLCParser$result = parser.getSymbolFactory().newSymbol("eval_stmt",10, ((java_cup.runtime.Symbol)CUP$OLCParser$stack.elementAt(CUP$OLCParser$top-3)), ((java_cup.runtime.Symbol)CUP$OLCParser$stack.peek()), RESULT);
             }
           return CUP$OLCParser$result;
