@@ -1,6 +1,9 @@
 package OLCCompiler.DFA;
 
+import OLCCompiler.Utils.Graphviz;
+
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,11 +65,16 @@ public class NextTable {
         Collections.sort(this.nextTable, comparator);
     }
 
-    public void graphviz(){
+    public void graphviz() throws IOException {
 
         this.sort();
 
-        try (PrintWriter out = new PrintWriter(new File(this.reportPath+ ".dot"))) {
+        File dot = File.createTempFile("next_table", ".dot");
+        dot.deleteOnExit();
+
+        File image = new File(this.reportPath + ".png");
+
+        try (PrintWriter out = new PrintWriter(dot)) {
             out.write("graph G {");
 
             out.write("rankdir=LR;");
@@ -99,6 +107,7 @@ public class NextTable {
             e.printStackTrace();
         }
 
+        Graphviz.generatePng(dot, image);
     }
 
 }

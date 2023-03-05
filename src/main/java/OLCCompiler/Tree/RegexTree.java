@@ -9,8 +9,10 @@ import OLCCompiler.Error.OLCError;
 import OLCCompiler.NDFA.NDFA;
 import OLCCompiler.NDFA.State;
 import OLCCompiler.Set.SetReference;
+import OLCCompiler.Utils.Graphviz;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,7 +23,7 @@ public class RegexTree {
     public String name;
     public Node rootNode;
     private final String baseReportPath = "src/reports/ARBOLES_202110568";
-    private String reportPath;
+    public String reportPath;
     private ErrorTable errorTable;
 
     // TREE METHOD VARIABLES
@@ -41,8 +43,13 @@ public class RegexTree {
         this.errorTable = errorTable;
     }
 
-    public void graphviz() {
-        try (PrintWriter out = new PrintWriter(new File(this.reportPath+ ".dot"))) {
+    public void graphviz() throws IOException {
+
+        File dot = File.createTempFile("tree", ".dot");
+        dot.deleteOnExit();
+
+        File image = new File(this.reportPath +".png");
+        try (PrintWriter out = new PrintWriter(dot)) {
             out.write("graph G {");
             declareGraphvizNodes(this.rootNode, out);
             generateGraphvizNodesRelations(this.rootNode, out);
@@ -50,6 +57,8 @@ public class RegexTree {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Graphviz.generatePng(dot, image);
     }
 
     public void make() {
@@ -73,11 +82,15 @@ public class RegexTree {
     }
 
     private void generateReports(){
-        this.graphviz();
-        this.nextTable.graphviz();
-        this.transitionTable.graphviz();
-        this.dfa.graphviz();
-        this.ndfa.graphviz();
+        try {
+            this.graphviz();
+            this.nextTable.graphviz();
+            this.transitionTable.graphviz();
+            this.dfa.graphviz();
+            this.ndfa.graphviz();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void declareGraphvizNodes(Node node, PrintWriter out) {

@@ -1,8 +1,10 @@
 package OLCCompiler.DFA;
 
 import OLCCompiler.Set.SetReference;
+import OLCCompiler.Utils.Graphviz;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -12,7 +14,7 @@ public class DFA {
     public ArrayList<State> states;
     public String name;
     private final String baseReportPath = "src/reports/AFD_202110568";
-    private final String reportPath;
+    public String reportPath;
 
     public DFA(ArrayList<Transition> transitions, ArrayList<State> states, String name) {
         this.transitions = transitions;
@@ -51,8 +53,14 @@ public class DFA {
         return null;
     }
 
-    public void graphviz(){
-        try (PrintWriter out = new PrintWriter(new File(this.reportPath + ".dot"))) {
+    public void graphviz() throws IOException {
+
+        File dot = File.createTempFile("dfa", ".dot");
+        dot.deleteOnExit();
+
+        File image = new File(this.reportPath+".png");
+
+        try (PrintWriter out = new PrintWriter(dot)) {
 
             out.println("digraph automata {");
             out.println("rankdir=LR;");
@@ -74,6 +82,7 @@ public class DFA {
             e.printStackTrace();
         }
 
+        Graphviz.generatePng(dot, image);
     }
 
 }

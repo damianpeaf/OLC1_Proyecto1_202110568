@@ -1,7 +1,0 @@
-digraph automata {
-rankdir=LR;
-S0 [label="S0", shape="circle" ];
-S1 [label="S1", shape="doublecircle" ];
-S0 -> S1 [label="
-"];
-}

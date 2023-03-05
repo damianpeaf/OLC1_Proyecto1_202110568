@@ -1,6 +1,9 @@
 package OLCCompiler.NDFA;
 
+import OLCCompiler.Utils.Graphviz;
+
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -14,6 +17,7 @@ public class NDFA {
     public String name;
 
     private final String baseReportPath = "src/reports/AFND_202110568";
+    public String reporthPath;
 
     public NDFA() {
         this.transitions = new ArrayList<>();
@@ -172,8 +176,16 @@ public class NDFA {
         this.addTransition(initJoin, finalJoin, token);
     }
 
-    public void graphviz(){
-        try (PrintWriter out = new PrintWriter(new File(this.baseReportPath + "/"+ this.name + ".dot"))) {
+    public void graphviz() throws IOException {
+
+        File dot = File.createTempFile("ndfa",".dot");
+        dot.deleteOnExit();
+
+        this.reporthPath = this.baseReportPath+"/"+this.name;
+
+        File image = new File(this.reporthPath+".png");
+
+        try (PrintWriter out = new PrintWriter(dot)) {
 
             out.println("digraph automata {");
             out.println("rankdir=LR;");
@@ -194,6 +206,8 @@ public class NDFA {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Graphviz.generatePng(dot, image);
 
     }
 }

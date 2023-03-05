@@ -1,6 +1,9 @@
 package OLCCompiler.DFA;
 
+import OLCCompiler.Utils.Graphviz;
+
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -15,7 +18,7 @@ public class TransitionTable {
     private Map<Integer, Object> tokens;
     
     private final String baseReportPath = "src/reports/TRANSICIONES_202110568";
-    private final String reportPath;
+    public final String reportPath;
     private String name;
 
     public TransitionTable(NextTable nextTable, Set<Integer> initialStateNext, Integer acceptanceNode, Map<Integer, Object> tokens, String name){
@@ -104,9 +107,14 @@ public class TransitionTable {
         }
     }
 
-    public void graphviz (){
+    public void graphviz () throws IOException {
 
-        try (PrintWriter out = new PrintWriter(new File(this.reportPath+ ".dot"))) {
+        File dot = File.createTempFile("transition_table", ".dot");
+        dot.deleteOnExit();
+
+        File image = new File(this.reportPath + ".png");
+
+        try (PrintWriter out = new PrintWriter(dot)) {
             out.write("graph G {");
 
             out.write("rankdir=LR;");
@@ -134,8 +142,6 @@ public class TransitionTable {
                 out.write("<td>"+t+"</td>");
             }
             out.write("</tr>");
-
-            // PRINT TABLE
 
             for (State s: this.states) {
                 out.write("<tr>");
@@ -166,6 +172,8 @@ public class TransitionTable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Graphviz.generatePng(dot, image);
 
     }
 

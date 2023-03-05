@@ -24,9 +24,6 @@ public class MainAppView extends javax.swing.JFrame {
         initComponents();
     }
 
-    /**
-     * WARNING: Do NOT modify this code. The content of this method is always
-     */
     @SuppressWarnings("unchecked")
     private void initComponents() {
 

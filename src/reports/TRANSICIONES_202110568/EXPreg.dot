@@ -1,1 +1,0 @@
-graph G {rankdir=LR;node [shape = plaintext];nextTable [label = <<table border="0" cellborder="1" cellspacing="0"><tr><td>Estados</td><td>{letra}</td><td>2</td><td>{nums}</td></tr><tr><td>S0 [1, 2]</td><td>S1</td><td>S1</td><td></td></tr><tr><td>S1 [3, 4]</td><td></td><td></td><td>S1</td></tr></table>>];}

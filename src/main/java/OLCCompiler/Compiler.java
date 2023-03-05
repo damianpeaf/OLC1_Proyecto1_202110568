@@ -8,11 +8,14 @@ import OLCCompiler.Tree.EvaluationReport;
 import OLCCompiler.Tree.RegexTree;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 
 public class Compiler {
 
     private OLCLexer lexer = null;
     private OLCParser parser = null;
+
+    public ArrayList<RegexTree> generatedTrees = new ArrayList<RegexTree>();
 
     public String generateAutomatas(String entry){
         try {
@@ -35,6 +38,7 @@ public class Compiler {
             }
 
             this.parser.errorTable.html("errores");
+            this.generatedTrees = parser.regexTrees;
             return "Autómatas generados con éxito.";
         }catch (Exception e){
             this.parser.errorTable.html("errores");

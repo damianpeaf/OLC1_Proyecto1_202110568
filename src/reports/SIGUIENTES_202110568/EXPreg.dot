@@ -1,1 +1,0 @@
-graph G {rankdir=LR;node [shape = plaintext];nextTable [label = <<table border="0" cellborder="1" cellspacing="0"><tr><td>Token</td><td>Numero de nodo</td><td>Siguientes</td></tr><tr><td>{letra}</td><td>1</td><td>[3, 4]</td></tr><tr><td>2</td><td>2</td><td>[3, 4]</td></tr><tr><td>{nums}</td><td>3</td><td>[3, 4]</td></tr><tr><td>#</td><td>4</td><td>null</td></tr></table>>];}
