@@ -83,6 +83,7 @@ public class DFA {
         }
 
         Graphviz.generatePng(dot, image);
+        this.reportPath = image.getAbsolutePath();
     }
 
 }

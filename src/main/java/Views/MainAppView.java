@@ -3,10 +3,13 @@ package Views;
 
 import OLCCompiler.Compiler;
 import OLCCompiler.Exception.EvaluationException;
+import OLCCompiler.Exception.ParseException;
+import OLCCompiler.Utils.ReporthPaths;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.undo.UndoManager;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileWriter;
@@ -18,6 +21,7 @@ public class MainAppView extends javax.swing.JFrame {
     private String currentFilePath = null;
     private boolean isSaved = true;
     private Compiler compiler = new Compiler();
+    private String selectedRegex = null;
 
 
     public MainAppView() {
@@ -38,6 +42,7 @@ public class MainAppView extends javax.swing.JFrame {
         consoleLabel = new javax.swing.JLabel();
         evaluateStringButton = new javax.swing.JToggleButton();
         generateAutomataButton = new javax.swing.JToggleButton();
+        regexComboBox = new javax.swing.JComboBox<>();
         fileMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileMenuOpenItem = new javax.swing.JMenuItem();
@@ -47,6 +52,8 @@ public class MainAppView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ExRegan USAC");
         setBackground(new java.awt.Color(204, 204, 255));
+
+        regexComboBox.setEnabled(false);
 
         openFileChooser.setApproveButtonText("Abrir");
         openFileChooser.setDialogTitle("Seleccionar archivo");
@@ -124,6 +131,12 @@ public class MainAppView extends javax.swing.JFrame {
             }
         });
 
+        regexComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regexComboBoxActionPerformed(evt);
+            }
+        });
+
         fileMenu.setText("Archivo");
 
         fileMenuOpenItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -183,7 +196,9 @@ public class MainAppView extends javax.swing.JFrame {
                                 .addComponent(generateAutomataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(107, 107, 107)
                                 .addComponent(evaluateStringButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(regexComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(167, 167, 167))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,6 +213,7 @@ public class MainAppView extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(evaluateStringButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(generateAutomataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(regexComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                                 .addComponent(consoleLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -268,9 +284,22 @@ public class MainAppView extends javax.swing.JFrame {
     }
 
     private void generateAutomataBtn1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        String message = compiler.generateAutomatas(codeEditor.getText());
+        String message = null;
+        try {
+            message = compiler.generateAutomatas(codeEditor.getText());
+        } catch (ParseException e) {
+            this.consoleArea.setText(e.getMessage());
+        }
         this.consoleArea.setText(message);
+
+        //Items for regex combo box
+        String[] regex = compiler.getRegexNames();
+        regexComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(regex));
+        regexComboBox.setEnabled(true);
+
+        // Panes for tabbed pane
+        selectedRegex = regex[0];
+        addReportTabs(selectedRegex);
     }
 
     // evaluate string button
@@ -287,6 +316,32 @@ public class MainAppView extends javax.swing.JFrame {
     private void codeEditorKeyPressed(java.awt.event.KeyEvent evt) {
         // TODO add your handling code here:
         this.isSaved = false;
+    }
+
+    private void regexComboBoxActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        selectedRegex = (String) regexComboBox.getSelectedItem();
+        addReportTabs(selectedRegex);
+    }
+
+
+    private void addReportTabs(String regexName) {
+        reportsTabbedPane.removeAll();
+
+        ReporthPaths report = compiler.getReportPaths(regexName);
+        JScrollPane dfaPanel = new ReportPane(report.dfa);
+        JScrollPane dfnaPanel = new ReportPane(report.ndfa);
+        JScrollPane treePanel = new ReportPane(report.tree);
+        JScrollPane nextTablePanel = new ReportPane(report.nextTable);
+        JScrollPane transitionTablePanel = new ReportPane(report.transitionsTable);
+
+        reportsTabbedPane.addTab("Árbol", treePanel);
+        reportsTabbedPane.addTab("Tabla de siguientes", nextTablePanel);
+        reportsTabbedPane.addTab("Tabla de transiciones", transitionTablePanel);
+        reportsTabbedPane.addTab("AFD", dfaPanel);
+        reportsTabbedPane.addTab("AFND", dfnaPanel);
+
+        reportsTabbedPane.setSelectedComponent(treePanel);
     }
 
     /**
@@ -341,5 +396,7 @@ public class MainAppView extends javax.swing.JFrame {
     private javax.swing.JTabbedPane reportsTabbedPane;
     private javax.swing.JFileChooser openFileChooser;
     private javax.swing.JFileChooser saveFileChooser;
+    private javax.swing.JComboBox<String> regexComboBox;
+
     // End of variables declaration
 }

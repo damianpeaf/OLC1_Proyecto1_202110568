@@ -208,6 +208,7 @@ public class NDFA {
         }
 
         Graphviz.generatePng(dot, image);
+        this.reporthPath = image.getAbsolutePath();
 
     }
 }

@@ -10,6 +10,7 @@ import OLCCompiler.NDFA.NDFA;
 import OLCCompiler.NDFA.State;
 import OLCCompiler.Set.SetReference;
 import OLCCompiler.Utils.Graphviz;
+import OLCCompiler.Utils.ReporthPaths;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,6 +60,7 @@ public class RegexTree {
         }
 
         Graphviz.generatePng(dot, image);
+        this.reportPath = image.getAbsolutePath();
     }
 
     public void make() {
@@ -291,6 +293,10 @@ public class RegexTree {
         }
 
         return null;
+    }
+
+    public ReporthPaths getReportPaths() {
+        return new ReporthPaths(this.dfa.reportPath, this.ndfa.reporthPath, this.reportPath, this.nextTable.reportPath, this.transitionTable.reportPath);
     }
 
 }

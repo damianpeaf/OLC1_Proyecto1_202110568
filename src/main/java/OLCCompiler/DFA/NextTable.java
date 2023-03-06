@@ -14,7 +14,7 @@ public class NextTable {
 
     public ArrayList<Next> nextTable;
     private final String baseReportPath = "src/reports/SIGUIENTES_202110568";
-    private final String reportPath;
+    public  String reportPath;
     private String name;
 
     public NextTable(String name){
@@ -108,6 +108,7 @@ public class NextTable {
         }
 
         Graphviz.generatePng(dot, image);
+        this.reportPath = image.getAbsolutePath();
     }
 
 }

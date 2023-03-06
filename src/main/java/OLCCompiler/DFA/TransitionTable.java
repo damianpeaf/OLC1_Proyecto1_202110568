@@ -18,7 +18,7 @@ public class TransitionTable {
     private Map<Integer, Object> tokens;
     
     private final String baseReportPath = "src/reports/TRANSICIONES_202110568";
-    public final String reportPath;
+    public String reportPath;
     private String name;
 
     public TransitionTable(NextTable nextTable, Set<Integer> initialStateNext, Integer acceptanceNode, Map<Integer, Object> tokens, String name){
@@ -174,6 +174,7 @@ public class TransitionTable {
         }
 
         Graphviz.generatePng(dot, image);
+        this.reportPath = image.getAbsolutePath();
 
     }
 

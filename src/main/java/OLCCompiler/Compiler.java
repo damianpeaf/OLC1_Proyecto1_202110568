@@ -2,10 +2,12 @@ package OLCCompiler;
 
 import OLCCompiler.Error.ErrorTable;
 import OLCCompiler.Exception.EvaluationException;
+import OLCCompiler.Exception.ParseException;
 import OLCCompiler.Set.Set;
 import OLCCompiler.Tree.Evaluation;
 import OLCCompiler.Tree.EvaluationReport;
 import OLCCompiler.Tree.RegexTree;
+import OLCCompiler.Utils.ReporthPaths;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class Compiler {
 
     public ArrayList<RegexTree> generatedTrees = new ArrayList<RegexTree>();
 
-    public String generateAutomatas(String entry){
+    public String generateAutomatas(String entry) throws ParseException {
         try {
             this.lexer = new OLCLexer(new StringReader(entry));
             this.parser = new OLCParser(lexer);
@@ -34,7 +36,7 @@ public class Compiler {
 
             if(parser.errorTable.errors.size() > 0){
                 this.parser.errorTable.html("errores");
-                return "Hubo un error en la generación de los autómatas, durante la ejecución. Ver reporte de errores.";
+                throw new ParseException("Hubo un error en la generación de los autómatas, al leer el archivo fuente. Ver reporte de errores.");
             }
 
             this.parser.errorTable.html("errores");
@@ -42,7 +44,7 @@ public class Compiler {
             return "Autómatas generados con éxito.";
         }catch (Exception e){
             this.parser.errorTable.html("errores");
-            return "Hubo un error en la generación de los autómatas, al leer el archivo fuente. Ver reporte de errores.";
+            throw new ParseException("Hubo un error en la generación de los autómatas, al leer el archivo fuente. Ver reporte de errores.");
         }
     }
 
@@ -54,7 +56,11 @@ public class Compiler {
         }
 
         // UPDATE AUTOMATAS ?
-        this.generateAutomatas(entry);
+        try {
+            this.generateAutomatas(entry);
+        } catch (ParseException e) {
+            throw new EvaluationException("Hubo un error en la generación de los autómatas, al leer el archivo fuente. Ver reporte de errores.");
+        }
 
         for (Evaluation e: parser.evaluationStrings) {
             e.getTreeReference();
@@ -78,6 +84,24 @@ public class Compiler {
     }
     public ErrorTable getErrors(){
         return this.parser.errorTable;
+    }
+
+    public String[] getRegexNames(){
+        String[] names = new String[this.parser.regexTrees.size()];
+        for (int i = 0; i < this.parser.regexTrees.size(); i++) {
+            names[i] = this.parser.regexTrees.get(i).name;
+        }
+        return names;
+    }
+
+    public ReporthPaths getReportPaths(String regexName){
+
+        for (RegexTree tree: this.parser.regexTrees) {
+            if(tree.name.equals(regexName)){
+                return tree.getReportPaths();
+            }
+        }
+        return null;
     }
 }
 
