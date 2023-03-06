@@ -59,7 +59,12 @@ import java_cup.runtime.*;
     {Comment} { /* ignore */ }
 
     /* WHITESPACE */
+    <REGEX_STRING, STRING> {
+        " " { string.append(" "); }
+    }
     {WhiteSpace} { /* ignore */ }
+
+
 
     <YYINITIAL> {
         /* -- root tokens -- */
@@ -207,15 +212,15 @@ import java_cup.runtime.*;
     }
 
     <REGEX_STRING> {
-      \"                             { yybegin(REGEX_EXPRESSION); return symbol(OLCParserSym.STRING_LITERAL,string.toString()); }
-      [^\n\r\"\']+                   { string.append( yytext() ); }
-      \\t                            { string.append('\t'); }
-      \\n                            { string.append('\n'); }
+        \"                             { yybegin(REGEX_EXPRESSION); return symbol(OLCParserSym.STRING_LITERAL,string.toString()); }
+        [^\n\r\'\"\\]+                   { string.append( yytext() ); }
+        \\t                            { string.append('\t'); }
+        \\n                            { string.append('\n'); }
 
-      \\r                            { string.append('\r'); }
-      \\\"                           { string.append('\"'); }
-      \\\'                             { string.append('\''); }
-
+        \\r                            { string.append('\r'); }
+        \\\"                           { string.append('\"'); }
+        \\\'                             { string.append('\''); }
+        \\                             { string.append('\\'); }
     }
 
      <STRING> {
@@ -228,7 +233,7 @@ import java_cup.runtime.*;
           \\\"                           { string.append('\"'); }
           \\\'                             { string.append('\''); }
           \\                             { string.append('\\'); }
-        }
+    }
 
     /* -- NO SCOPED TOKENS -- */
 

@@ -71,7 +71,7 @@ public class CompilerTests {
         try {
             Symbol token = lexer.next_token();
             while (token.sym != OLCParserSym.EOF){
-                System.out.print(lexer.yytext()+ " ");
+                System.out.print(token.value+ " ");
                 System.out.println(OLCParserSym.terminalNames[token.sym]);
                 token = lexer.next_token();
             }
@@ -82,4 +82,24 @@ public class CompilerTests {
 
     }
 
+    @Test
+    public void testRegex(){
+        String s ="cadena  -   > . \\' . + | | | | \\n {minus} {mayus} {digito} \" \" \\';";
+
+        OLCLexer lexer = new OLCLexer(new StringReader(s));
+
+        try {
+            Symbol token = lexer.next_token();
+            while (token.sym != OLCParserSym.EOF){
+                System.out.print("Value: "+token.value+ " ");
+                System.out.print("Text: "+lexer.yytext()+ " ");
+                System.out.println(OLCParserSym.terminalNames[token.sym]);
+                token = lexer.next_token();
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+
+    }
 }

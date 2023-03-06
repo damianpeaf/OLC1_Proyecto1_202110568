@@ -1,9 +1,9 @@
 [
 { "Valor": "'cadena entre comilla simple'",
   "ExpresionRegular": "cadena",
- "Resultado": "Cadena Inválida"
+ "Resultado": "Cadena Válida"
 },
 { "Valor": "COMPI1 sale con 100",
   "ExpresionRegular": "frase",
- "Resultado": "Cadena Inválida"
+ "Resultado": "Cadena Válida"
 }]
