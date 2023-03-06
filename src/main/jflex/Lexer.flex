@@ -35,7 +35,7 @@ import java_cup.runtime.*;
     MultiLineComment = "<!" [^*] ~"!>" | "<!" "!"+ ">"
     SingleLineComment = "//" {InputCharacter}* {LineTerminator}?
 
-    Identifier = [:jletter:] [:jletterdigit:]*
+    Identifier = [a-zA-Z_][a-zA-Z0-9_]*
     Digit = [0-9]
     Lowercase = [a-z]
     Uppercase = [A-Z]
@@ -90,6 +90,10 @@ import java_cup.runtime.*;
         /* IDENTIFIERS */
         {Identifier} { return symbol(OLCParserSym.IDENTIFIER, yytext()); }
 
+        /* COMPOUND ARROW */
+        "-" { return symbol(OLCParserSym.ARROW_TAIL, yytext()); }
+        ">" { yybegin(SET_ELEMENT); return symbol(OLCParserSym.ARROW_HEAD, yytext()); }
+
         /* ARROW */
         "->" { yybegin(SET_ELEMENT);  return symbol(OLCParserSym.ARROW, yytext()); }
 
@@ -127,6 +131,11 @@ import java_cup.runtime.*;
     <REGEX> {
         /* COLON */
         ":" { yybegin(REGEX_TEST); return symbol(OLCParserSym.COLON, yytext()); }
+
+
+        /* COMPOUND ARROW */
+        "-" { return symbol(OLCParserSym.ARROW_TAIL, yytext()); }
+        ">" { yybegin(REGEX_EXPRESSION); return symbol(OLCParserSym.ARROW_HEAD, yytext()); }
 
         /* ARROW */
         "->" { yybegin(REGEX_EXPRESSION);  return symbol(OLCParserSym.ARROW, yytext()); }
@@ -198,34 +207,28 @@ import java_cup.runtime.*;
     }
 
     <REGEX_STRING> {
-        // String end
-        \" { yybegin(REGEX_EXPRESSION);
-             return symbol(OLCParserSym.STRING_LITERAL, string.toString());
-           }
+      \"                             { yybegin(REGEX_EXPRESSION); return symbol(OLCParserSym.STRING_LITERAL,string.toString()); }
+      [^\n\r\"\']+                   { string.append( yytext() ); }
+      \\t                            { string.append('\t'); }
+      \\n                            { string.append('\n'); }
 
-        [^\n\r\"\\]+                   { string.append( yytext() ); }
-        \\t                            { string.append("\t"); }
-        \\n                            { string.append("\n"); }
+      \\r                            { string.append('\r'); }
+      \\\"                           { string.append('\"'); }
+      \\\'                             { string.append('\''); }
 
-        \\r                            { string.append("\r"); }
-        \\\"                           { string.append("\""); }
-        \\'                             { string.append("\\"); }
     }
 
-    <STRING> {
-        // String end
-        \" { yybegin(YYINITIAL);
-             return symbol(OLCParserSym.STRING_LITERAL, string.toString());
-           }
+     <STRING> {
+          \"                             { yybegin(YYINITIAL); return symbol(OLCParserSym.STRING_LITERAL,string.toString()); }
+          [^\n\r\'\"\\]+                   { string.append( yytext() ); }
+          \\t                            { string.append('\t'); }
+          \\n                            { string.append('\n'); }
 
-        [^\n\r\"\\]+                   { string.append( yytext() ); }
-        \\t                            { string.append("\t"); }
-        \\n                            { string.append("\n"); }
-
-        \\r                            { string.append("\r"); }
-        \\\"                           { string.append("\""); }
-        \\'                             { string.append("\\"); }
-    }
+          \\r                            { string.append('\r'); }
+          \\\"                           { string.append('\"'); }
+          \\\'                             { string.append('\''); }
+          \\                             { string.append('\\'); }
+        }
 
     /* -- NO SCOPED TOKENS -- */
 
@@ -238,6 +241,11 @@ import java_cup.runtime.*;
 
     /* SEMICOLON */
     ";" { return symbol(OLCParserSym.SEMICOLON, yytext()); }
+
+    /* COMPOUND ARROW */
+    "-" { return symbol(OLCParserSym.ARROW_TAIL, yytext()); }
+    ">" { return symbol(OLCParserSym.ARROW_HEAD, yytext()); }
+
 
     /* ARROW */
     "->" { return symbol(OLCParserSym.ARROW, yytext()); }

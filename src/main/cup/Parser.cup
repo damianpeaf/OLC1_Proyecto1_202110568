@@ -75,7 +75,9 @@ terminal SET_DECLARATION,
          ESCAPED_LINEBREAK,
          ESCAPED_SINGLE_QUOTE,
          ESCAPED_DOUBLE_QUOTE,
-         LEXICAL_ERROR;
+         LEXICAL_ERROR,
+         ARROW_TAIL,
+         ARROW_HEAD;
 
 terminal Integer DIGIT;
 
@@ -93,7 +95,8 @@ non terminal program,
              regex_exprs,
              stmt_scope,
              eval_stmt,
-             eval_stmts;
+             eval_stmts,
+             compound_arrow;
 
 non terminal String escaped_sequence;
 
@@ -118,6 +121,9 @@ start with program;
 // INITIAL RULES
 program ::= LBRACE scopes RBRACE;
 
+// COMPOUND ARROW
+compound_arrow ::= ARROW_TAIL ARROW_HEAD | ARROW;
+
 scopes ::= decl_scope SCOPE_BREAK stmt_scope;
 escaped_sequence ::= ESCAPED_LINEBREAK:s {: RESULT = String.valueOf(s); :}
                    | ESCAPED_SINGLE_QUOTE:s {: RESULT = String.valueOf(s); :}
@@ -130,7 +136,7 @@ decl ::= set_decl | regex_decl;
 decls ::= decl decls | ;
 
 // SET DECLARATION
-set_decl ::= SET_DECLARATION COLON IDENTIFIER:sn ARROW set:s SEMICOLON {: s.setName(String.valueOf(sn)); setsTable.add(s); :};
+set_decl ::= SET_DECLARATION COLON IDENTIFIER:sn compound_arrow set:s SEMICOLON {: s.setName(String.valueOf(sn)); setsTable.add(s); :};
 set ::= compr_set:s {: RESULT = s; :}
       | extend_set:s {: RESULT = s; :} ;
 
@@ -172,7 +178,7 @@ set_elements ::= COMMA set_element:e1 set_elements:es {:
 
 
 // REGEX DECLARATION
-regex_decl ::= IDENTIFIER:na ARROW regex_term:no SEMICOLON  {:
+regex_decl ::= IDENTIFIER:na compound_arrow regex_term:no SEMICOLON  {:
 
   Node acceptNode = new Node(nodeCounter++, NodeType.NODE_ACCEPT, "#");
   Node rootNode = new Node(operatorCounter++, NodeType.NODE_AND, ".", no, acceptNode);

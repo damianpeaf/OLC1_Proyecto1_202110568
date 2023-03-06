@@ -284,22 +284,24 @@ public class MainAppView extends javax.swing.JFrame {
     }
 
     private void generateAutomataBtn1ActionPerformed(java.awt.event.ActionEvent evt) {
-        String message = null;
+
         try {
-            message = compiler.generateAutomatas(codeEditor.getText());
+            String message = compiler.generateAutomatas(codeEditor.getText());
+            this.consoleArea.setText(message);
+
+            //Items for regex combo box
+            String[] regex = compiler.getRegexNames();
+            regexComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(regex));
+            regexComboBox.setEnabled(true);
+
+            // Panes for tabbed pane
+            selectedRegex = regex[0];
+            addReportTabs(selectedRegex);
+
         } catch (ParseException e) {
             this.consoleArea.setText(e.getMessage());
+            resetReportComponents();
         }
-        this.consoleArea.setText(message);
-
-        //Items for regex combo box
-        String[] regex = compiler.getRegexNames();
-        regexComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(regex));
-        regexComboBox.setEnabled(true);
-
-        // Panes for tabbed pane
-        selectedRegex = regex[0];
-        addReportTabs(selectedRegex);
     }
 
     // evaluate string button
@@ -307,19 +309,16 @@ public class MainAppView extends javax.swing.JFrame {
         try {
             String message = compiler.evalEntry(codeEditor.getText());
             this.consoleArea.setText(message);
-
         } catch (EvaluationException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void codeEditorKeyPressed(java.awt.event.KeyEvent evt) {
-        // TODO add your handling code here:
         this.isSaved = false;
     }
 
     private void regexComboBoxActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
         selectedRegex = (String) regexComboBox.getSelectedItem();
         addReportTabs(selectedRegex);
     }
@@ -342,6 +341,12 @@ public class MainAppView extends javax.swing.JFrame {
         reportsTabbedPane.addTab("AFND", dfnaPanel);
 
         reportsTabbedPane.setSelectedComponent(treePanel);
+    }
+
+    private void resetReportComponents(){
+        reportsTabbedPane.removeAll();
+        regexComboBox.setEnabled(false);
+        regexComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No hay reportes" }));
     }
 
     /**

@@ -16,7 +16,7 @@ public interface OLCParserSym {
   public static final int PLUS = 19;
   public static final int OR = 17;
   public static final int RBRACE = 5;
-  public static final int DIGIT = 26;
+  public static final int DIGIT = 28;
   public static final int IDENTIFIER = 3;
   public static final int COLON = 6;
   public static final int LBRACE = 4;
@@ -28,10 +28,12 @@ public interface OLCParserSym {
   public static final int COMMA = 12;
   public static final int SET_DECLARATION = 2;
   public static final int EOF = 0;
+  public static final int ARROW_HEAD = 27;
   public static final int ESCAPED_SINGLE_QUOTE = 23;
   public static final int error = 1;
   public static final int ARROW = 8;
   public static final int ESCAPED_DOUBLE_QUOTE = 24;
+  public static final int ARROW_TAIL = 26;
   public static final int UPPERCASE = 14;
   public static final int SCOPE_BREAK = 9;
   public static final int ASCII = 15;
@@ -62,6 +64,8 @@ public interface OLCParserSym {
   "ESCAPED_SINGLE_QUOTE",
   "ESCAPED_DOUBLE_QUOTE",
   "LEXICAL_ERROR",
+  "ARROW_TAIL",
+  "ARROW_HEAD",
   "DIGIT"
   };
 }
