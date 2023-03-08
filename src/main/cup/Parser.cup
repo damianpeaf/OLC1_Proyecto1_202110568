@@ -197,7 +197,7 @@ regex_term ::= AND regex_term:nl regex_term:nr {: RESULT = new Node(operatorCoun
 regex_terminal ::= WORD:t {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
                  | DIGIT:t {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
                  | STRING_LITERAL:t {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
-                 | escaped_sequence:t {: System.out.println(t); RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
+                 | escaped_sequence:t {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, String.valueOf(t)); :}
                  | set_refence:n {: RESULT = new Node(nodeCounter++, NodeType.NODE_I, new SetReference(n, setsTable)); :};
 
 set_refence ::= LBRACE IDENTIFIER:n RBRACE {: RESULT = String.valueOf(n); :};

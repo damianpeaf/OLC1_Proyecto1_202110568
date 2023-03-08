@@ -1,9 +1,17 @@
 [
-{ "Valor": "'cadena entre comilla simple'",
-  "ExpresionRegular": "cadena",
+{ "Valor": "soy_un_id_1",
+  "ExpresionRegular": "identificador",
  "Resultado": "Cadena Válida"
 },
-{ "Valor": "COMPI1 sale con 100",
-  "ExpresionRegular": "frase",
+{ "Valor": "ComPi1",
+  "ExpresionRegular": "identificador",
+ "Resultado": "Cadena Inválida"
+},
+{ "Valor": "301.59",
+  "ExpresionRegular": "decimales",
+ "Resultado": "Cadena Inválida"
+},
+{ "Valor": "1505.55",
+  "ExpresionRegular": "decimales",
  "Resultado": "Cadena Válida"
 }]

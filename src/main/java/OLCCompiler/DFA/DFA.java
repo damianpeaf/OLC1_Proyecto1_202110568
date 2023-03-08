@@ -73,8 +73,11 @@ public class DFA {
             }
 
             // TRANSITIONS
-            for (Transition t: this.transitions) {
-                out.println(t.prevState.getGraphvizName() + " -> " + t.nextState.getGraphvizName() + " [label=\"" + t.token.toString() + "\"];");
+
+            ArrayList<AbbreviateTransition> abbrTransitions = getAbbreviateTransitions();
+
+            for (AbbreviateTransition t: abbrTransitions) {
+                out.println(t.prevState.getGraphvizName() + " -> " + t.nextState.getGraphvizName() + " [label=\"" + t.getTokensString() + "\"];");
             }
 
             out.println("}");
@@ -84,6 +87,24 @@ public class DFA {
 
         Graphviz.generatePng(dot, image);
         this.reportPath = image.getAbsolutePath();
+    }
+
+    private ArrayList<AbbreviateTransition> getAbbreviateTransitions(){
+        ArrayList<AbbreviateTransition> abbreviateTransitions = new ArrayList<>();
+
+        for (Transition t: this.transitions) {
+            boolean found = false;
+            for (AbbreviateTransition at: abbreviateTransitions) {
+                if (at.prevState.equals(t.prevState) && at.nextState.equals(t.nextState)){
+                    at.addToken(t.token);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) abbreviateTransitions.add(new AbbreviateTransition(t.prevState, t.nextState, t.token));
+        }
+
+        return abbreviateTransitions;
     }
 
 }

@@ -123,6 +123,11 @@ public class RegexTree {
         if (node != null) {
             if (node.type.equals(NodeType.NODE_I) || node.type.equals(NodeType.NODE_ACCEPT)) {
                 if (node.value instanceof String) {
+
+                    if(((String) node.value).length() != 1){
+                        this.errorTable.add(new OLCError(ErrorType.RUNTIME, "La longitud del token \"" + node.value + "\" debe ser de 1 para la Regex " + this.name + "."));
+                    }
+
                     this.tokens.put(node.number, node.value.toString());
                 } else if (node.value instanceof SetReference) {
 
