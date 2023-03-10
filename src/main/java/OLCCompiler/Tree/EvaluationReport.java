@@ -1,5 +1,7 @@
 package OLCCompiler.Tree;
 
+import OLCCompiler.Utils.ReportFileSystem;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class EvaluationReport {
 
     public void json(String name) {
 
-        try (PrintWriter out = new PrintWriter(new File(this.baseReportPath + "/"+ name + ".json"))) {
+        try (PrintWriter out = new PrintWriter(ReportFileSystem.outputReportPath + "/"+ name +"_"+ReportFileSystem.filename + ".json", "UTF-8")) {
 
             out.write("[");
             for (int i = 0; i < evaluations.size(); i++) {

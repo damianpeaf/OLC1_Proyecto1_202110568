@@ -1,6 +1,7 @@
 package OLCCompiler.DFA;
 
 import OLCCompiler.Utils.Graphviz;
+import OLCCompiler.Utils.ReportFileSystem;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,14 +14,13 @@ import java.util.Set;
 public class NextTable {
 
     public ArrayList<Next> nextTable;
-    private final String baseReportPath = "src/reports/SIGUIENTES_202110568";
     public  String reportPath;
     private String name;
 
     public NextTable(String name){
         this.nextTable = new ArrayList<>();
         this.name = name;
-        this.reportPath = this.baseReportPath + "/" + this.name;
+        this.reportPath = ReportFileSystem.nextTableReportPath + "/" + this.name + "_"+ReportFileSystem.filename;
     }
 
     public void addNext(Integer node, Object tokens, Set<Integer> next){
@@ -74,7 +74,7 @@ public class NextTable {
 
         File image = new File(this.reportPath + ".png");
 
-        try (PrintWriter out = new PrintWriter(dot)) {
+        try (PrintWriter out = new PrintWriter(dot, "UTF-8")) {
             out.write("graph G {");
 
             out.write("rankdir=LR;");

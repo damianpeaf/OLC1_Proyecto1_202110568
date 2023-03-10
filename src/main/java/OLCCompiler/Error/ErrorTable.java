@@ -1,9 +1,12 @@
 package OLCCompiler.Error;
 
+import OLCCompiler.Utils.ReportFileSystem;
+
 import java.io.File;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class ErrorTable {
@@ -26,7 +29,7 @@ public class ErrorTable {
 
     public void html(String name) {
 
-        try(PrintWriter out = new PrintWriter(new File("src/reports/ERRORES_202110568/" + name + ".html"))) {
+        try(PrintWriter out = new PrintWriter(ReportFileSystem.errorReportPath +"/" + name +"_"+ReportFileSystem.filename + ".html", "UTF-8")) {
             out.write("<html>");
             out.write("<head>");
             out.write("<title>ERRORES</title>");
@@ -56,6 +59,8 @@ public class ErrorTable {
             out.write("</body>");
             out.write("</html>");
         }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }

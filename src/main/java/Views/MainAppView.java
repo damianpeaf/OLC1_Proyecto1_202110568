@@ -1,7 +1,7 @@
 
 package Views;
 
-import OLCCompiler.Compiler;
+import OLCCompiler.OLCCompiler;
 import OLCCompiler.Exception.EvaluationException;
 import OLCCompiler.Exception.ParseException;
 import OLCCompiler.Utils.ReporthPaths;
@@ -9,7 +9,6 @@ import OLCCompiler.Utils.ReporthPaths;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.undo.UndoManager;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileWriter;
@@ -20,7 +19,7 @@ public class MainAppView extends javax.swing.JFrame {
 
     private String currentFilePath = null;
     private boolean isSaved = true;
-    private Compiler compiler = new Compiler();
+    private OLCCompiler compiler = new OLCCompiler();
     private String selectedRegex = null;
 
 
@@ -46,6 +45,7 @@ public class MainAppView extends javax.swing.JFrame {
         fileMenuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileMenuOpenItem = new javax.swing.JMenuItem();
+        fileMenuNewAsItem = new javax.swing.JMenuItem();
         fileMenuSaveItem = new javax.swing.JMenuItem();
         fileMenuSaveAsItem = new javax.swing.JMenuItem();
 
@@ -139,6 +139,17 @@ public class MainAppView extends javax.swing.JFrame {
 
         fileMenu.setText("Archivo");
 
+        // Nuevo archivo
+        fileMenuNewAsItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        fileMenuNewAsItem.setText("Nuevo");
+        fileMenuNewAsItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileMenuNewItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(fileMenuNewAsItem);
+
+        // Abrir archivo
         fileMenuOpenItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         fileMenuOpenItem.setText("Abrir");
         fileMenuOpenItem.addActionListener(new java.awt.event.ActionListener() {
@@ -224,6 +235,8 @@ public class MainAppView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>
 
+
+
     private void fileMenuOpenItemActionPerformed(java.awt.event.ActionEvent evt) {
         if(!this.isSaved) {
             int option = JOptionPane.showConfirmDialog(this, "Tienes cambios sin guardar, ¿Deseas guardar los cambios?", "Guardar", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -246,6 +259,20 @@ public class MainAppView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Error al abrir el archivo", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    private void fileMenuNewItemActionPerformed(java.awt.event.ActionEvent evt){
+        // New file
+        if(!this.isSaved) {
+            int option = JOptionPane.showConfirmDialog(this, "Tienes cambios sin guardar, ¿Deseas guardar los cambios?", "Guardar", JOptionPane.YES_NO_CANCEL_OPTION);
+            if(option == JOptionPane.YES_OPTION) {
+                this.fileMenuSaveItemActionPerformed(evt);
+            }else if(option == JOptionPane.CANCEL_OPTION) {
+                return;
+            }
+        }
+        this.currentFilePath = null;
+        this.codeEditor.setText("");
     }
 
     private void fileMenuSaveItemActionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +313,14 @@ public class MainAppView extends javax.swing.JFrame {
     private void generateAutomataBtn1ActionPerformed(java.awt.event.ActionEvent evt) {
 
         try {
-            String message = compiler.generateAutomatas(codeEditor.getText());
+            // Get file name
+            String filename = null;
+
+            if(this.currentFilePath != null) {
+                filename = this.currentFilePath.substring(this.currentFilePath.lastIndexOf("\\") + 1);
+            }
+
+            String message = compiler.generateAutomatas(codeEditor.getText(), filename);
             this.consoleArea.setText(message);
 
             //Items for regex combo box
@@ -307,7 +341,13 @@ public class MainAppView extends javax.swing.JFrame {
     // evaluate string button
     private void generateAutomataBtnActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            String message = compiler.evalEntry(codeEditor.getText());
+            String filename = null;
+
+            if(this.currentFilePath != null) {
+                filename = this.currentFilePath.substring(this.currentFilePath.lastIndexOf("\\") + 1);
+            }
+
+            String message = compiler.evalEntry(codeEditor.getText(), filename);
             this.consoleArea.setText(message);
         } catch (EvaluationException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -395,6 +435,7 @@ public class MainAppView extends javax.swing.JFrame {
     private javax.swing.JMenuBar fileMenuBar;
     private javax.swing.JMenuItem fileMenuOpenItem;
     private javax.swing.JMenuItem fileMenuSaveAsItem;
+    private javax.swing.JMenuItem fileMenuNewAsItem;
     private javax.swing.JMenuItem fileMenuSaveItem;
     private javax.swing.JToggleButton evaluateStringButton;
     private javax.swing.JToggleButton generateAutomataButton;

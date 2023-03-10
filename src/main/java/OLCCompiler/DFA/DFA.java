@@ -2,6 +2,7 @@ package OLCCompiler.DFA;
 
 import OLCCompiler.Set.SetReference;
 import OLCCompiler.Utils.Graphviz;
+import OLCCompiler.Utils.ReportFileSystem;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,14 +14,13 @@ public class DFA {
     public ArrayList<Transition> transitions;
     public ArrayList<State> states;
     public String name;
-    private final String baseReportPath = "src/reports/AFD_202110568";
     public String reportPath;
 
     public DFA(ArrayList<Transition> transitions, ArrayList<State> states, String name) {
         this.transitions = transitions;
         this.states = states;
         this.name = name;
-        this.reportPath = this.baseReportPath + "/" + this.name;
+        this.reportPath = ReportFileSystem.dfaReportPath + "/" + this.name +"_"+ReportFileSystem.filename;
     }
 
     public boolean evalString (String evalStr){
@@ -60,7 +60,7 @@ public class DFA {
 
         File image = new File(this.reportPath+".png");
 
-        try (PrintWriter out = new PrintWriter(dot)) {
+        try (PrintWriter out = new PrintWriter(dot, "UTF-8")) {
 
             out.println("digraph automata {");
             out.println("rankdir=LR;");

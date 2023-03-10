@@ -7,19 +7,20 @@ import OLCCompiler.Set.Set;
 import OLCCompiler.Tree.Evaluation;
 import OLCCompiler.Tree.EvaluationReport;
 import OLCCompiler.Tree.RegexTree;
+import OLCCompiler.Utils.ReportFileSystem;
 import OLCCompiler.Utils.ReporthPaths;
 
 import java.io.StringReader;
 import java.util.ArrayList;
 
-public class Compiler {
+public class OLCCompiler {
 
     private OLCLexer lexer = null;
     private OLCParser parser = null;
 
     public ArrayList<RegexTree> generatedTrees = new ArrayList<RegexTree>();
 
-    public String generateAutomatas(String entry) throws ParseException {
+    public String generateAutomatas(String entry, String filename) throws ParseException {
         try {
             this.lexer = new OLCLexer(new StringReader(entry));
             this.parser = new OLCParser(lexer);
@@ -28,6 +29,12 @@ public class Compiler {
             // Validate Sets
             for (Set set: parser.setsTable.sets) {
                 set.validate(parser.errorTable);
+            }
+
+            // Report directories
+            boolean folderCreated = ReportFileSystem.createReportsFolders(filename);
+            if(!folderCreated){
+                throw new ParseException("No se pudo crear el directorio de reportes.");
             }
 
             for (RegexTree treeReference: parser.regexTrees) {
@@ -50,7 +57,7 @@ public class Compiler {
     }
 
 
-    public String evalEntry(String entry) throws EvaluationException {
+    public String evalEntry(String entry, String filename) throws EvaluationException {
 
         if(this.parser == null || (this.parser != null && this.parser.regexTrees.size() == 0)){
             throw new EvaluationException("No se han generado los autómatas.");
@@ -58,7 +65,7 @@ public class Compiler {
 
         // UPDATE AUTOMATAS ?
         try {
-            this.generateAutomatas(entry);
+            this.generateAutomatas(entry, filename);
         } catch (ParseException e) {
             throw new EvaluationException("Hubo un error en la generación de los autómatas, al leer el archivo fuente. Ver reporte de errores.");
         }

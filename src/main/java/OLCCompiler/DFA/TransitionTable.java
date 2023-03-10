@@ -1,6 +1,7 @@
 package OLCCompiler.DFA;
 
 import OLCCompiler.Utils.Graphviz;
+import OLCCompiler.Utils.ReportFileSystem;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +19,6 @@ public class TransitionTable {
     public Map<Integer, Object> tokens;
     private ArrayList<String> terminals;
     
-    private final String baseReportPath = "src/reports/TRANSICIONES_202110568";
     public String reportPath;
     private String name;
 
@@ -33,7 +33,7 @@ public class TransitionTable {
         this.initialState = this.makeNode(initialStateNext);
 
         this.name = name;
-        this.reportPath = this.baseReportPath + "/" + this.name;
+        this.reportPath = ReportFileSystem.transitionTableReportPath + "/" + this.name + "_"+ReportFileSystem.filename;
     }
 
     private State makeNode(Set<Integer> nextSet){
@@ -116,7 +116,7 @@ public class TransitionTable {
 
         File image = new File(this.reportPath + ".png");
 
-        try (PrintWriter out = new PrintWriter(dot)) {
+        try (PrintWriter out = new PrintWriter(dot, "UTF-8")) {
             out.write("graph G {");
 
             out.write("rankdir=LR;");

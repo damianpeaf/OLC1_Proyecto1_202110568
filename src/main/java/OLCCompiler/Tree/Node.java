@@ -67,9 +67,32 @@ public class Node {
             value = "\\\\n";
         }
         if (this.type.equals(NodeType.NODE_PLUS) || this.type.equals(NodeType.NODE_KLEENE) || this.type.equals(NodeType.NODE_OPTIONAL) || this.type.equals(NodeType.NODE_OR) || this.type.equals(NodeType.NODE_AND)) {
-            return "Anulable: " + (this.nullable ? "V" : "F") + "\n" + "FirstPos: " + this.firstPos + "\n" + "LastPos: " + this.lastPos + "\n"+ value;
+            return "<<table border=\"0\">\n" +
+                    "            <tr>\n" +
+                    "                <td colspan=\"4\" align=\"center\">"+(this.nullable ? "V" : "F")+"</td>\n" +
+                    "            </tr>\n" +
+                    "            <tr>\n" +
+                    "                <td align=\"left\">"+this.firstPos+"</td>\n" +
+                    "                \n" +
+                    "                <td align=\"center\" colspan=\"2\"><b>"+this.value.toString()+"</b></td>\n" +
+                    "                <td align=\"right\">"+this.firstPos+"</td>\n" +
+                    "            </tr>\n" +
+                    "        </table>>";
         }else{
-            return "Anulable: " + (this.nullable ? "V" : "F") + "\n" + "FirstPos: " + this.firstPos + "\n" + "LastPos: " + this.lastPos + "\n" + "Node: " + this.number + "\n"+ value;
+            return "<<table border=\"0\">\n" +
+                    "            <tr>\n" +
+                    "                <td colspan=\"4\" align=\"center\">"+(this.nullable ? "V" : "F")+"</td>\n" +
+                    "            </tr>\n" +
+                    "            <tr>\n" +
+                    "                <td align=\"left\">"+this.firstPos+"</td>\n" +
+                    "                \n" +
+                    "                <td align=\"center\" colspan=\"2\"><b>"+this.value.toString()+"</b></td>\n" +
+                    "                <td align=\"right\">"+this.firstPos+"</td>\n" +
+                    "            </tr>\n" +
+                    "            <tr>\n" +
+                    "                <td colspan=\"4\" align=\"center\">"+this.number+"</td>\n" +
+                    "            </tr>\n" +
+                    "        </table>>";
         }
     }
 

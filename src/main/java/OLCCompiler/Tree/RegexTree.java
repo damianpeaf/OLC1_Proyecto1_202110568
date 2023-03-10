@@ -7,9 +7,9 @@ import OLCCompiler.Error.ErrorTable;
 import OLCCompiler.Error.ErrorType;
 import OLCCompiler.Error.OLCError;
 import OLCCompiler.NDFA.NDFA;
-import OLCCompiler.NDFA.State;
 import OLCCompiler.Set.SetReference;
 import OLCCompiler.Utils.Graphviz;
+import OLCCompiler.Utils.ReportFileSystem;
 import OLCCompiler.Utils.ReporthPaths;
 
 import java.io.File;
@@ -24,7 +24,6 @@ public class RegexTree {
 
     public String name;
     public Node rootNode;
-    private final String baseReportPath = "src/reports/ARBOLES_202110568";
     public String reportPath;
     private ErrorTable errorTable;
 
@@ -42,19 +41,18 @@ public class RegexTree {
     public RegexTree(String name, Node rootNode, ErrorTable errorTable) {
         this.name = name;
         this.rootNode = rootNode;
-        this.reportPath = this.baseReportPath + "/" + this.name;
         this.errorTable = errorTable;
     }
 
     public void graphviz() throws IOException {
 
-        //File dot = File.createTempFile("tree", ".dot");
-        File dot = new File (this.reportPath + ".dot");
+        this.reportPath = ReportFileSystem.treeReportPath + "/" + this.name + "_" + ReportFileSystem.filename;
 
+        File dot = File.createTempFile("tree", ".dot");
         dot.deleteOnExit();
 
         File image = new File(this.reportPath +".png");
-        try (PrintWriter out = new PrintWriter(dot)) {
+        try (PrintWriter out = new PrintWriter(dot, "UTF-8")) {
             out.write("graph G {");
             declareGraphvizNodes(this.rootNode, out);
             generateGraphvizNodesRelations(this.rootNode, out);
@@ -102,7 +100,7 @@ public class RegexTree {
 
     private void declareGraphvizNodes(Node node, PrintWriter out) {
         if (node != null) {
-            out.write(node.getGraphvizNode() + " [label=\"" + node.getGraphvizLabel() + "\", shape=\"circle\", width=1, height=1];");
+            out.write(node.getGraphvizNode() + " [label=" + node.getGraphvizLabel() + ", shape=\"circle\", width=1, height=1, fontsize=14, margin=0];");
             out.write("\n");
             declareGraphvizNodes(node.left, out);
             declareGraphvizNodes(node.right, out);

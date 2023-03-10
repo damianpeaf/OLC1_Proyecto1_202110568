@@ -1,6 +1,7 @@
 package OLCCompiler.NDFA;
 
 import OLCCompiler.Utils.Graphviz;
+import OLCCompiler.Utils.ReportFileSystem;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +17,6 @@ public class NDFA {
     private int stateCount = 0;
     public String name;
 
-    private final String baseReportPath = "src/reports/AFND_202110568";
     public String reporthPath;
 
     public NDFA() {
@@ -181,11 +181,11 @@ public class NDFA {
         File dot = File.createTempFile("ndfa",".dot");
         dot.deleteOnExit();
 
-        this.reporthPath = this.baseReportPath+"/"+this.name;
+        this.reporthPath = ReportFileSystem.ndfaReportPath +"/"+this.name+"_"+ReportFileSystem.filename;
 
         File image = new File(this.reporthPath+".png");
 
-        try (PrintWriter out = new PrintWriter(dot)) {
+        try (PrintWriter out = new PrintWriter(dot, "UTF-8")) {
 
             out.println("digraph automata {");
             out.println("rankdir=LR;");
