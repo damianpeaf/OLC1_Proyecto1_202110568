@@ -42,7 +42,6 @@ parser code {:
       }
    }
 
-
    protected int error_sync_size() {
    // !
        return 1;
@@ -124,7 +123,7 @@ program ::= LBRACE scopes RBRACE;
 // COMPOUND ARROW
 compound_arrow ::= ARROW_TAIL ARROW_HEAD | ARROW;
 
-scopes ::= decl_scope SCOPE_BREAK stmt_scope;
+scopes ::= decl_scope SCOPE_BREAK SCOPE_BREAK stmt_scope;
 escaped_sequence ::= ESCAPED_LINEBREAK:s {: RESULT = String.valueOf(s); :}
                    | ESCAPED_SINGLE_QUOTE:s {: RESULT = String.valueOf(s); :}
                    | ESCAPED_DOUBLE_QUOTE:s {: RESULT = String.valueOf(s); :};

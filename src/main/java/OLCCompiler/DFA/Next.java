@@ -19,4 +19,17 @@ public class Next {
     public void addNext(Set<Integer> n){
         this.next.addAll(n);
     }
+
+    public String getTokenString(){
+
+        String s = this.token.toString();
+
+        if(s.equals(" ")){
+            s = "\" \"";
+        }else if(s.equals("\n")){
+            s = "\\\\n";
+        }
+
+        return s;
+    }
 }

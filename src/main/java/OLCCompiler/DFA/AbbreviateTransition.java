@@ -28,14 +28,12 @@ public class AbbreviateTransition {
             String token = tokensArray[i].toString();
 
             if(token.equals(" ")){
-                s += "\\\" \\\"";
-            }else{
-                s += token
-                        .replace("\"", "\\\"")
-                        .replace("\'", "\\\'")
-                        .replace("\n", "\\n");
+                token = "\\\" \\\"";
+            }else if(token.equals("\n")){
+                token = "\\\\n";
             }
 
+            s += token;
             if (i < this.tokens.size() - 1) s += ", ";
         }
         return s;

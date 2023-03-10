@@ -14,7 +14,4 @@ public class Transition {
         this.token = token;
     }
 
-    public boolean sameStates(Transition t){
-        return this.prevState.number == t.prevState.number && this.nextState.number == t.nextState.number;
-    }
 }

@@ -92,9 +92,9 @@ public class NextTable {
 
             for(Next n: this.nextTable){
                 out.write("<tr>");
-                out.write("<td>" + n.token + "</td>");
+                out.write("<td>" + n.getTokenString() + "</td>");
                 out.write("<td>" + n.node + "</td>");
-                out.write("<td>" + n.next + "</td>");
+                out.write("<td>" + (n.next != null ? n.next : "-") + "</td>");
                 out.write("</tr>");
             }
 

@@ -15,6 +15,7 @@ import OLCCompiler.Utils.ReporthPaths;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,6 +29,7 @@ public class RegexTree {
     private ErrorTable errorTable;
 
     // TREE METHOD VARIABLES
+    public ArrayList<String> terminals;
     public Map<Integer, Object> tokens;
     public NextTable nextTable;
     public TransitionTable transitionTable;
@@ -46,7 +48,9 @@ public class RegexTree {
 
     public void graphviz() throws IOException {
 
-        File dot = File.createTempFile("tree", ".dot");
+        //File dot = File.createTempFile("tree", ".dot");
+        File dot = new File (this.reportPath + ".dot");
+
         dot.deleteOnExit();
 
         File image = new File(this.reportPath +".png");
@@ -67,13 +71,14 @@ public class RegexTree {
 
         this.nextTable = new NextTable(this.name);
         this.tokens = new HashMap<Integer, Object>();
+        this.terminals = new ArrayList<String>();
 
         makeAnullable(this.rootNode);
         makePos(this.rootNode);
         makeTokens(this.rootNode);
         makeNext(this.rootNode);
 
-        this.transitionTable = new TransitionTable(this.nextTable, this.rootNode.firstPos, this.nextTable.getAcceptanceNode(), this.tokens, this.name);
+        this.transitionTable = new TransitionTable(this.nextTable, this.rootNode.firstPos, this.nextTable.getAcceptanceNode(), this.tokens, this.terminals, this.name);
         this.dfa = new DFA(this.transitionTable.transitions, this.transitionTable.states, this.name);
 
         this.ndfa = this.makeThompson(this.rootNode.left);
@@ -128,6 +133,10 @@ public class RegexTree {
                         this.errorTable.add(new OLCError(ErrorType.RUNTIME, "La longitud del token \"" + node.value + "\" debe ser de 1 para la Regex " + this.name + "."));
                     }
 
+                    if(!node.type.equals(NodeType.NODE_ACCEPT) && !this.terminals.contains(node.value.toString())){
+                        this.terminals.add((String) node.value);
+                    }
+
                     this.tokens.put(node.number, node.value.toString());
                 } else if (node.value instanceof SetReference) {
 
@@ -138,6 +147,10 @@ public class RegexTree {
                     }
 
                     this.tokens.put(node.number, node.value);
+                    // Add to terminal once
+                    if(!this.terminals.contains(node.value.toString())){
+                        this.terminals.add(node.value.toString());
+                    }
                 }
             }
             if (node.left != null) {

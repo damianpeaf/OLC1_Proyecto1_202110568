@@ -199,7 +199,15 @@ public class NDFA {
 
             // TRANSITIONS
             for (Transition t: this.transitions) {
-                out.println(t.from.getGraphvizName() + " -> " + t.to.getGraphvizName() + " [label=\"" + t.token.toString() + "\"];");
+
+                String value =  t.token.toString();
+                if(value.equals(" ")){
+                    value = "\\\" \\\"";
+                }else if(value.equals("\n")){
+                    value = "\\\\n";
+                }
+
+                out.println(t.from.getGraphvizName() + " -> " + t.to.getGraphvizName() + " [label=\"" + value + "\"];");
             }
 
             out.println("}");

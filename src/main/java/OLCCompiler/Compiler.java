@@ -44,6 +44,7 @@ public class Compiler {
             return "Autómatas generados con éxito.";
         }catch (Exception e){
             this.parser.errorTable.html("errores");
+            e.printStackTrace();
             throw new ParseException("Hubo un error en la generación de los autómatas, al leer el archivo fuente. Ver reporte de errores.");
         }
     }

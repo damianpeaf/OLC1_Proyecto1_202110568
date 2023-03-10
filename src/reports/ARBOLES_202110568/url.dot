@@ -1,0 +1,142 @@
+graph G {AND_13 [label="Anulable: F
+FirstPos: [0]
+LastPos: [11]
+.", shape="circle", width=1, height=1];
+AND_12 [label="Anulable: F
+FirstPos: [0]
+LastPos: [10]
+.", shape="circle", width=1, height=1];
+I_0 [label="Anulable: F
+FirstPos: [0]
+LastPos: [0]
+Node: 0
+h", shape="circle", width=1, height=1];
+AND_11 [label="Anulable: F
+FirstPos: [1]
+LastPos: [10]
+.", shape="circle", width=1, height=1];
+I_1 [label="Anulable: F
+FirstPos: [1]
+LastPos: [1]
+Node: 1
+t", shape="circle", width=1, height=1];
+AND_10 [label="Anulable: F
+FirstPos: [2]
+LastPos: [10]
+.", shape="circle", width=1, height=1];
+I_2 [label="Anulable: F
+FirstPos: [2]
+LastPos: [2]
+Node: 2
+t", shape="circle", width=1, height=1];
+AND_9 [label="Anulable: F
+FirstPos: [3]
+LastPos: [10]
+.", shape="circle", width=1, height=1];
+I_3 [label="Anulable: F
+FirstPos: [3]
+LastPos: [3]
+Node: 3
+p", shape="circle", width=1, height=1];
+AND_8 [label="Anulable: F
+FirstPos: [4, 5]
+LastPos: [10]
+.", shape="circle", width=1, height=1];
+OPTIONAL_0 [label="Anulable: V
+FirstPos: [4]
+LastPos: [4]
+?", shape="circle", width=1, height=1];
+I_4 [label="Anulable: F
+FirstPos: [4]
+LastPos: [4]
+Node: 4
+s", shape="circle", width=1, height=1];
+AND_7 [label="Anulable: F
+FirstPos: [5]
+LastPos: [10]
+.", shape="circle", width=1, height=1];
+I_5 [label="Anulable: F
+FirstPos: [5]
+LastPos: [5]
+Node: 5
+:", shape="circle", width=1, height=1];
+AND_6 [label="Anulable: F
+FirstPos: [6]
+LastPos: [10]
+.", shape="circle", width=1, height=1];
+I_6 [label="Anulable: F
+FirstPos: [6]
+LastPos: [6]
+Node: 6
+/", shape="circle", width=1, height=1];
+AND_5 [label="Anulable: F
+FirstPos: [7]
+LastPos: [10]
+.", shape="circle", width=1, height=1];
+I_7 [label="Anulable: F
+FirstPos: [7]
+LastPos: [7]
+Node: 7
+/", shape="circle", width=1, height=1];
+AND_4 [label="Anulable: F
+FirstPos: [8]
+LastPos: [10]
+.", shape="circle", width=1, height=1];
+PLUS_1 [label="Anulable: F
+FirstPos: [8]
+LastPos: [8]
++", shape="circle", width=1, height=1];
+I_8 [label="Anulable: F
+FirstPos: [8]
+LastPos: [8]
+Node: 8
+{minuscula}", shape="circle", width=1, height=1];
+AND_3 [label="Anulable: F
+FirstPos: [9]
+LastPos: [10]
+.", shape="circle", width=1, height=1];
+I_9 [label="Anulable: F
+FirstPos: [9]
+LastPos: [9]
+Node: 9
+.", shape="circle", width=1, height=1];
+PLUS_2 [label="Anulable: F
+FirstPos: [10]
+LastPos: [10]
++", shape="circle", width=1, height=1];
+I_10 [label="Anulable: F
+FirstPos: [10]
+LastPos: [10]
+Node: 10
+{minuscula}", shape="circle", width=1, height=1];
+I_ACEPTANCE_11 [label="Anulable: F
+FirstPos: [11]
+LastPos: [11]
+Node: 11
+#", shape="circle", width=1, height=1];
+AND_13 -- AND_12;
+AND_12 -- I_0;
+AND_12 -- AND_11;
+AND_11 -- I_1;
+AND_11 -- AND_10;
+AND_10 -- I_2;
+AND_10 -- AND_9;
+AND_9 -- I_3;
+AND_9 -- AND_8;
+AND_8 -- OPTIONAL_0;
+OPTIONAL_0 -- I_4;
+AND_8 -- AND_7;
+AND_7 -- I_5;
+AND_7 -- AND_6;
+AND_6 -- I_6;
+AND_6 -- AND_5;
+AND_5 -- I_7;
+AND_5 -- AND_4;
+AND_4 -- PLUS_1;
+PLUS_1 -- I_8;
+AND_4 -- AND_3;
+AND_3 -- I_9;
+AND_3 -- PLUS_2;
+PLUS_2 -- I_10;
+AND_13 -- I_ACEPTANCE_11;
+}

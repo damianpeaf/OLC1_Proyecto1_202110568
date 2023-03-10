@@ -15,19 +15,21 @@ public class TransitionTable {
     private int statesCounter;
     public State initialState;
     private Integer acceptanceNode;
-    private Map<Integer, Object> tokens;
+    public Map<Integer, Object> tokens;
+    private ArrayList<String> terminals;
     
     private final String baseReportPath = "src/reports/TRANSICIONES_202110568";
     public String reportPath;
     private String name;
 
-    public TransitionTable(NextTable nextTable, Set<Integer> initialStateNext, Integer acceptanceNode, Map<Integer, Object> tokens, String name){
+    public TransitionTable(NextTable nextTable, Set<Integer> initialStateNext, Integer acceptanceNode, Map<Integer, Object> tokens, ArrayList<String> terminals, String name){
         this.transitions = new ArrayList<Transition>();
         this.states = new ArrayList<State>();
         this.nextTable = nextTable;
         this.statesCounter = -1;
         this.acceptanceNode = acceptanceNode;
         this.tokens = tokens;
+        this.terminals = terminals;
         this.initialState = this.makeNode(initialStateNext);
 
         this.name = name;
@@ -124,21 +126,17 @@ public class TransitionTable {
             out.write("label = <");
             out.write("<table border=\"0\" cellborder=\"1\" cellspacing=\"0\">");
 
-            // GET TERMINALS
-            Set<String> terminals = new HashSet<>();
-            for (Map.Entry<Integer, Object> entry: this.tokens.entrySet()) {
-
-                if (entry.getKey().equals(this.acceptanceNode)) {
-                    continue;
-                }
-
-                terminals.add(entry.getValue().toString());
-            }
-
             // PRINT ROW HEADERS
             out.write("<tr>");
             out.write("<td>Estados</td>");
-            for (String t: terminals) {
+            for (String t: this.terminals) {
+
+                if(t.equals(" ")){
+                    t = "\" \"";
+                }else if(t.equals("\n")){
+                    t = "\\\\n";
+                }
+
                 out.write("<td>"+t+"</td>");
             }
             out.write("</tr>");
@@ -147,7 +145,7 @@ public class TransitionTable {
                 out.write("<tr>");
                 out.write("<td>S"+s.number + " " + s.nextSet + "</td>");
 
-                for (String t: terminals) {
+                for (String t: this.terminals) {
                     boolean found = false;
                     for (Transition tr: this.transitions) {
                         if (tr.prevState.number == s.number && tr.token.toString().equals(t)) {

@@ -1,11 +1,4 @@
 package OLCCompiler.Tree;
-
-import OLCCompiler.DFA.NextTable;
-import OLCCompiler.DFA.TransitionTable;
-import OLCCompiler.Set.SetReference;
-
-import java.io.File;
-import java.io.PrintWriter;
 import java.util.*;
 
 public class Node {
@@ -66,10 +59,17 @@ public class Node {
 
 
     public String getGraphvizLabel() {
+        String value = this.value.toString();
+
+        if(value.equals(" ")){
+            value = "\\\" \\\"";
+        }else if(value.equals("\n")){
+            value = "\\\\n";
+        }
         if (this.type.equals(NodeType.NODE_PLUS) || this.type.equals(NodeType.NODE_KLEENE) || this.type.equals(NodeType.NODE_OPTIONAL) || this.type.equals(NodeType.NODE_OR) || this.type.equals(NodeType.NODE_AND)) {
-            return "Anulable: " + (this.nullable ? "V" : "F") + "\n" + "FirstPos: " + this.firstPos + "\n" + "LastPos: " + this.lastPos + "\n"+ this.value.toString();
+            return "Anulable: " + (this.nullable ? "V" : "F") + "\n" + "FirstPos: " + this.firstPos + "\n" + "LastPos: " + this.lastPos + "\n"+ value;
         }else{
-            return "Anulable: " + (this.nullable ? "V" : "F") + "\n" + "FirstPos: " + this.firstPos + "\n" + "LastPos: " + this.lastPos + "\n" + "Node: " + this.number + "\n"+ this.value.toString();
+            return "Anulable: " + (this.nullable ? "V" : "F") + "\n" + "FirstPos: " + this.firstPos + "\n" + "LastPos: " + this.lastPos + "\n" + "Node: " + this.number + "\n"+ value;
         }
     }
 

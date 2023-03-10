@@ -39,6 +39,21 @@ public class ComprehensionSet extends Set {
             return false;
         }
 
+        if(this.elements.get(0).token.charAt(0) > this.elements.get(1).token.charAt(0)){
+            errorTable.add(new OLCError(ErrorType.RUNTIME, "El conjunto '" + this.name + "' no puede ser declarado con un rango inválido (Inicio mayor a Final). Se recibió: " + this.elements.get(0).token + " y " + this.elements.get(1).token));
+            return false;
+        }
+
+        if(this.elements.get(0).token.charAt(0) < 32 || this.elements.get(1).token.charAt(0) > 125){
+            errorTable.add(new OLCError(ErrorType.RUNTIME, "El conjunto '" + this.name + "' no puede ser declarado con un rango inválido (Fuera del rango ASCII). Se recibió: " + this.elements.get(0).token + " y " + this.elements.get(1).token));
+            return false;
+        }
+
+        if(this.elements.get(1).token.charAt(0) < 32 || this.elements.get(1).token.charAt(0) > 125){
+            errorTable.add(new OLCError(ErrorType.RUNTIME, "El conjunto '" + this.name + "' no puede ser declarado con un rango inválido (Fuera del rango ASCII). Se recibió: " + this.elements.get(0).token + " y " + this.elements.get(1).token));
+            return false;
+        }
+
         return true;
     }
 
