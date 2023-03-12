@@ -351,6 +351,9 @@ public class MainAppView extends javax.swing.JFrame {
             this.consoleArea.setText(message);
         } catch (EvaluationException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException e) {
+            this.consoleArea.setText(e.getMessage());
+            resetReportComponents();
         }
     }
 

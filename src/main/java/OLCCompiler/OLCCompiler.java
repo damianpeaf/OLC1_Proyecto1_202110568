@@ -21,6 +21,12 @@ public class OLCCompiler {
     public ArrayList<RegexTree> generatedTrees = new ArrayList<RegexTree>();
 
     public String generateAutomatas(String entry, String filename) throws ParseException {
+        // Report directories
+        boolean folderCreated = ReportFileSystem.createReportsFolders(filename);
+        if(!folderCreated){
+            throw new ParseException("No se pudo crear el directorio de reportes.");
+        }
+
         try {
             this.lexer = new OLCLexer(new StringReader(entry));
             this.parser = new OLCParser(lexer);
@@ -31,11 +37,7 @@ public class OLCCompiler {
                 set.validate(parser.errorTable);
             }
 
-            // Report directories
-            boolean folderCreated = ReportFileSystem.createReportsFolders(filename);
-            if(!folderCreated){
-                throw new ParseException("No se pudo crear el directorio de reportes.");
-            }
+
 
             for (RegexTree treeReference: parser.regexTrees) {
                 treeReference.make();
@@ -57,7 +59,13 @@ public class OLCCompiler {
     }
 
 
-    public String evalEntry(String entry, String filename) throws EvaluationException {
+    public String evalEntry(String entry, String filename) throws EvaluationException, ParseException {
+
+        // Report directories
+        boolean folderCreated = ReportFileSystem.createReportsFolders(filename);
+        if(!folderCreated){
+            throw new ParseException("No se pudo crear el directorio de reportes.");
+        }
 
         if(this.parser == null || (this.parser != null && this.parser.regexTrees.size() == 0)){
             throw new EvaluationException("No se han generado los autómatas.");

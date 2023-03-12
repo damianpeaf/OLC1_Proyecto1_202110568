@@ -40,7 +40,7 @@ import java_cup.runtime.*;
     Lowercase = [a-z]
     Uppercase = [A-Z]
     Ascii = [\x20-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]
-    Word = \w+
+    Word = {Ascii} | {Digit} | {Lowercase} | {Uppercase}
 
 
 %state STRING
